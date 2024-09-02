@@ -24,7 +24,7 @@ While GBA is built using Laravel, the extensive [documentation](https://laravel.
 
 ## GBA Sponsors
 
-Wola. We extend our gratitude to the sponsors who support the development of the GBA system. If you are interested in sponsoring, please visit our sponsorship page.
+Wola. Woi. We extend our gratitude to the sponsors who support the development of the GBA system. If you are interested in sponsoring, please visit our sponsorship page.
 
 ### Partners
 

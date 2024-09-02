@@ -44,3 +44,4 @@ If you discover a security vulnerability within the GBA system, please send an e
 The GBA system is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 Thina
+THINA

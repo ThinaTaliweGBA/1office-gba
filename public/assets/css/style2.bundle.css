@@ -1,0 +1,53 @@
+/* Color Schemes for All Models */
+:root {
+    /* Model 1 */
+    --model1-dark-blue-gray: #212A31;
+    --model1-charcoal-gray: #2E3944;
+    --model1-deep-teal: #124E66;
+    --model1-muted-blue: #748D92;
+    --model1-light-gray: #D3D9D4;
+
+    /* Model 2 */
+    --model2-deep-green: #003135;
+    --model2-dark-teal: #024950;
+    --model2-rust-red: #964734;
+    --model2-bright-turquoise: #0FA4AF;
+    --model2-pale-blue: #AFDDE5;
+
+    /* Model 3 */
+    --model3-dark-blue: #3D52A0;
+    --model3-bright-blue: #7091E6;
+    --model3-soft-blue: #8697C4;
+    --model3-light-blue: #ADBBDA;
+    --model3-very-light-blue: #EDE8F5;
+
+    /* Model 4 */
+    --model4-dark-brown: #1F1A17;
+    --model4-vibrant-red: #A0263D;
+    --model4-vivid-green: #00923F;
+    --model4-pure-black: #000000;
+    --model4-pure-white: #FFFFFF;
+}
+
+/* Example usage */
+body {
+    background-color: var(--model1-dark-blue-gray);
+    color: var(--model4-pure-white);
+}
+
+.header {
+    background-color: var(--model2-rust-red);
+    color: var(--model3-very-light-blue);
+}
+
+.footer {
+    background-color: var(--model4-pure-black);
+    color: var(--model2-bright-turquoise);
+}
+
+.button {
+    background-color: var(--model3-bright-blue);
+    color: var(--model1-light-gray);
+}
+
+/* Add more class or ID selectors as per your design requirements */

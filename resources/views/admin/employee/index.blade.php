@@ -3,7 +3,8 @@
 @push('styles')
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"> --}}
 
-    {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {{-- 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     --}}
 
@@ -264,9 +265,9 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Filter-->
-                    <button type="button" class="btn btn-light me-3 bg-secondary" data-kt-menu-trigger="click"
+                    <button type="button" class="btn me-3 bg-dark text-light" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
                         Filter
                     </button>
                     <!--begin::Menu 1-->
@@ -274,7 +275,7 @@
                         id="kt-toolbar-filter">
                         <!--begin::Header-->
                         <div class="px-7 py-5">
-                            <div class="fs-4 text-gray-900 fw-bold">Filter Options</div>
+                            <div class="fs-4 text-black fw-bold">Filter Options</div>
                         </div>
                         <!--end::Header-->
 
@@ -330,10 +331,10 @@
 
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-dark me-2"
+                                <button type="reset" class="btn btn-danger me-2"
                                     data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
 
-                                <button type="submit" class="btn btn-dark" data-kt-menu-dismiss="true"
+                                <button type="submit" class="btn btn-success" data-kt-menu-dismiss="true"
                                     data-kt-docs-table-filter="filter">Apply</button>
                             </div>
                             <!--end::Actions-->
@@ -343,9 +344,9 @@
                     <!--end::Menu 1--> <!--end::Filter-->
 
                     <!--begin::Add customer-->
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                         data-bs-target="#record_employee_modal">
-                        <i class="ki-duotone ki-plus fs-2"></i> Add Employee
+                        <i class="ki-duotone ki-plus fs-2 text-light"></i> Add Employee
                     </button>
                     <!--end::Add customer-->
                 </div>
@@ -353,35 +354,34 @@
 
             </div>
             <!--end::Wrapper-->
-            <table id="employees" class="table table-rounded fs-6 g-5 gs-5">
-                <thead>
-                    <tr class="text-start text-dark fw-normal fs-8 text-uppercase bg-gray-200">
-                        <th>Actions</th>
-                        <th>Full Name</th>
-                        <th>Call Name</th>
-                        <th>Employee Number</th>
-                        <th>BU</th>
-                        <th>Employement Type</th>
-                        <th>Employement Start-Date</th>
-                        <th>Employement End-Date</th>
-                        <th>Job Description</th>
-                        <th>Role</th>
-                        <th>Company</th>
-                        <th>Shiftwork</th>
-                        <th>Standard Start Time</th>
-                        <th>Standard End Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($employees as $employee)
+            <div class="table-responsive">
+                <table id="employees" class="table table-rounded fs-6 g-5 gs-5">
+                    <thead>
+                        <tr class="text-start text-dark fw-normal fs-8 text-uppercase bg-gray-200">
+                            <th>Actions</th>
+                            <th>Full Name</th>
+                            <th>Call Name</th>
+                            <th>Employee Number</th>
+                            <th>BU</th>
+                            <th>Employment Type</th>
+                            <th>Employment Start-Date</th>
+                            <th>Employment End-Date</th>
+                            <th>Job Description</th>
+                            <th>Role</th>
+                            <th>Company</th>
+                            <th>Shiftwork</th>
+                            <th>Standard Start Time</th>
+                            <th>Standard End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($employees as $employee)
                         <tr>
                             <td class="d-flex align-items-center">
-                                <button class="btn btn-sm btn-icon btn-primary btn-edit me-2"
-                                    data-employee-id="{{ $employee->id }}">
+                                <button class="btn btn-sm btn-icon btn-primary btn-edit me-2" data-employee-id="{{ $employee->id }}">
                                     <i class="bi bi-pencil-fill fs-4 me-0"></i>
                                 </button>
-                                <form action="{{ route('employee.destroy', $employee->id) }}" method="POST"
-                                    style="display:inline-block; margin: 0;">
+                                <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" style="display:inline-block; margin: 0;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-icon btn-sm btn-danger">
@@ -394,10 +394,8 @@
                             <td>{{ $employee->emp_number }}</td>
                             <td>{{ $employee->businessUnit->bu_name ?? 'N/A' }}</td>
                             <td>{{ $employee->employmentType->type ?? 'N/A' }}</td>
-                            <td>{{ $employee->start_date ? \Carbon\Carbon::parse($employee->start_date)->format('Y-m-d') : 'N/A' }}
-                            </td>
-                            <td>{{ $employee->end_date ? \Carbon\Carbon::parse($employee->end_date)->format('Y-m-d') : 'N/A' }}
-                            </td>
+                            <td>{{ $employee->start_date ? \Carbon\Carbon::parse($employee->start_date)->format('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ $employee->end_date ? \Carbon\Carbon::parse($employee->end_date)->format('Y-m-d') : 'N/A' }}</td>
                             <td>{{ $employee->jobDescription->name ?? 'N/A' }}</td>
                             <td>{{ $employee->role->name ?? 'N/A' }}</td>
                             <td>{{ $employee->company->name ?? 'N/A' }}</td>
@@ -405,27 +403,29 @@
                             <td>{{ $employee->standard_starttime }}</td>
                             <td>{{ $employee->standard_endtime }}</td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="text-start text-dark fw-normal fs-8 text-uppercase bg-gray-200">
-                        <th>Actions</th>
-                        <th>Full Name</th>
-                        <th>Call Name</th>
-                        <th>Employee Number</th>
-                        <th>BU</th>
-                        <th>Employement Type</th>
-                        <th>Employement Start-Date</th>
-                        <th>Employement End-Date</th>
-                        <th>Job Description</th>
-                        <th>Role</th>
-                        <th>Company</th>
-                        <th>Shiftwork</th>
-                        <th>Standard Start Time</th>
-                        <th>Standard End Time</th>
-                    </tr>
-                </tfoot>
-            </table>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-start text-dark fw-normal fs-8 text-uppercase bg-gray-200">
+                            <th>Actions</th>
+                            <th>Full Name</th>
+                            <th>Call Name</th>
+                            <th>Employee Number</th>
+                            <th>BU</th>
+                            <th>Employment Type</th>
+                            <th>Employment Start-Date</th>
+                            <th>Employment End-Date</th>
+                            <th>Job Description</th>
+                            <th>Role</th>
+                            <th>Company</th>
+                            <th>Shiftwork</th>
+                            <th>Standard Start Time</th>
+                            <th>Standard End Time</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
 
         </div>
     </div>
@@ -547,7 +547,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col">
+                                {{-- <div class="col">
                                     <label for="company_id" class="form-label">Company</label>
                                     <select class="form-select bg-light text-dark" id="company_id" name="company_id"
                                         required style="width: 100%;">
@@ -555,27 +555,26 @@
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col d-flex flex-column align-items-center">
                                 <label for="shiftwork" class="form-label">Shiftwork?</label>
                                 <input type="checkbox" class="styled-checkbox" id="shiftwork" name="shiftwork">
                                 <label for="shiftwork" class="styled-checkbox-label" id="shiftworkLabel">No</label>
                             </div> --}}
-                                <div class="col d-flex flex-column align-items-center">
-                                    <label class="form-label">Shiftwork?</label>
-                                    <div class="d-flex fs-3 mx-auto my-auto">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="shiftwork"
-                                                id="shiftworkYes" value="yes">
-                                            <label class="form-check-label" for="shiftworkYes">Yes</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="shiftwork"
-                                                id="shiftworkNo" value="no" checked>
-                                            <label class="form-check-label" for="shiftworkNo">No</label>
-                                        </div>
+                            <div class="col d-flex flex-column align-items-center">
+                                <label class="form-label">Shiftwork?</label>
+                                <div class="d-flex fs-3 mx-auto my-auto">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="shiftwork" id="shiftworkYes" value="1">
+                                        <label class="form-check-label" for="shiftworkYes">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="shiftwork" id="shiftworkNo" value="0" checked>
+                                        <label class="form-check-label" for="shiftworkNo">No</label>
                                     </div>
                                 </div>
+                            </div>
+                            
 
                                 <div class="col">
                                     <label for="standard_starttime" class="form-label">Standard Start Time</label>
@@ -699,127 +698,119 @@
     <!-- Include DataTables Bootstrap 5 integration -->
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.bootstrap5.js"></script>
 
-    {{-- Shift work checkbox button  --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const shiftworkCheckbox = document.getElementById('shiftwork');
-            const shiftworkLabel = document.getElementById('shiftworkLabel');
-
-            shiftworkCheckbox.addEventListener('change', function() {
-                if (shiftworkCheckbox.checked) {
-                    shiftworkLabel.textContent = 'Yes';
-                    shiftworkLabel.style.backgroundColor = '#28a745'; // Green background
-                } else {
-                    shiftworkLabel.textContent = 'No';
-                    shiftworkLabel.style.backgroundColor = '#ff0000'; // Red background
-                }
-            });
-
-            // Initialize the label based on the checkbox state
-            if (shiftworkCheckbox.checked) {
-                shiftworkLabel.textContent = 'Yes';
-                shiftworkLabel.style.backgroundColor = '#28a745'; // Green background
-            } else {
-                shiftworkLabel.textContent = 'No';
-                shiftworkLabel.style.backgroundColor = '#ff0000'; // Red background
-            }
-        });
-    </script>
+ 
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const editButtons = document.querySelectorAll('.btn-edit');
-            const modal = document.querySelector('#record_employee_modal');
-            const form = modal.querySelector('form');
+            const modalElement = document.querySelector('#record_employee_modal');
+            const form = modalElement.querySelector('form');
             const modalTitle = document.querySelector('#employeeModalTitle');
             const submitButton = document.querySelector('#storeEmployeeBtn');
-
+            const createButton = document.querySelector('#createEmployeeBtn');
+            let modalInstance;
+    
+            // Function to reset form fields
+            function resetForm() {
+                form.reset();  // Reset all form fields to their initial values
+                form.querySelector('input[name="_method"]').value = 'POST';  // Ensure the method is POST for new entries
+                form.setAttribute('action', '{{ route('employee.store') }}');  // Reset the action URL to the store route
+                form.querySelector('input[name="shiftwork"][value="0"]').checked = true; // Default shiftwork to "No"
+                $('#person_id').val(null).trigger('change'); // Clear the person select field
+                modalTitle.textContent = 'Record Employee';  // Default title for adding a new employee
+                submitButton.textContent = 'Save';  // Default button text for adding a new employee
+            }
+    
+            // Function to initialize or reinitialize the modal instance
+            function initializeModal() {
+                if (modalInstance) {
+                    modalInstance.hide();  // Hide any existing modal instance
+                }
+                modalInstance = new bootstrap.Modal(modalElement);  // Reinitialize the modal instance
+            }
+    
+            // Handle create button click
+            if (createButton) {
+                createButton.addEventListener('click', function() {
+                    initializeModal();  // Ensure only one modal instance
+                    resetForm();  // Reset the form fields to ensure a clean start
+                    modalTitle.textContent = 'Record Employee';  // Set title for adding a new employee
+                    submitButton.textContent = 'Save';  // Set button text for adding a new employee
+                    modalInstance.show();  // Show the modal
+                });
+            }
+    
+            // Handle edit button clicks
             editButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const employeeId = this.dataset.employeeId;
-                    console.log('Edit button clicked for employee ID:',
-                        employeeId); // Debugging line
-
+                    console.log('Edit button clicked for employee ID:', employeeId); // Debugging line
+    
+                    initializeModal();  // Ensure only one modal instance
+                    resetForm();  // Reset the form before populating
+    
+                    // Update title and button text for editing
+                    modalTitle.textContent = 'Edit Employee';
+                    submitButton.textContent = 'Update';
+    
                     fetch(`/admin/employee/${employeeId}/edit`)
                         .then(response => response.json())
                         .then(data => {
                             console.log('Data received for employee:', data); // Debugging line
-
+    
+                            // Populate form with the received data
                             form.setAttribute('action', `/admin/employee/${employeeId}`);
                             form.querySelector('input[name="_method"]').value = 'PUT';
-                            modalTitle.textContent = 'Edit Employee';
-                            submitButton.textContent = 'Update';
-
-                            console.log('Setting form values with received data');
                             $('#employee_first_name').val(data.first_name);
                             $('#employee_last_name').val(data.last_name);
-                            form.querySelector('input[name="call_name"]').value = data
-                                .call_name;
-                            form.querySelector('input[name="emp_number"]').value = data
-                                .emp_number;
+                            form.querySelector('input[name="call_name"]').value = data.call_name;
+                            form.querySelector('input[name="emp_number"]').value = data.emp_number;
                             form.querySelector('select[name="bu_id"]').value = data.bu_id;
-                            form.querySelector('select[name="employment_type_id"]').value = data
-                                .employment_type_id;
-                            form.querySelector('input[name="start_date"]').value = data
-                                .start_date;
+                            form.querySelector('select[name="employment_type_id"]').value = data.employment_type_id;
+                            form.querySelector('input[name="start_date"]').value = data.start_date;
                             form.querySelector('input[name="end_date"]').value = data.end_date;
-                            form.querySelector('select[name="job_description_id"]').value = data
-                                .job_description_id;
+                            form.querySelector('select[name="job_description_id"]').value = data.job_description_id;
                             form.querySelector('select[name="role_id"]').value = data.role_id;
-                            form.querySelector('select[name="company_id"]').value = data
-                                .company_id;
-                            form.querySelector('input[name="shiftwork"]').checked = data
-                                .shiftwork;
-                            form.querySelector('input[name="standard_starttime"]').value = data
-                                .standard_starttime;
-                            form.querySelector('input[name="standard_endtime"]').value = data
-                                .standard_endtime;
-
+    
+                            // Handle shiftwork radio buttons
+                            if (data.shiftwork) {
+                                form.querySelector('input[name="shiftwork"][value="1"]').checked = true;
+                            } else {
+                                form.querySelector('input[name="shiftwork"][value="0"]').checked = true;
+                            }
+    
+                            form.querySelector('input[name="standard_starttime"]').value = data.standard_starttime;
+                            form.querySelector('input[name="standard_endtime"]').value = data.standard_endtime;
+    
                             console.log('Setting person select value and triggering change');
-                            const personSelect = $('#person_id');
-                            personSelect.val(data.person_id).trigger('change');
-
-                            new bootstrap.Modal(modal).show();
+                            $('#person_id').val(data.person_id).trigger('change');
+    
+                            modalInstance.show();  // Show the modal only after data is fully loaded
                         })
                         .catch(error => {
-                            console.error('Error fetching employee data:',
-                                error); // Debugging line
+                            console.error('Error fetching employee data:', error); // Debugging line
                         });
                 });
             });
-
-            // Reset modal for creating new employee
-            const createButton = document.querySelector('#createEmployeeBtn');
-            if (createButton) {
-                createButton.addEventListener('click', function() {
-                    form.setAttribute('action', '{{ route('employee.store') }}');
-                    form.querySelector('input[name="_method"]').value = 'POST';
-                    modalTitle.textContent = 'Record Employee';
-                    submitButton.textContent = 'Save';
-
-                    console.log('Clearing form values for new employee');
-                    $('#employee_first_name').val('');
-                    $('#employee_last_name').val('');
-                    form.querySelector('input[name="call_name"]').value = '';
-                    form.querySelector('input[name="emp_number"]').value = '';
-                    form.querySelector('select[name="bu_id"]').value = '';
-                    form.querySelector('select[name="employment_type_id"]').value = '';
-                    form.querySelector('input[name="start_date"]').value = '';
-                    form.querySelector('input[name="end_date"]').value = '';
-                    form.querySelector('select[name="job_description_id"]').value = '';
-                    form.querySelector('select[name="role_id"]').value = '';
-                    form.querySelector('select[name="company_id"]').value = '';
-                    form.querySelector('input[name="shiftwork"]').checked = false;
-                    form.querySelector('input[name="standard_starttime"]').value = '';
-                    form.querySelector('input[name="standard_endtime"]').value = '';
-
-                    $('#person_id').val(null).trigger('change'); // Clear the person_id select
-
-                    new bootstrap.Modal(modal).show();
+    
+            // Handle modal close buttons
+            const closeButtons = modalElement.querySelectorAll('[data-bs-dismiss="modal"]');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (modalInstance) {
+                        modalInstance.hide();  // Ensure the modal instance is properly hidden
+                    }
                 });
-            }
+            });
+    
+            // Ensure cleanup when modal is hidden
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                resetForm();  // Reset the form fields only
+                modalInstance = null;  // Clean up modal instance
+            });
         });
     </script>
+    
 
 
 
@@ -1068,6 +1059,49 @@
             KTFuneralsDatatables.init();
         });
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function getDOB(IDNumber) {
+            // Clear previous values
+            document.getElementById("birth_date").value = "";
+
+            // Validate length and numeric
+            if (IDNumber.length == 13 && !isNaN(IDNumber)) {
+                // Extract date parts
+                var year = IDNumber.substring(0, 2);
+                var month = IDNumber.substring(2, 4);
+                var day = IDNumber.substring(4, 6);
+
+                // Determine century
+                var currentYear = new Date().getFullYear() % 100;
+                var century = (parseInt(year) > currentYear) ? '19' : '20';
+                var fullYear = century + year;
+
+                // Validate date
+                var tempDate = new Date(fullYear, parseInt(month) - 1, parseInt(day));
+
+                if (
+                    tempDate &&
+                    tempDate.getFullYear() == fullYear &&
+                    tempDate.getMonth() + 1 == parseInt(month) &&
+                    tempDate.getDate() == parseInt(day)
+                ) {
+                    // Valid date
+                    var birthDateStr = fullYear + '-' + month + '-' + day; // Format: YYYY-MM-DD
+                    document.getElementById("birth_date").value = birthDateStr;
+                }
+            }
+        }
+
+        // Trigger getDOB when ID Number field changes value
+        document.getElementById("id_number").addEventListener("input", function() {
+            var idNumber = this.value.trim();
+            if (idNumber.length === 13) {
+                getDOB(idNumber);
+            }
+        });
+    });
+</script>
 
 
 

@@ -1,4 +1,31 @@
 <x-guest-layout>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+    .password-container {
+      position: relative;
+    }
+
+    .form-control {
+      padding-right: 30px; /* Adjust padding to make space for the icon */
+    }
+
+    .show-password-checkbox {
+      position: absolute;
+      right: 10px; /* Adjust as necessary */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .input-match {
+      border-color: green;
+    }
+
+    .input-mismatch {
+      border-color: red;
+    }
+</style>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -48,34 +75,35 @@
 
 
 
-                                    <!-- Password -->
-                                    <div class="input-group input-group-dynamic mb-3">
+                                                <!--end::Input group=-->
+              <div class="fv-row mb-3">
+                <!--begin::Password-->
+                
+                <x-label for="password" :value="__('Password')" />
+                
+                <div class="password-container">
+                  <input class="form-control bg-transparent" id="password" type="password" name="password" required
+                    autocomplete="new-password">
+                </div>
+                <!--end::Password-->
+              </div>
+              <!--end::Input group=-->
+              <div class="fv-row mb-3">
+                <!--begin::Password Confirm-->
+                
+                <x-label for="password_confirmation" :value="__('Password Confirm')" />
 
-                                        <input id="password" type="password" name="password" class="form-control"
-                                            required autocomplete="new-password" placeholder="Password"
-                                            aria-label="Password">
-                                        
-
-                                    </div>
-
-                                    <!-- Confirm Password -->
-                                    <div class="input-group input-group-dynamic mb-3">
-
-                                        <input id="password_confirmation" type="password" name="password_confirmation"
-                                            class="form-control" placeholder="Confirm Password" required
-                                            autocomplete="new-password">
-
-                                        {{-- <i class="material-icons position-absolute top-50 end-0 translate-middle-y" style="cursor: pointer;" onclick="togglePassword()">&#xe8f4;</i> --}}
-
-                                    </div>
-
+                <div class="password-container">
+                  <input id="password_confirmation" type="password" name="password_confirmation" required class="form-control bg-transparent" autocomplete="off">
+                  <i class="material-icons show-password-checkbox" id="toggleIcon" onclick="myFunction()">&#xe8f4;</i>
+                </div>
+                <!--end::Password Confirm-->
+              </div>
+              <!--end::Input group=-->
                                     <div class="text-center">
                                         <button type="submit" class="btn bg-success w-100 my-4 mb-2 text-white">Save password and
                                             login</button>
                                     </div>
-
-
-
                                 </form>
                             </div>
                         </div>
@@ -94,4 +122,44 @@
     <script src="/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/js/plugins/smooth-scrollbar.min.js"></script>
         
+    <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      var y = document.getElementById("password_confirmation");
+      var icon = document.getElementById("toggleIcon");
+
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+
+      if (y.type === "password") {
+        y.type = "text";
+        icon.innerHTML = "&#xe8f5;"; // Icon for showing the password
+      } else {
+        y.type = "password";
+        icon.innerHTML = "&#xe8f4;"; // Icon for hiding the password
+      }
+    }
+
+    // Check if passwords match
+    document.getElementById('password_confirmation').addEventListener('input', function() {
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('password_confirmation').value;
+
+      if (password === confirmPassword && password !== '') {
+        document.getElementById('password').classList.add('input-match');
+        document.getElementById('password').classList.remove('input-mismatch');
+        document.getElementById('password_confirmation').classList.add('input-match');
+        document.getElementById('password_confirmation').classList.remove('input-mismatch');
+      } else {
+        document.getElementById('password').classList.add('input-mismatch');
+        document.getElementById('password').classList.remove('input-match');
+        document.getElementById('password_confirmation').classList.add('input-mismatch');
+        document.getElementById('password_confirmation').classList.remove('input-match');
+      }
+    });
+  </script>
+
 </x-guest-layout>

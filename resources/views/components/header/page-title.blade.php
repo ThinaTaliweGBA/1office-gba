@@ -17,7 +17,14 @@
 </div> --}}
 
 <div {{ $attributes->merge(['class' => 'breadcrumb']) }} data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-    @if(Breadcrumbs::exists())
+            <div class="d-flex align-items-center me-2 border border-secondary rounded">
+                <!--begin::Back Button-->
+                <div class="btn btn-icon btn-active-color-primary btn-outline w-40px h-40px bg-body border border-body" onclick="window.history.back();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Go Back" data-bs-custom-class="custom-tooltip">
+                    <i class="bi bi-arrow-left" style="font-size: 28px;"></i>
+                </div>
+                <!--end::Back Button-->
+            </div>    
+@if(Breadcrumbs::exists())
         <h2 class="fw-bold my-0 fs-2">
             @php
                 // Attempt to render breadcrumbs only if all required parameters are available

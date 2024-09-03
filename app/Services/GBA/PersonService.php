@@ -10,24 +10,40 @@ use Log;
 
 class PersonService
 {
+
+
     public function createPerson(Request $request, $prefix, $index = null, $addressId = null)
     {
+        // Determine the ID number from the request
+        $idNumber = is_null($index) ? $request->input($prefix . 'id_number') : ($request->input($prefix . 'id_number')[$index] ?? null);
+
+        // Check if a person with the same ID number already exists
+        $existingPerson = Person::where('id_number', $idNumber)->first();
+
+        if ($existingPerson) {
+            // Log that an existing person was found
+            Log::info('Existing person found', ['id' => $existingPerson->id, 'type' => $prefix, 'index' => $index ?? 'N/A']);
+            return $existingPerson;
+        }
+
+        // If no existing person is found, create a new one
         $person = new Person();
         // Using ternary operator to handle both array and non-array data
         $person->first_name = is_null($index) ? $request->input($prefix . 'first_name') : ($request->input($prefix . 'first_name')[$index] ?? null);
         $person->initials = is_null($index) ? $request->input($prefix . 'initials') : ($request->input($prefix . 'initials')[$index] ?? null);
         $person->last_name = is_null($index) ? $request->input($prefix . 'last_name') : ($request->input($prefix . 'last_name')[$index] ?? null);
         $person->screen_name = is_null($index) ? $request->input($prefix . 'screen_name') : ($request->input($prefix . 'screen_name')[$index] ?? null);
-        $person->id_number = is_null($index) ? $request->input($prefix . 'id_number') : ($request->input($prefix . 'id_number')[$index] ?? null);
+        $person->id_number = $idNumber;
         $person->birth_date = is_null($index) ? $request->input($prefix . 'birth_date') : ($request->input($prefix . 'birth_date')[$index] ?? null);
         $person->married_status = is_null($index) ? $request->input($prefix . 'married_status') : ($request->input($prefix . 'married_status')[$index] ?? null);
         $person->gender_id = is_null($index) ? $request->input($prefix . 'gender_id') : ($request->input($prefix . 'gender_id')[$index] ?? null);
         $person->residence_country_id = is_null($index) ? $request->input($prefix . 'residence_country_id') : ($request->input($prefix . 'residence_country_id')[$index] ?? null);
         $person->save();
 
-        Log::info('Person saved', ['id' => $person->id, 'type' => $prefix, 'index' => $index ?? 'N/A']);
+        Log::info('Person created', ['id' => $person->id, 'type' => $prefix, 'index' => $index ?? 'N/A']);
         return $person;
     }
+
     
     
     public function handleDependents(Request $request, $mainPersonId, $membership)

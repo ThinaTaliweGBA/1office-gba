@@ -130,11 +130,21 @@ if (!function_exists('verify_id_number')) {
         function generateUniqueMembershipCode()
         {
             do {
-                $code = 'MEM' . time() . Str::random(5);
+                // Generate a numeric part (e.g., a random number between 10000 and 99999)
+                $numbers = rand(10000, 99999);
+                // Generate 3 random characters
+                $randomCharacters = strtoupper(Str::random(3));
+                // Combine to form the code without dashes
+                $code = 'M' . $numbers . $randomCharacters;
             } while (Membership::where('membership_code', $code)->exists());
-    
+         
+            // M54321QWE
+            // M98765RTY
+            // M23456UIO
+            // M45678JKL
+         
             return $code;
         }
     }
-
+    
 }

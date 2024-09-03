@@ -203,12 +203,11 @@
                     <!--begin::Content-->
                     <div class="mb-9 text-dark">
                         Please make sure to save your edits and customizations for them to exist for future use
-                        <strong>within this system</strong>.<br />
+                        <strong>within this system</strong>.<br/>
                         Navigate to the <a href="/contact" class="fw-bold me-1">contact section</a>, should you want to
                         contact the onwers.
                     </div>
                     <!--end::Content-->
-
                 </div>
                 <!--end::Wrapper-->
             </div>

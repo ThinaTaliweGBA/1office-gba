@@ -16,196 +16,14 @@
             
         }
 
-        .confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            /* Ensure confetti doesn't interfere with page interaction */
-            z-index: 9999;
-            /* Ensure confetti is displayed above other content */
-        }
-
-        .confetti {
-            position: absolute;
-            font-size: var(--size);
-            /* Set size of the emoji */
-            animation: confetti-fall var(--duration) linear infinite, confetti-fade var(--duration) ease-out forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translate(0, -10vh) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y))) rotate(360deg);
-            }
-        }
-
-        @keyframes confetti-fade {
-            0% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
+      
     </style>
 @endpush
 
 @section('row_content')
     <div class="content d-flex flex-column flex-column-fluid mb-10" id="kt_content">
         <div class="container-fluid" id="kt_content_container">
-            <div class="confetti-container">
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#10024;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#129395;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-                <div class="confetti">&#127881;</div>
-            </div>
+            
 
             <div class="card">
                 <div class="card-body">
@@ -224,12 +42,12 @@
                                 <h3 class="stepper-title">Completed</h3>
                             </div>
                         </div>
-                        {{-- <form class="mx-auto mw-600px w-100 pt-15 pb-10"
-                            action="{{ route('save-user-info', Auth::user()) }}" method="POST" novalidate="novalidate"
-                            id="kt_create_account_form"> --}}
                         <form class="mx-auto mw-600px w-100 pt-15 pb-10"
-                            action="{{ route('home.store') }}" method="POST" novalidate="novalidate"
+                            action="{{ route('save-user-info', Auth::user()) }}" method="POST" novalidate="novalidate"
                             id="kt_create_account_form">
+                        {{-- <form class="mx-auto mw-600px w-100 pt-15 pb-10"
+                            action="{{ route('home.store') }}" method="POST" novalidate="novalidate"
+                            id="kt_create_account_form"> --}}
                             @csrf
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -254,7 +72,7 @@
                                     <div class="fw-semibold fs-6 text-gray-500 mt-2 mb-7">
                                         We'd like to know a bit about you before you proceed to the system.
                                     </div>
-                                    <div id="confetti-wrapper"></div> <!-- Confetti animation will go here -->
+                                    
                                     <div class="mb-0">
                                         <img src="{{ asset('img/Welcomeimg.png') }}"
                                             class="mw-100 mh-300px theme-light-show" alt="" />
@@ -306,18 +124,28 @@
                                     </div>
                                     <div class="row mb-10">
                                         <div class="col-md-6">
-                                            <label class="form-label required">ID Number</label>
-                                            <input name="id_number"
+                                            <label for="id_number" class="form-label required">ID Number</label>
+                                            <input
+                                                id="id_number"
+                                                name="id_number"
                                                 class="form-control form-control-lg form-control-solid border border-secondary"
-                                                value="{{ old('id_number') }}" required />
+                                                value="{{ old('id_number') }}"
+                                                required
+                                            />
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label required">Birth Date</label>
-                                            <input type="date" name="birth_date"
+                                            <label for="birth_date" class="form-label required">Birth Date</label>
+                                            <input
+                                                type="date"
+                                                id="birth_date"
+                                                name="birth_date"
                                                 class="form-control form-control-lg form-control-solid border border-secondary"
-                                                value="{{ old('birth_date') }}" required />
+                                                value="{{ old('birth_date') }}"
+                                                required
+                                            />
                                         </div>
                                     </div>
+                                    
                                     <div class="row mb-10">
                                         <div class="col-md-6">
                                             <label class="form-label required">Married Status</label>
@@ -512,7 +340,7 @@
                                         </span>
                                     </button>
                                     <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next"
-                                        id="btn-next" onclick="startConfetti()">
+                                        id="btn-next">
                                         Continue
                                         <i class="ki-duotone ki-arrow-right fs-4 ms-1 me-0"><span
                                                 class="path1"></span><span class="path2"></span></i>
@@ -645,48 +473,51 @@
             logStepperState(stepperObj);
         });
 
-        function startConfetti() {
-            const confettiCount = 100;
-            const confettiWrapper = document.getElementById('confetti-wrapper');
+        
+    </script>
 
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDuration = 0.5 + Math.random() * 1 + 's';
-                confettiWrapper.appendChild(confetti);
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function getDOB(IDNumber) {
+            // Clear previous values
+            document.getElementById("birth_date").value = "";
+
+            // Validate length and numeric
+            if (IDNumber.length == 13 && !isNaN(IDNumber)) {
+                // Extract date parts
+                var year = IDNumber.substring(0, 2);
+                var month = IDNumber.substring(2, 4);
+                var day = IDNumber.substring(4, 6);
+
+                // Determine century
+                var currentYear = new Date().getFullYear() % 100;
+                var century = (parseInt(year) > currentYear) ? '19' : '20';
+                var fullYear = century + year;
+
+                // Validate date
+                var tempDate = new Date(fullYear, parseInt(month) - 1, parseInt(day));
+
+                if (
+                    tempDate &&
+                    tempDate.getFullYear() == fullYear &&
+                    tempDate.getMonth() + 1 == parseInt(month) &&
+                    tempDate.getDate() == parseInt(day)
+                ) {
+                    // Valid date
+                    var birthDateStr = fullYear + '-' + month + '-' + day; // Format: YYYY-MM-DD
+                    document.getElementById("birth_date").value = birthDateStr;
+                }
             }
         }
-    </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const confettiElements = document.querySelectorAll('.confetti');
-
-            confettiElements.forEach(function(confetti) {
-                confetti.style.setProperty('--x', Math.random()); // Random horizontal position
-                confetti.style.setProperty('--y', Math.random()); // Random vertical position
-                confetti.style.setProperty('--duration', Math.random() * 3 + 2 +
-                's'); // Random falling duration (between 2 and 5 seconds)
-                confetti.style.setProperty('--size', Math.random() * 24 + 16 +
-                'px'); // Random font size (between 16 and 40 pixels)
-            });
-
-            // Find the maximum duration among confetti animations
-            let maxDuration = 0;
-            confettiElements.forEach(function(confetti) {
-                const duration = parseFloat(getComputedStyle(confetti).getPropertyValue('--duration'));
-                if (duration > maxDuration) {
-                    maxDuration = duration;
-                }
-            });
-
-            // Remove confetti after the maximum duration
-            setTimeout(function() {
-                confettiElements.forEach(function(confetti) {
-                    confetti.remove();
-                });
-            }, maxDuration * 2000); // Convert seconds to milliseconds
+        // Trigger getDOB when ID Number field changes value
+        document.getElementById("id_number").addEventListener("input", function() {
+            var idNumber = this.value.trim();
+            if (idNumber.length === 13) {
+                getDOB(idNumber);
+            }
         });
-    </script>
+    });
+</script>
+
 @endpush

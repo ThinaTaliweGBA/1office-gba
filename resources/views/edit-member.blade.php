@@ -44,6 +44,115 @@
             /* Replace with your desired hover background color */
         }
     </style>
+
+    <!-- /*
+    |--------------------------------------------------------------------------
+    | Laravel Logger Web Routes
+    |--------------------------------------------------------------------------
+    |
+    */ -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .comment {
+            display: grid;
+            gap: 14px;
+
+            .user-banner {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .user {
+                    gap: 8px;
+                    align-items: center;
+                    display: flex;
+
+                    .avatar {
+                        height: 32px;
+                        width: 32px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid transparent;
+                        position: relative;
+                        border-radius: 100px;
+                        font-weight: 500;
+                        font-size: 13px;
+                        line-height: 20px;
+
+                        img {
+                            max-width: 100%;
+                            border-radius: 50%;
+                        }
+
+                        .stat {
+                            display: flex;
+                            position: absolute;
+                            right: -2px;
+                            bottom: -2px;
+                            display: block;
+                            width: 12px;
+                            height: 12px;
+                            z-index: 9;
+                            border: 2px solid #ffffff;
+                            border-radius: 100px;
+
+                            &.green {
+                                background: #00ba34;
+                            }
+
+                            &.grey {
+                                background: #969696;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .footer {
+                gap: 12px;
+                display: flex;
+                align-items: center;
+
+                .reactions {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .divider {
+                    height: 12px;
+                    width: 1px;
+                    background: #e8e8e8;
+                }
+            }
+
+            &:not(.comment:first-child) {
+                padding-bottom: 12px;
+                margin-bottom: 12px;
+                border-bottom: 1px solid #e8e8e8;
+            }
+
+            &+& {
+                padding-top: 12px;
+            }
+
+            &.reply {
+
+                .user-banner,
+                .content,
+                .footer {
+                    margin-left: 32px;
+                }
+            }
+        }
+    </style>
+    <!-- /*
+    |--------------------------------------------------------------------------
+    | Laravel Logger Web Routes
+    |--------------------------------------------------------------------------
+    |
+    */ -->
 @endpush
 
 @section('row_content')
@@ -56,10 +165,10 @@
                 <div class="mt-2 text-center">
 
                     <div class="card-header p-0 position-relative mt-n4 z-index-1">
-                    <a href="javascript:history.back()" class="my-auto text-decoration-none btn"><p class="text-dark fs-3"> << Back </p></a>
+                        {{-- <a href="javascript:history.back()" class="my-auto text-decoration-none btn"> <i class="bi bi-backspace fs-2 text-dark"> Back </i> </a> --}}
                         <div class="bg-gradient-success shadow-success border-radius-lg pt-3 pb-2 mx-auto ">
                             <div class="nav-wrapper position-relative end-0 mx-2 mx-auto">
-                                <ul class="nav nav-pills nav-fill p-1 fs-1 fw-1" id="myTabs" role="tablist">
+                                <ul class="nav nav-pills nav-fill p-1 " id="myTabs" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="membership-tab" data-bs-toggle="tab"
                                             href="#membership" role="tab" aria-controls="membership"
@@ -115,7 +224,7 @@
 
                             <div class='row'>
 
-                                <div class="card-body g-3 rounded bg-secondary col-12 border border-gray-400 p-3">
+                                <div class="card-body g-3 rounded col-12 p-3 border border-body shadow">
 
                                     <form action="{{ route('update-member', $membership->id) }}" method="POST"
                                         {{ $dis }} role="form" id="membershipForm" name="membershipForm"
@@ -182,8 +291,8 @@
                                                                 @enderror
                                                             </div> --}}
 
-                                        <div class="card-header bg-secondary">
-                                            <h1 class="text-center mx-auto my-auto text-dark">Edit Membership</h1>
+                                        <div class="card-header">
+                                            <h1 class="text-center mx-auto text-dark my-auto">Edit Membership</h1>
                                         </div>
                                         <div class="col-4">
                                             <div class="form-floating mt-3 mb-0">
@@ -286,7 +395,7 @@
                                         {{-- <hr class="dark horizontal mt-2 mb-0"> --}}
                                         <div class="col-3 d-flex align-items-center">
                                             <!-- <div style="white-space:nowrap;" class="px-4">                                                                                                                                                <label for="inputAddress" class="form-label">Date Of Birth</label>
-                                                                                                                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                                                                                                                </div> -->
                                             <div class="form-floating">
 
                                                 <input type="text" onkeypress="return isNumberKey(event)"
@@ -433,8 +542,12 @@
                                         <div class="col-12">
                                             <div class="text-center  d-flex justify-content-center align-items-center ">
                                                 <button type="submit" text="Update"
-                                                    class="btn btn-success w-150 my-4 mb-4" id="btnUpdate"><i
-                                                        class="material-icons pe-2">save</i>Update
+                                                    class="btn btn-success w-150 my-4 mb-4" id="btnUpdate"><i class="ki-duotone ki-cloud-download fs-1">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    </i>
+                                                    {{-- <i class="fa fa-save" style="font-size:20px;"></i> --}}
+                                                    Update
                                                 </button>
                                             </div>
                                         </div>
@@ -477,7 +590,7 @@
                                                         <th>Age</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="bg-light">
+                                                <tbody>
                                                     @foreach ($dependants as $dependant)
                                                         @php
                                                             $age = ageFromDOB($dependant->personDep->birth_date); // Ensure you have a method to calculate age from DOB
@@ -491,13 +604,15 @@
                                                                 </a>
                                                             </td> --}}
                                                             <td class="text-m font-weight-normal pt-3 text-center">
-                            <button class="btn btn-link text-danger text-gradient p-0 custom-hover-button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#confirmRemoveModal"
-                                    data-id="{{ $dependant->secondary_person_id }}">
-                                <i class="material-icons text-sm">highlight_off</i>Remove
-                            </button>
-                        </td>
+                                                                <button
+                                                                    class="btn btn-link text-danger text-gradient p-0 custom-hover-button"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#confirmRemoveModal"
+                                                                    data-id="{{ $dependant->secondary_person_id }}">
+                                                                    <i
+                                                                        class="material-icons text-sm">highlight_off</i>Remove
+                                                                </button>
+                                                            </td>
 
 
                                                             <td class="text-m font-weight-normal pt-3 text-center">
@@ -552,8 +667,8 @@
 
 
                             <!-- Add Dependant Block -->
-                            <div class="card mt-5 mb-2 bg-secondary rounded" id="add-dependant">
-                                <div class="card-header bg-secondary">
+                            <div class="card mt-5 mb-2 rounded shadow" id="add-dependant">
+                                <div class="card-header">
                                     <h1 class="text-center mx-auto my-auto text-dark">Add Dependants</h1>
                                 </div>
 
@@ -679,7 +794,7 @@
                                                     id="genderDepSelect" required>
                                                     <option value="">Select gender</option>
                                                     @foreach ($genders as $gender)
-                                                        <option value="{{ $gender->id }}">{{ $gender->description }}
+                                                        <option value="{{ $gender->id }}">{{ $gender->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -747,7 +862,7 @@
                                                                     <th class="text-center">Manage</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="bg-light">
+                                                            <tbody>
                                                                 @foreach ($addresses as $address)
                                                                     <tr>
                                                                         <td
@@ -787,18 +902,20 @@
                                                                             </form>
                                                                         </td> --}}
                                                                         <td class="text-center">
-    <form id="delete-address-form" action="/delete-address/{{ $address->id }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="button"
-                class="btn btn-sm btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmDeleteAddressModal"
-                data-address-id="{{ $address->id }}">
-            Delete
-        </button>
-    </form>
-</td>
+                                                                            <form id="delete-address-form"
+                                                                                action="/delete-address/{{ $address->id }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="button"
+                                                                                    class="btn btn-sm btn-danger"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#confirmDeleteAddressModal"
+                                                                                    data-address-id="{{ $address->id }}">
+                                                                                    Delete
+                                                                                </button>
+                                                                            </form>
+                                                                        </td>
 
                                                                     </tr>
                                                                 @endforeach
@@ -828,7 +945,7 @@
 
                                 <div class="mt-4 mb-4 pb-4">
 
-                                    <div class="card h-100 mb-4 bg-light rounded bg-secondary border border-gray-400">
+                                    <div class="card h-100 mb-4 rounded shadow">
                                         <div class="card-header">
                                             <h1 class="text-center mx-auto my-auto text-dark">Add New Address</h1>
                                         </div>
@@ -1007,7 +1124,7 @@
                                                     <th class="text-center">Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="bg-light">
+                                            <tbody>
                                                 @foreach ($billings as $billing)
                                                     @if ($billing->membership_id == $membership->id)
                                                         <tr>
@@ -1058,10 +1175,14 @@
                             </div>
 
                             <div class="p-3 bg-secondary-gradient">
-                                <h4>Add Payment: <span><a class="icon-link icon-link-hover"
-                                            style="--bs-link-hover-color-rgb: 25, 135, 84;" href="/payments"> Make
-                                            Payment (<i class="bi bi-cash-coin fs-3 text-success"></i>)</a></span></h4>
+                                <a href="/payments" class="btn btn-sm btn-success" title="Add Payment">
+                                    <i class="ki-duotone ki-abstract-10">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>Make A Payment
+                                </a>
                             </div>
+                            
                             <!-- Payment Details Modal End -->
                             {{-- </div> --}}
                         </div>
@@ -1075,7 +1196,7 @@
                     <div class="card-header p-0 position-relative mt-n4 mx-auto z-index-1">
                         <div class="bg-gradient-success shadow-success border-radius-lg pt-3 pb-2 mx-auto">
                             <div class="nav-wrapper position-relative end-0 mx-2">
-                                <ul class="nav nav-pills nav-fill p-1 fs-1 fw-1" id="myTabs" role="tablist">
+                                <ul class="nav nav-pills nav-fill p-1 " id="myTabs" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="comments-tab" data-bs-toggle="tab"
                                             href="#comments" role="tab" aria-controls="comments"
@@ -1092,6 +1213,7 @@
                     </div>
 
 
+
                     <div class="tab-content mt-2" id="myTabContent">
                         <div class="tab-pane active fade show" id="comments">
                             {{-- <h3>Comments Details</h3> --}}
@@ -1099,409 +1221,526 @@
                                 <!-- Payment Details Modal Start -->
 
                                 {{-- <h2 class="text-center">Payments Content</h2> --}}
-                                <p class="text-dark fw-semibold fs-6 mb-12 fst-italic text-capitalize">View all comments
-                                    details about this membership.</p>
+                                <p class="text-dark fw-semibold fs-6 mb-12 fst-italic text-capitalize">All comments about
+                                    this membership.</p>
 
-                                <!-- Button trigger modal -->
-                                <a class="btn btn-sm btn-icon btn-success" title="Add Comment" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <i class="bi bi-plus-lg fs-4 me-0"></i>
-                                </a>
+                                <div class="tab-content mt-2">
+                                    <!--end::Nav-->
+                                    <!-- /*
+                                                |--------------------------------------------------------------------------
+                                                | Laravel Logger Web Routes
+                                                |--------------------------------------------------------------------------
+                                                |
+                                                */ -->
 
-                                @foreach ($comments as $comment)
-                                    @if (!is_array($comment->text))
-                                        <!--begin::Option-->
-                                        {{-- <input type="radio" class="btn-check"
-                                                                name="radio_buttons_2" value="sms"
-                                                                id="kt_radio_buttons_2_option_2" /> --}}
-                                        <label
-                                            class="bg-secondary btn btn-outline btn-outline-dashed p-3 d-flex align-items-center m-2 bordered border-primary-subtle"
-                                            for="kt_radio_buttons_2_option_2">
-                                            {{-- <i class="ki-duotone ki-message-text-2 fs-4x me-4"><span
-                                                                        class="path1"></span><span
-                                                                        class="path2"></span><span
-                                                                        class="path3"></span></i> --}}
+                                    @foreach ($comments as $comment)
+                                        <div class="block bg-body p-2 mb-2 border border-light rounded shadow-sm">
+                                            @if (!is_array($comment->text))
+                                                <div class="comment">
+                                                    <div class="user-banner">
+                                                        <div class="user">
+                                                            <div class="avatar">
+                                                                <img src="{{ asset('assets/media/avatars/blank.png') }}">
+                                                                <!-- <span class="stat grey"></span> -->
+                                                            </div>
+                                                            <h5>{{ $comment->author }}</h5>
+                                                        </div>
+                                                        @if ($comment->created_at == $comment->updated_at)
+                                                            <p class="text-muted fs-6 p-0 m-0">
+                                                                {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}
+                                                            </p>
+                                                        @else
+                                                            <p class="text-muted fs-6 p-0 m-0">
+                                                                {{ \Carbon\Carbon::parse($comment->updated_at)->diffForHumans() }}
+                                                            </p>
+                                                        @endif
 
-                                            <div class="d-block fw-semibold text-start d-flex flex-row">
-                                                <div class="mx-auto">
-                                                    <!-- Button trigger modal -->
-                                                    <a href="#" class="btn btn-sm btn-icon btn-warning"
-                                                        title="Edit" data-bs-toggle="modal"
-                                                        data-bs-target="#editCommentModal"
-                                                        onclick="openEditModal({{ $comment->id }})">
-                                                        <i class="bi bi-pencil-fill fs-4 me-0"></i>
-                                                    </a>
-
-                                                    <form method="POST" action="{{ url('comments/' . $comment->id) }}"
-                                                        style="display:inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger"
-                                                            data-bs-toggle="tooltip" title="Remove"><i
-                                                                class="bi bi-trash3 fs-4 me-0"></i></button>
-                                                    </form>
-                                                </div>
-                                                <!-- Display the comment ID -->
-                                                <div class="text-dark fw-semibold fs-4 mx-auto my-auto">
-                                                    {{-- {{ $comment->id }} --}}
-
-                                                    <!-- Check if $comment->text is a string that needs to be decoded or already an object/array -->
-                                                    @php
-                                                        if (is_string($comment->text)) {
-                                                            // Decode if it's a string
+                                                        <!-- <button class="btn dropdown"><i class="ri-more-line"></i></button> -->
+                                                    </div>
+                                                    <div class="content p-0">
+                                                        <!-- Check if $comment->text is a string that needs to be decoded or already an object/array -->
+                                                        @php
+                                                            if (is_string($comment->text)) {
+                                                                // Decode if it's a string
     $commentText = json_decode($comment->text, true);
 } else {
     // Use it directly if it's already an object/array
-                                                            $commentText = $comment->text;
-                                                        }
-                                                    @endphp
+                                                                $commentText = $comment->text;
+                                                            }
+                                                        @endphp
 
-                                                    <!-- Display the decoded or direct data -->
-                                                    @if (is_array($commentText) || is_object($commentText))
-                                                        @foreach ($commentText as $key => $value)
-                                                            @if ($key === 'title')
-                                                                <!-- Display only the value of the 'title' key -->
-                                                                <div>{{ $value }}</div>
+                                                        <!-- Display the decoded or direct data -->
+                                                        @if (is_array($commentText) || is_object($commentText))
+                                                            @foreach ($commentText as $key => $value)
+                                                                @if ($key === 'title')
+                                                                    <!-- Display only the value of the 'title' key -->
+                                                                    <div><strong>{{ $value }}</strong></div>
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            <!-- If it's not an array/object, display it directly -->
+                                                            {{ $commentText }}
+                                                        @endif
+                                                    </div>
+                                                    <div class="footer d-flex justify-content-between">
+
+                                                        @if ($comment->created_at == $comment->updated_at)
+                                                            <p class="text-muted fs-6 p-0 m-0">Created :
+                                                                {{ \Carbon\Carbon::parse($comment->created_at)->format('Y-m-d') }}
+                                                            </p>
+                                                        @else
+                                                            <p class="text-muted fs-6 p-0 m-0">Updated :
+                                                                {{ \Carbon\Carbon::parse($comment->updated_at)->format('Y-m-d') }}
+                                                            </p>
+                                                        @endif
+
+                                                        <!-- <p>Created Date: {{ \Carbon\Carbon::parse($comment->created_at)->format('Y-m-d') }}</p>
+                                                        <p>Created Time: {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p> -->
+
+                                                        <!-- Code for updated Comments by Author -->
+                                                        <!-- <p>Updated Date: {{ \Carbon\Carbon::parse($comment->updated_at)->format('Y-m-d') }}</p>
+                                                        <p>Updated Time: {{ \Carbon\Carbon::parse($comment->updated_at)->diffForHumans() }}</p> -->
+
+                                                        <div class="reactions">
+                                                            <!-- Button trigger modal -->
+                                                            @if (Auth::id() === $comment->users_id)
+                                                            <a href="#" class="btn btn-sm btn-icon btn-warning"
+                                                                title="Edit" data-bs-toggle="modal"
+                                                                data-bs-target="#editCommentModal"
+                                                                onclick="openEditModal({{ $comment->id }})">
+                                                                <i class="bi bi-pencil-fill fs-4 me-0"></i>
+                                                            </a>
+                                                            @else
+                                                            <!-- Button with class instead of id -->
+                                                            <button class="AuthorDeleteEdit btn btn-sm btn-icon btn-warning"
+                                                                data-bs-toggle="tooltip" title="Edit">
+                                                                <i class="bi bi-pencil-fill fs-4 me-0"></i>
+                                                            </button>
+                                                            <p id="unauthorizedMessageEdit" hidden>You are not authorized
+                                                                to edit this comment. Only {{ $comment->author }}
+                                                                can edit this comment.</p>
+                                                        @endif
+
+                                                            <!-- <form method="POST" action="{{ url('comments/' . $comment->id) }}"
+                                                                                                        style="display:inline">
+                                                                                                        @csrf
+                                                                                                        @method('DELETE')
+                                                                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger"
+                                                                                                            data-bs-toggle="tooltip" title="Remove"><i
+                                                                                                                class="bi bi-trash3 fs-4 me-0"></i></button>
+                                                                                                    </form> -->
+
+                                                            @if (Auth::id() === $comment->users_id)
+                                                                <!-- Check if the logged-in user is the author -->
+                                                                <!-- <form method="POST" action="{{ url('comments/' . $comment->id) }}" style="display:inline" onsubmit="return confirmDelete()">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" title="Remove">
+                                                            <i class="bi bi-trash3 fs-4 me-0"></i>
+                                                        </button>
+                                                    </form> -->
+
+                                                                <form method="POST"
+                                                                    action="{{ url('comments/' . $comment->id) }}"
+                                                                    style="display:inline"
+                                                                    onsubmit="confirmDelete(event)">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-icon btn-danger"
+                                                                        data-bs-toggle="tooltip" title="Remove">
+                                                                        <i class="bi bi-trash3 fs-4 me-0"></i>
+                                                                    </button>
+                                                                </form>
+                                                            @else
+                                                                <!-- Button with class instead of id -->
+                                                                <button class="AuthorDelete btn btn-sm btn-icon btn-danger"
+                                                                    data-bs-toggle="tooltip" title="Remove">
+                                                                    <i class="bi bi-trash3 fs-4 me-0"></i>
+                                                                </button>
+                                                                <p id="unauthorizedMessage" hidden>You are not authorized
+                                                                    to delete this comment. Only {{ $comment->author }}
+                                                                    can delete this comment.</p>
                                                             @endif
-                                                        @endforeach
-                                                    @else
-                                                        <!-- If it's not an array/object, display it directly -->
-                                                        {{ $commentText }}
-                                                    @endif
+
+
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </label>
+                                            @else
+                                                <label
+                                                    class="bg-danger btn btn-outline btn-outline-dashed p-4 d-flex align-items-center m-2"
+                                                    for="kt_radio_buttons_2_option_2">
+                                                    <i class="ki-duotone ki-message-text-2 fs-4x me-4"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span></i>
 
-                                        <!--end::Option-->
-                                    @else
-                                        <label
-                                            class="bg-danger btn btn-outline btn-outline-dashed p-4 d-flex align-items-center m-2"
-                                            for="kt_radio_buttons_2_option_2">
-                                            <i class="ki-duotone ki-message-text-2 fs-4x me-4"><span
-                                                    class="path1"></span><span class="path2"></span><span
-                                                    class="path3"></span></i>
+                                                    <span class="d-block fw-semibold text-start">
+                                                        <span> {{-- class="text-gray-900 fw-bold d-block fs-3">{{ $ct->id }}</span>  <span class="text-light fw-semibold fs-6"> --}}
+                                                            No Comments</span>
+                                                    </span>
+                                                </label>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                    <div class="mt-4"><button class="btn btn-sm btn-success" title="Add Comment"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="ki-duotone ki-abstract-10">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>Add New Comment</i>
+                                        </button></div>
 
-                                            <span class="d-block fw-semibold text-start">
-                                                <span> {{-- class="text-gray-900 fw-bold d-block fs-3">{{ $ct->id }}</span>  <span class="text-light fw-semibold fs-6"> --}}
-                                                    No Comments</span>
-                                            </span>
-                                        </label>
-                                    @endif
-                                @endforeach
-                                <!-- Payment Details Modal End -->
+                                    <!-- <div class="block bg-body shadow-sm">
+                                                    <div class="comment">
+                                                        <div class="user-banner">
+                                                            <div class="user">
+                                                                <div class="avatar">
+                                                                    <img src="https://randomuser.me/api/portraits/men/86.jpg">
+                                                                    <span class="stat grey"></span>
+                                                                </div>
+                                                                <h5>Floyd Miles</h5>
+                                                            </div>
+                                                            <button class="btn dropdown"><i class="ri-more-line"></i></button>
+                                                        </div>
+                                                        <div class="content p-0">
+                                                            Actually, now that I try out the links on my message, above, none of them take me to the secure site. Only my shortcut on my desktop, which I created years ago.
+                                                        </div>
+                                                        <div class="footer">
+                                                            
+                                                        <span class="text-gray-400">6 hour ago</span>
+                                                            <div class="reactions">
+                                                                <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/thumbs-up_1f44d.png" alt="">Edit</button>
+                                                                <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/angry-face-with-horns_1f47f.png" alt="">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div> -->
+                                    <!-- /*
+                                                |--------------------------------------------------------------------------
+                                                | Laravel Logger Web Routes
+                                                |--------------------------------------------------------------------------
+                                                |
+                                                */ -->
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--end::Nav-->
             </div>
-        </div>
-    </div>
 
-    <!-- Add Comment Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Comment</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="POST" action="{{ route('comments.store') }}">
-                    @csrf <!-- CSRF token for security -->
-                    <div class="modal-body">
+            <!-- Add Comment Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Comment</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form method="POST" action="{{ route('comments.store') }}">
+                            @csrf <!-- CSRF token for security -->
+                            <div class="modal-body">
 
-                        <!--begin::Input group-->
+                                <!--begin::Input group-->
 
-                        <div class="form-floating">
+                                <div class="form-floating">
 
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Comment:</label>
-                                <textarea class="form-control" name="text"id="message-text"></textarea>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Comment:</label>
+                                        <textarea class="form-control" name="text"id="message-text"></textarea>
+                                    </div>
+
+                                    <input type="hidden" name="author" value="{{ Auth::user()->name }}">
+                                    <!-- Example value -->
+                                    <input type="hidden" name="link"
+                                        value="{{ route('view-member', $membership->id) }}">
+                                    <!-- Example value -->
+                                    <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="model_name" value="Membership"> <!-- Example value -->
+                                    <input type="hidden" name="model_record" value="{{ $membership->id }}">
+                                    <!-- Example, should be dynamically set -->
+                                    {{-- <button type="submit" class="btn btn-success mt-2">Add</button> --}}
+
+                                    <!--end::Input group-->
+                                </div>
+
                             </div>
-
-                            <input type="hidden" name="author" value="{{ Auth::user()->name }}">
-                            <!-- Example value -->
-                            <input type="hidden" name="link" value="{{ route('view-member', $membership->id) }}">
-                            <!-- Example value -->
-                            <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="model_name" value="Membership"> <!-- Example value -->
-                            <input type="hidden" name="model_record" value="{{ $membership->id }}">
-                            <!-- Example, should be dynamically set -->
-                            {{-- <button type="submit" class="btn btn-success mt-2">Add</button> --}}
-
-                            <!--end::Input group-->
-                        </div>
-
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Comment Modal -->
-    <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editCommentModalLabel">Edit Comment</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" id="editCommentForm" action="#">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="edit-comment-text" class="col-form-label">Comment:</label>
-                            <textarea class="form-control" name="text" id="edit-comment-text"></textarea>
+            </div>
+
+            <!-- Edit Comment Modal -->
+            <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editCommentModalLabel">Edit Comment</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        <input type="hidden" name="comment_id" id="edit-comment-id">
+                        <form method="POST" id="editCommentForm" action="#">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="edit-comment-text" class="col-form-label">Comment:</label>
+                                    <textarea class="form-control" name="text" id="edit-comment-text"></textarea>
+                                </div>
+                                <input type="hidden" name="comment_id" id="edit-comment-id">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+
+            <!-- Delete Address Confirmation Modal -->
+            <div class="modal fade" id="confirmDeleteAddressModal" tabindex="-1"
+                aria-labelledby="confirmDeleteAddressModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteAddressModalLabel">Confirm Delete</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this address?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteAddressButton">Delete</button>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
 
-<!-- Delete Address Confirmation Modal -->
-<div class="modal fade" id="confirmDeleteAddressModal" tabindex="-1" aria-labelledby="confirmDeleteAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteAddressModalLabel">Confirm Delete</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="confirmRemoveModal" tabindex="-1" aria-labelledby="confirmRemoveModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Removal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove this dependant?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <a class="btn btn-danger" id="confirmRemoveButton">Remove</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                Are you sure you want to delete this address?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteAddressButton">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmRemoveModal" tabindex="-1" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Removal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to remove this dependant?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" id="confirmRemoveButton">Remove</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
 
 
-    <!--end::Card-->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+            <!--end::Card-->
+            <link rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-@endsection
+        @endsection
 
-@push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Show the tab based on the URL hash
-            var hash = window.location.hash;
-            if (hash) {
-                var tabElement = document.querySelector(`a[href="${hash}"]`);
-                if (tabElement) {
-                    var tab = new bootstrap.Tab(tabElement);
-                    tab.show();
-                }
-            } else {
-                // Default to the first tab if no hash is present
-                var firstTab = document.querySelector('a[data-bs-toggle="tab"]');
-                if (firstTab) {
-                    var tab = new bootstrap.Tab(firstTab);
-                    tab.show();
-                }
-            }
+        @push('scripts')
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Show the tab based on the URL hash
+                    var hash = window.location.hash;
+                    if (hash) {
+                        var tabElement = document.querySelector(`a[href="${hash}"]`);
+                        if (tabElement) {
+                            var tab = new bootstrap.Tab(tabElement);
+                            tab.show();
+                        }
+                    } else {
+                        // Default to the first tab if no hash is present
+                        var firstTab = document.querySelector('a[data-bs-toggle="tab"]');
+                        if (firstTab) {
+                            var tab = new bootstrap.Tab(firstTab);
+                            tab.show();
+                        }
+                    }
 
-            // Update the URL hash when a tab is shown
-            var tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
-            tabLinks.forEach(function(tabLink) {
-                tabLink.addEventListener('shown.bs.tab', function(event) {
-                    window.location.hash = event.target.getAttribute('href');
+                    // Update the URL hash when a tab is shown
+                    var tabLinks = document.querySelectorAll('a[data-bs-toggle="tab"]');
+                    tabLinks.forEach(function(tabLink) {
+                        tabLink.addEventListener('shown.bs.tab', function(event) {
+                            window.location.hash = event.target.getAttribute('href');
+                        });
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-    var removeButtons = document.querySelectorAll('.custom-hover-button');
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var removeButtons = document.querySelectorAll('.custom-hover-button');
 
-    removeButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            var dependantId = button.getAttribute('data-id');
-            var confirmButton = document.getElementById('confirmRemoveButton');
-            confirmButton.href = `/remove-dependant/${dependantId}`;
-        });
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var deleteButtons = document.querySelectorAll('[data-bs-target="#confirmDeleteAddressModal"]');
-
-    deleteButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            var addressId = button.getAttribute('data-address-id');
-            var form = document.getElementById('delete-address-form');
-            form.action = `/delete-address/${addressId}`;
-
-            document.getElementById('confirmDeleteAddressButton').onclick = function() {
-                form.submit();
-            };
-        });
-    });
-});
-</script>
-
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Google places setup
-            initAutocomplete('Line1', {
-                Line1: 'Line1',
-                Line2: 'Line2',
-                PostalCode: 'PostalCode',
-                City: 'City',
-                TownSuburb: 'TownSuburb',
-                Province: 'Province',
-                Country: 'Country',
-                PlaceName: 'PlaceName'
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Listener for when a new tab is shown
-            $('#myTabs a').on('shown.bs.tab', function(event) {
-                var activeTab = $(event.target).attr('href'); // Get the href of the active tab
-                localStorage.setItem('activeTab', activeTab); // Store it in localStorage
-                console.log("Tab changed to: " + activeTab); // Debugging: log the active tab
-            });
-
-            // Retrieve the active tab from localStorage on page load
-            var activeTab = localStorage.getItem('activeTab');
-            console.log("Loaded activeTab from storage: " + activeTab); // Debugging: log the loaded tab
-            if (activeTab && $('#myTabs a[href="' + activeTab + '"]').length > 0) {
-                $('#myTabs a[href="' + activeTab + '"]').tab('show'); // Show the active tab
-            } else {
-                var membershipTab = $('#myTabs a[href="#membership"]'); // Target the #membership tab
-                if (membershipTab.length > 0) {
-                    membershipTab.tab('show'); // Show the membership tab if it exists
-                    console.log("Defaulting to membership tab"); // Debugging: log the default tab
-                } else {
-                    var firstTab = $('#myTabs a').first(); // Find the first tab as a fallback
-                    firstTab.tab('show'); // Show the first tab if no membership tab is found
-                    console.log("Fallback to first tab: " + firstTab.attr(
-                        'href')); // Debugging: log the fallback tab
-                }
-            }
-
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const tableRows = document.querySelectorAll('#datatable-dependant tbody tr');
-
-            searchInput.addEventListener('keyup', function() {
-                const searchQuery = searchInput.value.toLowerCase();
-
-                tableRows.forEach(row => {
-                    const rowText = row.textContent.toLowerCase();
-                    const isVisible = rowText.includes(searchQuery);
-                    row.style.display = isVisible ? '' : 'none';
+                    removeButtons.forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            var dependantId = button.getAttribute('data-id');
+                            var confirmButton = document.getElementById('confirmRemoveButton');
+                            confirmButton.href = `/remove-dependant/${dependantId}`;
+                        });
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const rowsPerPage = 5;
-            const rows = document.querySelectorAll('#datatable-dependant tbody tr');
-            const rowsCount = rows.length;
-            const pageCount = Math.ceil(rowsCount / rowsPerPage);
-            const pagination = document.getElementById('pagination');
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var deleteButtons = document.querySelectorAll('[data-bs-target="#confirmDeleteAddressModal"]');
 
-            function setPage(page) {
-                rows.forEach((row, index) => {
-                    row.style.display = (index >= page * rowsPerPage && index < (page + 1) * rowsPerPage) ?
-                        '' : 'none';
+                    deleteButtons.forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            var addressId = button.getAttribute('data-address-id');
+                            var form = document.getElementById('delete-address-form');
+                            form.action = `/delete-address/${addressId}`;
+
+                            document.getElementById('confirmDeleteAddressButton').onclick = function() {
+                                form.submit();
+                            };
+                        });
+                    });
                 });
-            }
+            </script>
 
-            for (let i = 0; i < pageCount; i++) {
-                const btn = document.createElement('button');
-                btn.innerText = i + 1;
-                btn.addEventListener('click', () => setPage(i));
-                pagination.appendChild(btn);
-            }
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-            setPage(0); // Set initial page
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.edit-comment-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const commentId = this.dataset.commentId;
-                    fetch(`/comments/${commentId}/edit`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Populate the modal with the comment data
-                            document.getElementById('commentText').value = data
-                                .text; // Assuming 'text' is the field name
-                            document.getElementById('editCommentForm').action =
-                                `/comments/${commentId}/update`; // Update form action URL
-
-                            // Show the modal
-                            var editCommentModal = new bootstrap.Modal(document.getElementById(
-                                'editCommentModal'));
-                            editCommentModal.show();
-                        })
-                        .catch(error => console.error('Error:', error));
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Google places setup
+                    initAutocomplete('Line1', {
+                        Line1: 'Line1',
+                        Line2: 'Line2',
+                        PostalCode: 'PostalCode',
+                        City: 'City',
+                        TownSuburb: 'TownSuburb',
+                        Province: 'Province',
+                        Country: 'Country',
+                        PlaceName: 'PlaceName'
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
 
-    {{-- <script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Listener for when a new tab is shown
+                    $('#myTabs a').on('shown.bs.tab', function(event) {
+                        var activeTab = $(event.target).attr('href'); // Get the href of the active tab
+                        localStorage.setItem('activeTab', activeTab); // Store it in localStorage
+                        console.log("Tab changed to: " + activeTab); // Debugging: log the active tab
+                    });
+
+                    // Retrieve the active tab from localStorage on page load
+                    var activeTab = localStorage.getItem('activeTab');
+                    console.log("Loaded activeTab from storage: " + activeTab); // Debugging: log the loaded tab
+                    if (activeTab && $('#myTabs a[href="' + activeTab + '"]').length > 0) {
+                        $('#myTabs a[href="' + activeTab + '"]').tab('show'); // Show the active tab
+                    } else {
+                        var membershipTab = $('#myTabs a[href="#membership"]'); // Target the #membership tab
+                        if (membershipTab.length > 0) {
+                            membershipTab.tab('show'); // Show the membership tab if it exists
+                            console.log("Defaulting to membership tab"); // Debugging: log the default tab
+                        } else {
+                            var firstTab = $('#myTabs a').first(); // Find the first tab as a fallback
+                            firstTab.tab('show'); // Show the first tab if no membership tab is found
+                            console.log("Fallback to first tab: " + firstTab.attr(
+                                'href')); // Debugging: log the fallback tab
+                        }
+                    }
+
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const searchInput = document.getElementById('searchInput');
+                    const tableRows = document.querySelectorAll('#datatable-dependant tbody tr');
+
+                    searchInput.addEventListener('keyup', function() {
+                        const searchQuery = searchInput.value.toLowerCase();
+
+                        tableRows.forEach(row => {
+                            const rowText = row.textContent.toLowerCase();
+                            const isVisible = rowText.includes(searchQuery);
+                            row.style.display = isVisible ? '' : 'none';
+                        });
+                    });
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const rowsPerPage = 5;
+                    const rows = document.querySelectorAll('#datatable-dependant tbody tr');
+                    const rowsCount = rows.length;
+                    const pageCount = Math.ceil(rowsCount / rowsPerPage);
+                    const pagination = document.getElementById('pagination');
+
+                    function setPage(page) {
+                        rows.forEach((row, index) => {
+                            row.style.display = (index >= page * rowsPerPage && index < (page + 1) * rowsPerPage) ?
+                                '' : 'none';
+                        });
+                    }
+
+                    for (let i = 0; i < pageCount; i++) {
+                        const btn = document.createElement('button');
+                        btn.innerText = i + 1;
+                        btn.addEventListener('click', () => setPage(i));
+                        pagination.appendChild(btn);
+                    }
+
+                    setPage(0); // Set initial page
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.querySelectorAll('.edit-comment-button').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const commentId = this.dataset.commentId;
+                            fetch(`/comments/${commentId}/edit`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Populate the modal with the comment data
+                                    document.getElementById('commentText').value = data
+                                        .text; // Assuming 'text' is the field name
+                                    document.getElementById('editCommentForm').action =
+                                        `/comments/${commentId}/update`; // Update form action URL
+
+                                    // Show the modal
+                                    var editCommentModal = new bootstrap.Modal(document.getElementById(
+                                        'editCommentModal'));
+                                    editCommentModal.show();
+                                })
+                                .catch(error => console.error('Error:', error));
+                        });
+                    });
+                });
+            </script>
+
+            {{-- <script>
         var membershipId = {{ $membership->id }};
         var deletedRecords = []; // Array to store IDs of deleted records
 
@@ -1572,55 +1811,189 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     </> --}}
 
-    {{-- Start script to populate they table for billing --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var paymentModal = document.getElementById('kt_modal_stacked_4');
- var dependantsDataUrl = "<?php echo env('DEPENDANTS_DATA_URL'); ?>";
-            paymentModal.addEventListener('shown.bs.modal', function() {
-                fetch(dependantsDataUrl) // Adjust the API endpoint as needed
-                    .then(response => response.json())
-                    .then(data => {
-                        const tbody = document.getElementById('billingHistoryBody');
-                        tbody.innerHTML = ''; // Clear existing rows
-                        if (data && data.length > 0) {
-                            data.forEach(payment => {
-                                const row = `<tr>
+            {{-- Start script to populate they table for billing --}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var paymentModal = document.getElementById('kt_modal_stacked_4');
+
+                    paymentModal.addEventListener('shown.bs.modal', function() {
+                        fetch('/dependantsData') // Adjust the API endpoint as needed
+                            .then(response => response.json())
+                            .then(data => {
+                                const tbody = document.getElementById('billingHistoryBody');
+                                tbody.innerHTML = ''; // Clear existing rows
+                                if (data && data.length > 0) {
+                                    data.forEach(payment => {
+                                        const row = `<tr>
                             <td>${payment.date}</td>
                             <td>${payment.description}</td>
                             <td>${payment.amount}</td>
                             <td><a href="#" target="_blank">View</a></td>
                         </tr>`;
-                                tbody.innerHTML += row;
+                                        tbody.innerHTML += row;
+                                    });
+                                } else {
+                                    tbody.innerHTML =
+                                        '<tr><td colspan="4" class="text-center">No payment details available</td></tr>';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error loading the payment data:', error);
+                                const tbody = document.getElementById('billingHistoryBody');
+                                tbody.innerHTML =
+                                    '<tr><td colspan="4" class="text-center">Failed to load data</td></tr>';
+                            });
+                    });
+                });
+            </script>
+            {{-- End script to populate they table for billing --}}
+
+            <script>
+                function openEditModal(commentId) {
+                    // Fetch comment data
+                    fetch('/comments/' + commentId + '/edit')
+                        .then(response => response.json())
+                        .then(comment => {
+                            // Populate the modal fields with comment data
+                            document.getElementById('edit-comment-id').value = comment.id;
+                            document.getElementById('edit-comment-text').value = JSON.parse(comment.text).title;
+                            document.getElementById('editCommentForm').action = '/comments/' + commentId;
+                        })
+                        .catch(error => console.error('Error fetching comment:', error));
+                }
+            </script>
+
+            <script>
+                function confirmDelete(event) {
+                    // Prevent the form from submitting immediately
+                    event.preventDefault();
+
+                    // Use SweetAlert to show the confirmation dialog
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Are you sure?',
+                        text: 'Do you really want to delete this comment?',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If the user confirms, submit the form
+                            event.target.submit();
+                        }
+                    });
+                }
+            </script>
+
+            <script>
+                // Select all elements with the class 'AuthorDelete'
+                var deleteButtons = document.querySelectorAll('.AuthorDelete');
+
+                // Add a click event listener to each button
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        // Prevent the default action of the button
+                        event.preventDefault();
+                        // Get the hidden paragraph text
+                        var message = document.getElementById('unauthorizedMessage').innerText;
+                        // Show the message using SweetAlert
+                        Swal.fire({
+                            icon: 'error', // or 'warning' depending on the style you want
+                            title: 'Unauthorized Action',
+                            text: message,
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                });
+
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+
+                        // Check if user is authorized
+                        var message = document.getElementById('unauthorizedMessage').innerText;
+                        if (message) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Unauthorized Action',
+                                text: message,
+                                confirmButtonText: 'OK'
                             });
                         } else {
-                            tbody.innerHTML =
-                                '<tr><td colspan="4" class="text-center">No payment details available</td></tr>';
+                            // Use SweetAlert for delete confirmation
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Are you sure?',
+                                text: 'Do you really want to delete this comment?',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Submit the form if confirmed
+                                    button.closest('form').submit();
+                                }
+                            });
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error loading the payment data:', error);
-                        const tbody = document.getElementById('billingHistoryBody');
-                        tbody.innerHTML =
-                            '<tr><td colspan="4" class="text-center">Failed to load data</td></tr>';
                     });
-            });
-        });
-    </script>
-    {{-- End script to populate they table for billing --}}
+                });
+            </script>
 
-    <script>
-        function openEditModal(commentId) {
-            // Fetch comment data
-            fetch('/comments/' + commentId + '/edit')
-                .then(response => response.json())
-                .then(comment => {
-                    // Populate the modal fields with comment data
-                    document.getElementById('edit-comment-id').value = comment.id;
-                    document.getElementById('edit-comment-text').value = JSON.parse(comment.text).title;
-                    document.getElementById('editCommentForm').action = '/comments/' + commentId;
-                })
-                .catch(error => console.error('Error fetching comment:', error));
-        }
-    </script>
+            <script>
+                // Select all elements with the class 'AuthorDeleteEdit'
+                var deleteButtons = document.querySelectorAll('.AuthorDeleteEdit');
+
+                // Add a click event listener to each button
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        // Prevent the default action of the button
+                        event.preventDefault();
+                        // Get the hidden paragraph text
+                        var message = document.getElementById('unauthorizedMessageEdit').innerText;
+                        // Show the message using SweetAlert
+                        Swal.fire({
+                            icon: 'error', // or 'warning' depending on the style you want
+                            title: 'Unauthorized Action',
+                            text: message,
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                });
+
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+
+                        // Check if user is authorized
+                        var message = document.getElementById('unauthorizedMessageEdit').innerText;
+                        if (message) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Unauthorized Action',
+                                text: message,
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            // Use SweetAlert for delete confirmation
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Are you sure?',
+                                text: 'Do you really want to delete this comment?',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Submit the form if confirmed
+                                    button.closest('form').submit();
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
 @endpush

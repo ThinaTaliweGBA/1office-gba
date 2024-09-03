@@ -18,25 +18,27 @@ class HomeController extends Controller
     // This will fetch the current layout from the configuration file and pass it to the view.
     public function index()
     {
-        $layout = config('layout.current');
-        //($layout);
+        // Determine if the access should be denied
+        $accessDenied = false;
+        if (Auth::check() && (!Auth::user()->person || !Auth::user()->person->employee) && !session('bypass_access')) {
+            $accessDenied = true;
+        }
 
+        $layout = config('layout.current');
+        
         $styles = UserCustomStyles::where('users_id', Auth::id())->first();
-        //dd($styles);
-        // If there's no styles for the user, you could provide some defaults or redirect
 
         // Fetch the latest 10 notifications for the logged-in user
         $latestNotifications = auth()->user()->notifications()->latest()->take(10)->get();
-        Debugbar::info($latestNotifications);
         
         // Fetch all records from bu_membership_type table
         $membershipTypes = BuMembershipType::all();
-        //dd($membershipTypes);
 
-
-        return view('home', compact('layout', 'styles', 'latestNotifications', 'membershipTypes'));
-        // return view('landing', compact('layout'));
+        // Pass the accessDenied variable to the view
+        return view('home', compact('layout', 'styles', 'latestNotifications', 'membershipTypes', 'accessDenied'));
     }
+    
+    
 
     public function index2()
     {

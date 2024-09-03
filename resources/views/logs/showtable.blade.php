@@ -46,11 +46,10 @@
 
          myJQuery(document).ready(function($) {
             // The URL from which to fetch the data
-            var url = "<?php echo env('LOGS_URL'); ?>";
 
             // AJAX request to fetch the data
             $.ajax({
-                url: url,
+                url: '/logs',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {

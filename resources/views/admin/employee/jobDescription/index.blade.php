@@ -193,9 +193,9 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Filter-->
-                    <button type="button" class="btn me-3 bg-secondary" data-kt-menu-trigger="click"
+                    <button type="button" class="btn me-3 bg-dark text-light" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
                         Filter
                     </button>
                     <!--begin::Menu 1-->
@@ -203,7 +203,7 @@
                         id="kt-toolbar-filter">
                         <!--begin::Header-->
                         <div class="px-7 py-5">
-                            <div class="fs-4 text-gray-900 fw-bold">Filter Options</div>
+                            <div class="fs-4 text-black fw-bold">Filter Options</div>
                         </div>
                         <!--end::Header-->
 
@@ -259,10 +259,10 @@
 
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-dark me-2"
+                                <button type="reset" class="btn btn-danger me-2"
                                     data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
 
-                                <button type="submit" class="btn btn-dark" data-kt-menu-dismiss="true"
+                                <button type="submit" class="btn btn-success" data-kt-menu-dismiss="true"
                                     data-kt-docs-table-filter="filter">Apply</button>
                             </div>
                             <!--end::Actions-->
@@ -275,9 +275,9 @@
 
 
                     <!--begin::Add customer-->
-                    <button type="button" class="btn bg-secondary" data-bs-toggle="modal"
+                    <button type="button" class="btn bg-dark text-light" data-bs-toggle="modal"
                         data-bs-target="#record_jobdescription_modal">
-                        <i class="ki-duotone ki-plus fs-2"></i> Add Job Description
+                        <i class="ki-duotone ki-plus fs-2 text-light"></i> Add Job Description
                     </button>
                     <!--end::Add customer-->
                 </div>
@@ -287,7 +287,7 @@
             <!--end::Wrapper-->
             <table id="jobdescriptions" class="table table-rounded fs-6 g-3 gs-3">
                 <thead>
-                    <tr class="text-start text-dark bg-secondary fw-bold fs-7 text-uppercase">
+                    <tr class="text-start text-dark bg-transparent fw-bold fs-7 text-uppercase">
                         <th>Actions</th>
                         <th>Name</th>
                         <th>Description</th>
@@ -296,7 +296,6 @@
                         <th>BU</th>
                         <th>Created Date</th>
                         <th>Updated Date</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -335,7 +334,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr class="text-start text-dark bg-secondary fw-bold fs-7 text-uppercase">
+                    <tr class="text-start text-dark bg-transparent fw-bold fs-7 text-uppercase">
                         <th>Actions</th>
                         <th>Name</th>
                         <th>Description</th>

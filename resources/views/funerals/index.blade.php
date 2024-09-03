@@ -155,7 +155,8 @@
         }
     </style>
 @endpush
-
+    <!--SIYA:: Block UI if user is not an employee -->
+    <x-access-denied-modal />
 @section('row_content')
     <div class="card rounded mb-16 shadow">
 
@@ -365,7 +366,7 @@
                             </div>
                             <input type="text" data-kt-docs-table-filter="search2"
                                 class="form-control form-control-solid w-250px ps-15 "
-                                placeholder="Search Person/DOB/ID" />
+                                placeholder="Search Person/DOB/ID" autocomplete="nope"/>
                         </div>
                     </div>
                     <!--end::Search-->
@@ -581,7 +582,7 @@
                             <div class="w-100 position-relative mb-5">
                                 <input type="hidden"/>
                                 <i class="ki-duotone ki-magnifier fs-2 fs-lg-1 text-gray-500 position-absolute top-50 ms-5 translate-middle-y"><span class="path1"></span><span class="path2"></span></i>
-                                <input type="text" class="form-control form-control-lg form-control-solid  ps-14" name="search" value="" placeholder="Search by name or ID number..." data-kt-search-element="input" id="person-search-input"/>
+                                <input type="text" class="form-control form-control-lg form-control-solid  ps-14" name="search" value="" placeholder="Search by name or ID number..." data-kt-search-element="input" id="person-search-input" autocomplete="nope"/>
                                 <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
                                     <span class="spinner-border h-15px w-15px align-middle text-muted"></span>
                                 </span>
@@ -609,15 +610,15 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="reporter_name" class="form-label">Name:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="reporter_name" name="reporter_name">
+                                        <input type="text" class="form-control bg-light text-dark" id="reporter_name" name="reporter_name" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="reporter_surname" class="form-label">Surname:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="reporter_surname" name="reporter_surname">
+                                        <input type="text" class="form-control bg-light text-dark" id="reporter_surname" name="reporter_surname" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="reporter_tel" class="form-label">Tel:</label>
-                                        <input type="tel" class="form-control bg-light text-dark" id="reporter_tel" name="reporter_tel">
+                                        <input type="tel" class="form-control bg-light text-dark" id="reporter_tel" name="reporter_tel" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="reporter_whatsapp" class="form-label">WhatsApp yes/no:</label>
@@ -628,7 +629,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="reporter_email" class="form-label">E-mail:</label>
-                                        <input type="email" class="form-control bg-light text-dark" id="reporter_email" name="reporter_email">
+                                        <input type="email" class="form-control bg-light text-dark" id="reporter_email" name="reporter_email" autocomplete="nope">
                                     </div>
                                 </div>
                                 <div class="separator border-light my-8"></div>
@@ -643,25 +644,25 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="deceased_name" class="form-label">Name:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_name" name="deceased_name">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_name" name="deceased_name" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_initials" class="form-label">Initials:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_initials" name="deceased_initials">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_initials" name="deceased_initials" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_surname" class="form-label">Surname:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_surname" name="deceased_surname">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_surname" name="deceased_surname" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_maiden_name" class="form-label">Maiden Name:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_maiden_name" name="deceased_maiden_name">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_maiden_name" name="deceased_maiden_name" autocomplete="nope">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <label for="deceased_address" class="form-label">Address:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_address" name="deceased_address">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_address" name="deceased_address" autocomplete="nope"> 
                                         <input type="hidden" id="deceased_address_line1" name="deceased_address_line1">
                                         <input type="hidden" id="deceased_address_line2" name="deceased_address_line2">
                                         <input type="hidden" id="deceased_address_postalCode" name="deceased_address_postalCode">
@@ -675,19 +676,20 @@
                                 <div class="row my-2">
                                     <div class="col">
                                         <label for="deceased_id_number" class="form-label">ID Number:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_id_number" name="deceased_id_number">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_id_number" name="deceased_id_number" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_birth_date" class="form-label">Birth Date:</label>
                                         <input type="date" class="form-control bg-light text-dark" id="deceased_birth_date" name="deceased_birth_date">
+                                        
                                     </div>
                                     <div class="col">
                                         <label for="deceased_age" class="form-label">Age:</label>
-                                        <input type="number" class="form-control bg-light text-dark" id="deceased_age" name="deceased_age">
+                                        <input type="number" class="form-control bg-light text-dark" id="deceased_age" name="deceased_age" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_birth_town" class="form-label">Birth Town:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_birth_town" name="deceased_birth_town">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_birth_town" name="deceased_birth_town" autocomplete="nope">
                                     </div>
                                     <input type="hidden" id="deceased_birth_town_line1" name="deceased_birth_town_line1">
                                     <input type="hidden" id="deceased_birth_town_line2" name="deceased_birth_town_line2">
@@ -728,21 +730,21 @@
                                     </div>
                                     <div class="col">
                                         <label for="deceased_occupation" class="form-label">Occupation:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_occupation" name="deceased_occupation">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_occupation" name="deceased_occupation" autocomplete="nope">
                                     </div>
                                 </div>
                                 <div class="row my-2">
                                     <div class="col">
                                         <label for="deceased_dr_number" class="form-label">DR (BI 1663 NR):</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_dr_number" name="deceased_dr_number">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_dr_number" name="deceased_dr_number" autocomplete="nope">
                                     </div>
                                     <div class="col">
                                         <label for="deceased_date_of_death" class="form-label">Date of Death:</label>
-                                        <input type="date" class="form-control bg-light text-dark" id="deceased_date_of_death" name="deceased_date_of_death">
+                                        <input type="date" class="form-control bg-light text-dark" id="deceased_date_of_death" name="deceased_date_of_death" >
                                     </div>
                                     <div class="col">
                                         <label for="deceased_place_of_death" class="form-label">Place of Death:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_place_of_death" name="deceased_place_of_death">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_place_of_death" name="deceased_place_of_death" autocomplete="nope">
                                     </div>
                                     <input type="hidden" id="deceased_place_of_death_line1" name="deceased_place_of_death_line1">
                                     <input type="hidden" id="deceased_place_of_death_line2" name="deceased_place_of_death_line2">
@@ -754,7 +756,7 @@
                                     <input type="hidden" id="deceased_place_of_death_placeName" name="deceased_place_of_death_placeName">
                                     <div class="col">
                                         <label for="deceased_doctor" class="form-label">Doctor:</label>
-                                        <input type="text" class="form-control bg-light text-dark" id="deceased_doctor" name="deceased_doctor">
+                                        <input type="text" class="form-control bg-light text-dark" id="deceased_doctor" name="deceased_doctor" autocomplete="nope">
                                     </div>
                                 </div>
                             </div>
@@ -821,6 +823,10 @@
         }
     </style>
     
+
+
+    
+
   
     <script>
  $(document).ready(function() {
@@ -891,56 +897,70 @@
     });
 
     function fetchPersonDetails(personId) {
-        var url = '{{ route("person.details.ajax", ":id") }}';
-        url = url.replace(':id', personId);
-        console.log('Fetching details for URL:', url); // Log the URL
+    var url = '{{ route("person.details.ajax", ":id") }}';
+    url = url.replace(':id', personId);
+    console.log('Fetching details for URL:', url); // Log the URL
 
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function(data) {
-                console.log('Person details received:', data); // Log the received data
-                $('#deceased_id').val(data.id);
-                $('#deceased_name').val(data.name);
-                $('#deceased_initials').val(data.initials);
-                $('#deceased_surname').val(data.surname);
-                $('#deceased_id_number').val(data.id_number);
-                $('#deceased_birth_date').val(data.birth_date);
-                $('#deceased_age').val(data.age);
-                $('#deceased_sex').val(data.sex);
-                $('#deceased_marital_status').val(data.marital_status_id);
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data) {
+            console.log('Person details received:', data); // Log the received data
+            $('#deceased_id').val(data.id);
+            $('#deceased_name').val(data.name);
+            $('#deceased_initials').val(data.initials);
+            $('#deceased_surname').val(data.surname);
+            
+           // Ensure `deceased_id_number` exists before setting the value
+           var idNumberField = $('#deceased_id_number');
+            if (idNumberField.length) {
+                idNumberField.val(data.id_number);
 
-                // Move to the next step and update the stepper state
-                stepperObj.goNext();
-                var currentStep = $('.current[data-kt-stepper-element="content"]');
-                currentStep.removeClass('current');
-                currentStep.next().addClass('current');
-                console.log('Automatically moved to the next step');
-                
-                var stepIndex = stepperObj.getCurrentStepIndex();
-                var totalSteps = stepper.querySelectorAll('[data-kt-stepper-element="content"]').length;
-                console.log('Step Index:', stepIndex);
-                console.log('Total Steps:', totalSteps);
-
-                if (stepIndex === totalSteps) { // Adjusted for 1-based index
-                    $('#btn-next').hide();
-                    $('#btn-submit').show();
-                    console.log('Submit button shown');
-                } else {
-                    $('#btn-next').show();
-                    $('#btn-submit').hide();
-                    console.log('Continue button shown');
+                // Automatically set the birthdate based on the ID number
+                if (data.id_number && data.id_number.length === 13) {
+                    extractBirthDateFromID(data.id_number, 'deceased_birth_date');
                 }
-            },
-            error: function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'There was an error fetching the person details. Please try again.',
-                });
+            } else {
+                console.error("Element with ID 'deceased_id_number' not found.");
             }
-        });
-    }
+
+            $('#deceased_birth_date').val(data.birth_date);
+            $('#deceased_age').val(data.age);
+            $('#deceased_sex').val(data.sex);
+            $('#deceased_marital_status').val(data.marital_status_id);
+
+            // Move to the next step and update the stepper state
+            stepperObj.goNext();
+            var currentStep = $('.current[data-kt-stepper-element="content"]');
+            currentStep.removeClass('current');
+            currentStep.next().addClass('current');
+            console.log('Automatically moved to the next step');
+            
+            var stepIndex = stepperObj.getCurrentStepIndex();
+            var totalSteps = stepper.querySelectorAll('[data-kt-stepper-element="content"]').length;
+            console.log('Step Index:', stepIndex);
+            console.log('Total Steps:', totalSteps);
+
+            if (stepIndex === totalSteps) { // Adjusted for 1-based index
+                $('#btn-next').hide();
+                $('#btn-submit').show();
+                console.log('Submit button shown');
+            } else {
+                $('#btn-next').show();
+                $('#btn-submit').hide();
+                console.log('Continue button shown');
+            }
+        },
+        error: function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an error fetching the person details. Please try again.',
+            });
+        }
+    });
+}
+
 
     $('#btn-next').click(function() {
         console.log('Next button clicked');
@@ -1140,7 +1160,59 @@
     
     
 
-    
+    <script>
+function extractBirthDateFromID(IDNumber, birthDateFieldId) {
+    console.log("extractBirthDateFromID called with IDNumber:", IDNumber, "and field ID:", birthDateFieldId);
+
+    // Get the birth date field element
+    var birthDateField = document.getElementById(birthDateFieldId);
+
+    // Check if the element exists
+    if (!birthDateField) {
+        console.error("Element with ID '" + birthDateFieldId + "' not found. Cannot proceed with setting the birth date.");
+        return;
+    }
+
+    // Validate length and numeric
+    if (IDNumber.length == 13 && !isNaN(IDNumber)) {
+        // Extract date parts
+        var year = IDNumber.substring(0, 2);
+        var month = IDNumber.substring(2, 4);
+        var day = IDNumber.substring(4, 6);
+
+        // Determine century
+        var currentYear = new Date().getFullYear() % 100;
+        var century = (parseInt(year) > currentYear) ? '19' : '20';
+        var fullYear = century + year;
+
+        // Validate date
+        var tempDate = new Date(fullYear, parseInt(month) - 1, parseInt(day));
+
+        if (
+            tempDate &&
+            tempDate.getFullYear() == fullYear &&
+            tempDate.getMonth() + 1 == parseInt(month) &&
+            tempDate.getDate() == parseInt(day)
+        ) {
+            // Valid date
+            var birthDateStr = fullYear + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0'); // Format: YYYY-MM-DD
+            console.log("Setting birth date field value to:", birthDateStr); // Log the value being set
+
+            // Set the value using the same approach that worked for you
+            birthDateField.value = birthDateStr;
+
+          
+        } else {
+            console.error("Invalid date extracted from ID number.");
+        }
+    } else {
+        console.error("Invalid ID number length or non-numeric ID number.");
+    }
+}
+
+
+
+            </script>
     
     
     

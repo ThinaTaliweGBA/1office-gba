@@ -1,6 +1,7 @@
 @extends('layouts.app2')
 
 @push('styles')
+    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css" rel="stylesheet">
@@ -35,6 +36,7 @@
             border: 1px solid #ddd;
         }
     </style>
+
 @endpush
 
 @section('row_content')

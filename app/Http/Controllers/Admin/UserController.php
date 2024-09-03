@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use App\Models\UserHasBu;
 
 use App\Notifications\PersonStatusNotification;
 
@@ -24,6 +25,7 @@ class UserController extends Controller
         $this->middleware('can:user edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:user delete', ['only' => ['destroy']]);
     }
+    
     /**
      * Display a listing of the resource.
      *
@@ -113,7 +115,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-
+        // dd($request->all());
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -124,20 +126,21 @@ class UserController extends Controller
             ]);
         }
         $roles = $request->roles ?? [];
-
-            $user = auth()->user();
-            //dd($user);
-            if ($user) {
-                // Notify the authenticated user about the creation
-                $user->notify(new PersonStatusNotification('User Update', 'A user has been updated.'));
-            } else {
-                // Handle cases where no user is logged in (optional)
-                // For example, you could log this situation or handle it as per your application's requirements
-                Log::warning('Attempted to send a notification, but no user is logged in.');
-            }
-
         //Siya: Used syncRoles instead of assignRole - Basically Update vs Create
         $user->syncRoles($roles);
+
+            // $user = auth()->user();
+            // //dd($user);
+            // if ($user) {
+            //     // Notify the authenticated user about the creation
+            //     $user->notify(new PersonStatusNotification('User Update', 'A user has been updated.'));
+            // } else {
+            //     // Handle cases where no user is logged in (optional)
+            //     // For example, you could log this situation or handle it as per your application's requirements
+            //     Log::warning('Attempted to send a notification, but no user is logged in.');
+            // }
+
+      
         return redirect()->route('user.index')
         ->with('success', 'User has been updated!');
     }
@@ -145,6 +148,7 @@ class UserController extends Controller
     //Siya: This is the password set when a user is emailed a "set initial password" email from admin
     public function savePassword(Request $request, User $user)
     {
+        // dd($request->all());
         $request->validate([
             'password' => 'required|confirmed|min:8',
         ]);
@@ -156,16 +160,16 @@ class UserController extends Controller
         }
         $user->welcome_valid_until = null;
 
-        $roles = $request->roles ?? [];
-        //Siya: Used syncRoles instead of assignRole - Basically Update vs Create
-        $user->syncRoles($roles);
+        // $roles = $request->roles ?? [];
+        // //Siya: Used syncRoles instead of assignRole - Basically Update vs Create
+        // $user->syncRoles($roles);
 
         auth()->login($user);
 
         // return $this->showAddUserInfoForm($user);
         return redirect()->route('onboarding', [
             'email' => $request->email,
-            'user' => $user,
+            'user' => $user->id,
         ]);
     }
 
@@ -177,19 +181,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // Delete related records in the users_has_bu table
+        UserHasBu::where('users_id', $user->id)->delete();
+
+        // Now delete the user
         $user->delete();
 
-        
-            $user = auth()->user();
-            //dd($user);
-            if ($user) {
-                // Notify the authenticated user about the creation
-                $user->notify(new PersonStatusNotification('User Delete', 'A user has been deleted.'));
-            } else {
-                // Handle cases where no user is logged in (optional)
-                // For example, you could log this situation or handle it as per your application's requirements
-                Log::warning('Attempted to send a notification, but no user is logged in.');
-            }
+        // Notify the authenticated user about the deletion
+        $authUser = auth()->user();
+
+        if ($authUser) {
+            $authUser->notify(new PersonStatusNotification('User Delete', 'A user has been deleted.'));
+        } else {
+            Log::warning('Attempted to send a notification, but no user is logged in.');
+        }
 
         return redirect()->route('user.index')
             ->with('success', 'User has been deleted!');
@@ -245,4 +250,17 @@ class UserController extends Controller
         }
         return redirect()->route('admin.account.info')->with('password_message', $message);
     }
+
+
+    public function bypassAccess(Request $request)
+    {
+        $bypassPassword = '10111'; // Replace with bypass password
+        if ($request->bypass_password === $bypassPassword) {
+            session(['bypass_access' => true]);
+            return redirect()->route('home');
+        } else {
+            return redirect()->back()->withErrors(['bypass_password' => 'Incorrect password.']);
+        }
+    }
+    
 }

@@ -15,4 +15,12 @@ class Gender extends Model
     use HasFactory;
     protected $connection = 'mysql';
     public $table = 'gender'; 
+
+
+    
+    public function buGenders()
+    {
+        return $this->hasMany(BuGender::class);
+    }
+
 }

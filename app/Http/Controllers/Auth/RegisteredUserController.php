@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\UserHasBu;
 
 class RegisteredUserController extends Controller
 {
@@ -46,9 +47,17 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        //Giving the user a default bu as they register, before they are sent to onboarding
+        $userbu = new UserHasBu();
+        $userbu->users_id = $user->id;
+        $userbu->bu_id = 7; //GBA bu hardcoded
+        $userbu->save();
+
         Auth::login($user);
 
         // return redirect(RouteServiceProvider::HOME);
-        return view('auth.onboarding');
+
+        // Redirect to onboarding route with user parameter
+        return redirect()->route('onboarding', ['user' => $user->id]);
     }
 }

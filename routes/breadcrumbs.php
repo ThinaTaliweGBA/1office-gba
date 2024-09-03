@@ -339,3 +339,72 @@ Breadcrumbs::for('api.rowdetails', function ($trail) {
     $trail->parent('home');  // Assuming 'home' is a defined breadcrumb
     $trail->push('API Details', route('api.rowdetails'));
 });
+
+
+
+
+
+
+
+// Employee Breadcrumbs
+Breadcrumbs::for('employee.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('Employee List'), route('employee.index'));
+});
+
+Breadcrumbs::for('employee.create', function ($trail) {
+    $trail->parent('employee.index');
+    $trail->push(__('Create Employee'), route('employee.create'));
+});
+
+Breadcrumbs::for('employee.edit', function ($trail, $employee) {
+    $trail->parent('employee.index');
+    $trail->push(__('Edit Employee'), route('employee.edit', $employee));
+});
+
+Breadcrumbs::for('employee.show', function ($trail, $employee) {
+    $trail->parent('employee.index');
+    $trail->push(__('View Employee'), route('employee.show', $employee));
+});
+
+// Employee Role Breadcrumbs
+Breadcrumbs::for('employeerole.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('Employee Role List'), route('employeerole.index'));
+});
+
+Breadcrumbs::for('employeerole.create', function ($trail) {
+    $trail->parent('employeerole.index');
+    $trail->push(__('Create Employee Role'), route('employeerole.create'));
+});
+
+Breadcrumbs::for('employeerole.edit', function ($trail, $employeerole) {
+    $trail->parent('employeerole.index');
+    $trail->push(__('Edit Employee Role'), route('employeerole.edit', $employeerole));
+});
+
+Breadcrumbs::for('employeerole.show', function ($trail, $employeerole) {
+    $trail->parent('employeerole.index');
+    $trail->push(__('View Employee Role'), route('employeerole.show', $employeerole));
+});
+
+// Job Descriptions Breadcrumbs
+Breadcrumbs::for('jobdescriptions.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('Job Descriptions'), route('jobdescriptions.index'));
+});
+
+Breadcrumbs::for('jobdescriptions.create', function ($trail) {
+    $trail->parent('jobdescriptions.index');
+    $trail->push(__('Create Job Description'), route('jobdescriptions.create'));
+});
+
+Breadcrumbs::for('jobdescriptions.edit', function ($trail, $jobdescription) {
+    $trail->parent('jobdescriptions.index');
+    $trail->push(__('Edit Job Description'), route('jobdescriptions.edit', $jobdescription));
+});
+
+Breadcrumbs::for('jobdescriptions.show', function ($trail, $jobdescription) {
+    $trail->parent('jobdescriptions.index');
+    $trail->push(__('View Job Description'), route('jobdescriptions.show', $jobdescription));
+});

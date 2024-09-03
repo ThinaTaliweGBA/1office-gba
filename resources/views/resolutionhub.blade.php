@@ -188,6 +188,9 @@
     </style>
 @endpush
 
+    <!--SIYA:: Block UI if user is not an employee -->
+    <x-access-denied-modal />
+
 @section('row_content')
 
     @if ($errors->any())

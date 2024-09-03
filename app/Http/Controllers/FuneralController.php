@@ -61,7 +61,9 @@ class FuneralController extends Controller
             $query->where('deceased', 0);
         })->get();
         //dd($memberships);
-        $genders = Gender::all();
+        $genders = Gender::whereHas('buGenders', function ($query) {
+            $query->where('bu_id', Auth::user()->currentBu()->id ?? 7);
+        })->get();
         $maritalStatuses = MarriageStatus::all();
         $languages = Language::all(); 
       
@@ -140,7 +142,10 @@ class FuneralController extends Controller
     
         $banks = DB::connection('mysql')->table('bank')->get();
     
-        $checklist_items = FuneralChecklistItems::where('bu_id', Auth::user()->currentBu()->id)->get();
+        // Fetch checklist items sorted by the 'sequence' column and filter by 'bu_id'
+        $checklist_items = FuneralChecklistItems::where('bu_id', Auth::user()->currentBu()->id)
+        ->orderBy('sequence')
+        ->get();
     
         // Fetch shortfall transactions with specific transaction type
         $shortfall_transactions = FuneralHasTransactions::where('funeral_id', $id)
@@ -167,7 +172,7 @@ class FuneralController extends Controller
             }])
             ->get();    
     
-        return view('funerals.create', compact('churches','graveyards','memberships', 'banks', 'deceased_person', 'funeral','checklist_items', 'viewinglocations','churchTypeId','graveyardTypeId', 'viewingTypeId', 'addresses',
+        return view('funerals.edit', compact('churches','graveyards','memberships', 'banks', 'deceased_person', 'funeral','checklist_items', 'viewinglocations','churchTypeId','graveyardTypeId', 'viewingTypeId', 'addresses',
         'funeral_costs', 'bank_account_types', 'funeral_payouts', 'shortfall_transactions'));
     }
     
@@ -832,7 +837,22 @@ class FuneralController extends Controller
     }
     
     
-    
+        /**
+     * Fetch the updated checklist items.
+     *
+     * @param  string $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchChecklistItems($id)
+    {
+        // Fetch checklist items sorted by the 'sequence' column and filter by 'bu_id'
+        $checklist_items = FuneralChecklistItems::where('bu_id', Auth::user()->currentBu()->id)
+            ->orderBy('sequence')
+            ->get();
+
+        // Return the checklist items as a JSON response
+        return response()->json($checklist_items);
+    }
 
 
 

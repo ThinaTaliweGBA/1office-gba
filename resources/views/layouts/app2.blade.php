@@ -3,6 +3,22 @@
 
  @push('styles')
 
+<style>
+/* Custom CSS for Toastr notifications in light theme */
+[data-bs-theme="light"] .toast {
+    color: var(--bs-dark) !important; /* Use the dark color variable for text */
+    background-color: var(--bs-light) !important; /* Optional: ensure background is light */
+}
+
+[data-bs-theme="light"] .toast-header {
+    color: var(--bs-dark) !important; /* Ensure text in the toast header is also visible */
+}
+
+[data-bs-theme="light"] .toast-body {
+    color: var(--bs-dark) !important; /* Ensure text in the toast body is also visible */
+}
+
+    </style>
  
 {{--<style>
         // Function to stringify an element's attributes
@@ -102,7 +118,7 @@
             {{-- <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1KOXQsWQgBsFdgoKlPAa38CS0nTzAmM&libraries=places&callback=initAutocomplete">
             </script> --}}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1KOXQsWQgBsFdgoKlPAa38CS0nTzAmM&libraries=places" async defer></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1KOXQsWQgBsFdgoKlPAa38CS0nTzAmM&libraries=places" async defer></script>
     
         {{--Start- Siya: Trying a modularized version of Google maps auto-complete --}}
         <script>
@@ -179,8 +195,6 @@
         
             window.initAutocomplete = initAutocomplete;
         </script> 
-        
-         
             
         {{--End: Trying a modularized version of Google maps auto-complete --}}
         <style>
@@ -198,7 +212,7 @@
                 font-weight: bold; /* Make it bold to highlight */
             }
         </style>
-    
+
     
      <style>
     .table-rounded {
@@ -346,6 +360,82 @@
 </style>
 {{-- End Breadcrums stylings --}}
 
+<style>
+/* Custom styling for the Google Translate dropdown */
+#google_translate_element .goog-te-gadget-simple {
+    background-color: var(--bs-body);
+    border: 1px solid var(--bs-border-color, #ced4da);
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.55rem;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--bs-light);
+    font-weight: 500;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: wrap;
+}
+
+#google_translate_element .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed {
+    text-decoration: none;
+    color: #495057;
+}
+
+#google_translate_element .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed:hover {
+    color: #007bff;
+}
+
+#google_translate_element .goog-te-gadget-icon {
+    display: none;
+}
+
+#google_translate_element .goog-te-gadget-simple span {
+    display: inline;
+}
+</style>
+<style>
+
+    /* Default active styles */
+    .menu-item-active .menu-link , .menu-sub .menu-item-active .menu-link {
+        background-color !important: #454545; /* Dark grey background for active items */
+        color: red !important; /* White text for active items */
+        font-weight: bold !important; /* Bold text */
+        border-left: 4px solid green !important; /* Orange left border */
+    }
+
+    /* Hover effects for menu links */
+    .menu-item .menu-link:hover {
+        background-color: var(--bs-light) !important; /* Slightly darker background on hover */
+        transition: background-color 0.3s !important; /* Smooth transition for background color */
+    }
+
+    :root {
+        --menu-active-bg-dark: #454545 !important;
+        --menu-active-border-dark: #ff4500 !important;
+        --menu-sub-active-bg-dark: #454545 !important;
+    }
+
+    /* Dark theme specific overrides */
+    .dark-theme .menu-item-active {
+        background-color: var(--menu-active-bg-dark) !important;
+        border-left: 4px solid var(--menu-active-border-dark) !important;
+        color: #fff !important;
+        font-weight: bold !important;
+    }
+
+    .dark-theme .menu-sub .menu-item-active {
+        background-color: var(--menu-sub-active-bg-dark);
+        color: #fff !important;
+        font-weight: bold !important;
+    }
+
+</style>
+
+
+
+
 @endpush
 
 @section('themeMode')
@@ -357,23 +447,27 @@
     {{-- Start SidePanel Toggle Button --}}
     {{-- <div id="toggleDrawerButton" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle me-n2"
         data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
-        data-kt-toggle-name="aside-minimize" style="padding: 10px; font-size: 24px; position: fixed; top: 50%; transform: translateY(-50%);">
+        data-kt-toggle-name="aside-minimize" style="padding: 5px; font-size: 24px; position: fixed; top: 50%; transform: translateY(-50%);">
         <i class="ki-outline ki-double-left fs-1 rotate-180" style="font-size: 24px;"></i>
     </div> --}}
     {{-- End SidePanel Toggle Button --}}
     <div id="toggleDrawerButton" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle me-n2 overflow-y-auto"
     data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
-    data-kt-toggle-name="aside-minimize" style="padding: 10px; font-size: 24px; position: fixed; top: 50%; left: 0; transform: translateY(-50%);">
+    data-kt-toggle-name="aside-minimize" style="padding: 5px; font-size: 24px; position: fixed; top: 50%; left: 0; transform: translateY(-50%);">
     <i class="ki-outline ki-double-right fs-1 rotate-180" style="font-size: 34px;"></i>
     </div>
 
-
+    <!-- Scrollable version of the aside with up and down scroll navigator -->
+    <!-- <div id="kt_aside" class="aside pt-7 pb-4 pb-lg-7 pt-lg-17 hidden shadow overflow-auto" data-kt-drawer="true" data-kt-drawer-name="aside"
+         data-kt-drawer-activate="{default: true, lg: true}" data-kt-drawer-overlay="true"
+         data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
+         data-kt-drawer-toggle="#kt_aside_toggle"> -->
     <div id="kt_aside" class="aside pt-7 pb-4 pb-lg-7 pt-lg-17 hidden shadow" data-kt-drawer="true" data-kt-drawer-name="aside"
          data-kt-drawer-activate="{default: true, lg: true}" data-kt-drawer-overlay="true"
          data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
          data-kt-drawer-toggle="#kt_aside_toggle">
         <!--begin::Brand-->
-        <div class="d-flex justify-content-center p-4 mb-10">
+        <div class="d-flex justify-content-center p-4 mb-2">
             <a href="{{ route('home') }}" class="shadow">
                 {{-- <h1 class="text-center">{{ __('messages.GBASystem') }}</h1> --}}
                 <a href="/">
@@ -385,7 +479,7 @@
         <!--end::Brand-->
 
         <!--begin::Aside user-->
-        <div class="aside-user mb-5 mb-lg-10 p-6" id="kt_aside_user">
+        <div class="aside-user mb-5 p-4" id="kt_aside_user">
             <!--begin::User-->
         @auth
             <x-aside.profile name="{{ ucfirst(Auth::user()->name) }}"
@@ -398,7 +492,7 @@
             <script>window.location.href = "{{ route('login') }}";</script>
         @endauth
 
-    <div id="google_translate_element" class="mx-auto text-center"></div>
+        <div id="google_translate_element" class="mx-auto text-center"></div>
             <!--end::User-->
         </div>
         
@@ -407,188 +501,128 @@
         <!--begin::Aside menu-->
         <div class="aside-menu flex-column-fluid ps-3 ps-lg-5 pe-1 mb-9" id="kt_aside_menu">
             <!--begin::Aside Menu-->
-            <div class="w-100 hover-scroll-y pe-2 me-2" id="kt_aside_menu_wrapper"
-                 data-kt-scroll="true"
-                 data-kt-scroll-activate="{default: false, lg: true}" 
-                 data-kt-scroll-height="auto"
-                 data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_user, #kt_aside_footer"
-                 data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu, #kt_aside_menu_wrapper"
-                 data-kt-scroll-offset="0">
+            <div class="w-100 pe-2 me-2 overflow-auto" id="kt_aside_menu_wrapper"
+                data-kt-scroll="true"
+                data-kt-scroll-activate="{default: false, lg: true}" 
+                data-kt-scroll-height="auto"
+                data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_user, #kt_aside_footer"
+                data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu, #kt_aside_menu_wrapper"
+                data-kt-scroll-offset="0">
                 <!--begin::Menu-->
-                <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold" id="#kt_aside_menu"
-                     data-kt-menu="true">
-                    <!--begin:Menu item-->
-                    {{-- <x-aside.aside-menu menu-title="{{ __('messages.Memberships') }}"
-                                        menu-icon="bi bi-person-rolodex"
-                                        :menu-items="[
-                            ['url' => '/add-member', 'title' => __('messages.New Membership')],
-                            ['url' => '/memberships', 'title' => __('messages.All Memberships')],
-                        ]"/> --}}
-                    <!--end:Menu item-->
+                <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold" id="kt_aside_menu"
+                    data-kt-menu="true">
+                    <div class="menu-item"><!--begin:Menu link-->
+                        <a class="menu-link" href="/memberships">
+                            <span class="menu-icon"><i class="bi bi-person-rolodex fs-2"></i></span>
+                            <span class="menu-title">Memberships</span>
+                        </a><!--end:Menu link-->
+                    </div>
 
-                    <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href="/memberships"><span class="menu-icon"><i class="bi bi-person-rolodex fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Memberships</span></a><!--end:Menu link--></div>
-                    
-                    <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href="/dependants"><span class="menu-icon"><i class="bi bi-people-fill fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Dependants</span></a><!--end:Menu link--></div>
-                    
-                    <!--begin:Menu item-->
-                    {{-- <x-aside.aside-menu :menu-title="__('messages.Dependants')"
-                                        :menu-icon="'bi bi-people-fill'"
-                                        :menu-items="[['url' => '/dependants', 'title' => __('messages.AllDependants')]]"/> --}}
-                    <!--end:Menu item-->
+                    <div class="menu-item"><!--begin:Menu link-->
+                        <a class="menu-link" href="/dependants">
+                            <span class="menu-icon"><i class="bi bi-people-fill fs-2"></i></span>
+                            <span class="menu-title">Dependants</span>
+                        </a><!--end:Menu link-->
+                    </div>
+
                     @canany(['user edit', 'role edit', 'permission edit'])
-                        <!--begin:Menu item-->
-                        {{-- <x-aside.aside-menu :menu-title="__('Lede Reporting')" :menu-icon="'ki-duotone ki-chart-line-up'" :menu-items="[
-                            ['url' => '/member/profile', 'title' => __('Profiles Report')],
-                            ['url' => '/member/status', 'title' => __('Status Report')],
-                            ['url' => '/member/demographic', 'title' => __('Demographics Report')],
-                            ['url' => '/member/geographic', 'title' => __('Geographic Distribution Report')],
-                            ['url' => '/member/financial', 'title' => __('Financial Reports')],
-                            [
-                                'url' => '/member/growth-retention',
-                                'title' => __('Membership Growth and Retention Reports'),
-                            ],
-                            ['url' => '/member/insurance-claims', 'title' => __('Insurance and Claims Report')],
-                            ['url' => '/member/communication', 'title' => __('Communication Preferences Report')],
-                            ['url' => '/member/audit', 'title' => __('Audit and Data Integrity Reports')],
-                            ['url' => '/member/lifecycle', 'title' => __('Membership Lifecycle Reports')],
-                        ]" /> --}}
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        {{-- <x-aside.aside-menu :menu-title="__('messages.Admin Space')"
-                                            :menu-icon="'bi bi-briefcase'" :menu-items="[
-                            ['url' => '/admin/user', 'title' => __('messages.Users')],
-                            ['url' => '/admin/role', 'title' => __('messages.Roles')],
-                            ['url' => '/admin/permission', 'title' => __('messages.Permissions')],
-                            ['url' => '/admin/employee', 'title' => __('Employee Management'), 'sub-items' => [
-                                ['url' => '/admin/employee/add', 'title' => __('Add Employee')],
-                                ['url' => '/admin/employee/view', 'title' => __('View Employees')]
-                            ]],
-                        ]"/> --}}
-                        <!--end:Menu item-->
-
-
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion hover"><!--begin:Menu link--><span
-                            class="menu-link"><span class="menu-icon"><i class="bi bi-briefcase fs-2"><span
-                                        class="path1"></span><span class="path2"></span></i></span><span
-                                class="menu-title">Admin Space</span><span
-                                class="menu-arrow"></span></span><!--end:Menu link--><!--begin:Menu sub-->
-                            <div class="menu-sub menu-sub-accordion" kt-hidden-height="97" style=""><!--begin:Menu item-->
-                            <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                                href="/admin/user"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title">Users</span></a><!--end:Menu link--></div>
-                                                <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                            href="/admin/role"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title">Roles</span></a><!--end:Menu link--></div>
-                                                <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                            href="/admin/permission"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title">Permissions</span></a><!--end:Menu link--></div>
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion"><!--begin:Menu link--><span
-                                    class="menu-link"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-                                        class="menu-title">Employee Management</span><span
-                                        class="menu-arrow"></span></span><!--end:Menu link--><!--begin:Menu sub-->
-                                <div class="menu-sub menu-sub-accordion menu-active-bg"><!--begin:Menu item-->
-                                <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                            href="/admin/employee"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title">Employees</span></a><!--end:Menu link--></div>
-                                    <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                            href="/admin/employeerole"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title"> Employee Roles</span></a><!--end:Menu link--></div>
-                                    <!--end:Menu item--><!--begin:Menu item-->
-                                    <div class="menu-item"><!--begin:Menu link--><a class="menu-link"
-                                            href="/admin/jobdescriptions"><span class="menu-bullet"><span
-                                                    class="bullet bullet-dot"></span></span><span
-                                                class="menu-title">Job Descriptions</span></a><!--end:Menu link--></div>
-                                    <!--end:Menu item--><!--end:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion hover" id="menu-admin-space">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-icon"><i class="bi bi-briefcase fs-2"></i></span>
+                            <span class="menu-title">Admin Space</span>
+                            <span class="menu-arrow"></span>
+                        </span><!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion" kt-hidden-height="97" style="" id="sub-menu-admin-space">
+                            <!-- Submenu items -->
+                            <div class="menu-item" id="menu-users">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="/admin/user">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Users</span>
+                                </a><!--end:Menu link-->
+                            </div>
+                            <div class="menu-item" id="menu-roles">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="/admin/role">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Roles</span>
+                                </a><!--end:Menu link-->
+                            </div>
+                            <div class="menu-item" id="menu-permissions">
+                                <!--begin:Menu link-->
+                                <a class="menu-link" href="/admin/permission">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Permissions</span>
+                                </a><!--end:Menu link-->
+                            </div>
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion" id="menu-employee-management">
+                                <!--begin:Menu link-->
+                                <span class="menu-link">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Employee Management</span>
+                                    <span class="menu-arrow"></span>
+                                </span><!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class="menu-sub menu-sub-accordion menu-active-bg" id="sub-menu-employee-management">
+                                    <!-- Submenu items -->
+                                    <div class="menu-item" id="menu-employees">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="/admin/employee">
+                                            <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                            <span class="menu-title">Employees</span>
+                                        </a><!--end:Menu link-->
+                                    </div>
+                                    <div class="menu-item" id="menu-employeeroles">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="/admin/employeerole">
+                                            <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                            <span class="menu-title">Employee Roles</span>
+                                        </a><!--end:Menu link-->
+                                    </div>
+                                    <div class="menu-item" id="menu-jobdescriptions">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link" href="/admin/jobdescriptions">
+                                            <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                            <span class="menu-title">Job Descriptions</span>
+                                        </a><!--end:Menu link-->
+                                    </div>
                                 </div><!--end:Menu sub-->
                             </div><!--end:Menu item-->
                         </div><!--end:Menu sub-->
-                        </div>
-                        <!--begin:Menu item-->
-                        {{-- <x-aside.aside-menu :menu-title="__('messages.sales_commission')" :menu-icon="'ki-duotone ki-tag'" :menu-items="[
-                            ['url' => '/sales', 'title' => __('messages.sales')],
-                            ['url' => '/commission/create', 'title' => __('messages.commissions')],
-                        ]" /> --}}
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        {{-- <x-aside.aside-menu :menu-title="__('messages.interfaces')"
-                                            :menu-icon="'bi bi-gear-wide-connected'" :menu-items="[ --}}
-                            {{-- ['url' => '/resolutionhub', 'title' => __('Resolution Hub')], --}}
-                            {{-- ['url' => '/fixer', 'title' => __('messages.sanitizer')], --}}
-                            {{-- ['url' => '/mapper', 'title' => __('messages.mapping')], --}}
-                            {{-- ['url' => '/class', 'title' => __('Classifications')], --}}
-                            {{-- ['url' => '/logs', 'title' => __('messages.logs')], --}}
-                            {{-- ['url' => '/logs', 'title' => __('Drag and Drop 1')],
-                            ['url' => '/logs2', 'title' => __('Drag and Drop 2')], --}}
-                        {{-- ]"/> --}}
-                        <!--end:Menu item-->
-                        <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href="/resolutionhub"><span class="menu-icon"><i class="bi bi-gear-wide-connected fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Resolution Hub</span></a><!--end:Menu link--></div>
-                        <!--begin:Menu item-->
-                        {{-- <x-aside.aside-menu menu-title="{{ __('Payments') }}" menu-icon="bi bi-wallet2"
-                                            :menu-items="[ --}}
-                            {{-- ['url' => '/add-member', 'title' => __('messages.New Membership')], --}}
-                            {{-- ['url' => '/payments', 'title' => __('Make Payments')], --}}
-                        {{--                            ['url' => '/cash', 'title' => __('Cash')],--}}
-                        {{--                            ['url' => '/dataVia', 'title' => __('Data Via')],--}}
-                        {{--                            ['url' => '/DebitOrder', 'title' => __('Debit Order')],--}}
-                        {{-- ]"/> --}}
-                        <!--end:Menu item-->
-                         <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href="/payments"><span class="menu-icon"><i class="bi bi-wallet2 fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Payments</span></a><!--end:Menu link--></div>
-                        
-                         <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href="/funerals" ><span class="menu-icon"><i class="fa-solid fa-cross fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Deaths/Funerals</span></a><!--end:Menu link--></div>
-                        
-                         <!--begin:Menu item-->
-                       {{-- <x-aside.aside-menu :menu-title="__('Funeral')" :menu-icon="'bi bi-device-ssd'"--}}
-                                           {{-- :menu-items="[--}}
-                            {{-- ['url' => '/chart', 'title' => __('messages.dashboard')], --}}
-                            {{-- ['url' => '/report', 'title' => __('messages.membership')], --}}
-                            {{-- ['url' => '/person', 'title' => __('messages.persons')], --}}
-                            {{-- ['url' => '/reports', 'title' => __('All Reports')], --}}
-                            {{--['url' => '/deaths', 'title' => __('Deaths')],--}}
-                            {{--['url' => '/funerals', 'title' => __('Funerals')],--}}
-                            {{-- ['url' => '/reporting', 'title' => __('messages.real_time_updates')], --}}
-                       {{-- ]"/>--}}
-                        <!--end:Menu item-->
-
-                        
-                        <!--begin:Menu item-->
-                        <x-aside.aside-menu :menu-title="__('messages.Reporting')"
-                                            :menu-icon="'bi bi-clipboard-data'" :menu-items="[
-                            {{-- ['url' => '/chart', 'title' => __('messages.dashboard')], --}}
-                            {{-- ['url' => '/report', 'title' => __('messages.membership')], --}}
-                            {{-- ['url' => '/person', 'title' => __('messages.persons')], --}}
-                            {{-- ['url' => '/reports', 'title' => __('All Reports')], --}}
-                            ['url' => '/report', 'title' => __('Memberships')],
-                            ['url' => '/api/rowdetails', 'title' => __('Debit Orders')],
-                            ['url' => '/person', 'title' => __('More Repots')],
-                            {{-- ['url' => '/pivotScroll', 'title' => __('Scroll')], --}}
-                            {{-- ['url' => '/pivotTables', 'title' => __('Table')], --}}
-                            {{-- ['url' => '/reporting', 'title' => __('messages.real_time_updates')], --}}
-                        ]"/>
-                        <!--end:Menu item-->
+                    </div>
                     @endcanany
-                    {{-- <div id="google_translate_element" class="text-center mt-4">Language:</div> --}}
-                    <!--begin:Menu item-->
-                    {{-- <x-aside.aside-menu :menu-title="__('messages.More')" :menu-icon="'ki-duotone ki-abstract-35 fs-2'" :menu-items="[ --}}
-                    {{-- ['url' => '/testingview', 'title' => __('messages.Developments')], --}}
-                    {{-- ['url' => '/whatsapp', 'title' => __('WhatsApp')], --}}
-                    {{-- ['url' => '/contact', 'title' => __('messages.Find Us')], --}}
-                    {{-- ['url' => '/settings', 'title' => __('messages.Customize')], --}}
-                    {{-- ]" /> --}}
-                    <!--end:Menu item-->
 
-                    {{-- <div class="menu-item"><!--begin:Menu link--><a class="menu-link" href=""><span class="menu-icon"><i class="ki-duotone ki-abstract-26 fs-2"><span class="path1"></span><span class="path2"></span></i></span><span class="menu-title">Documentation</span></a><!--end:Menu link--></div> --}}
+                    <div class="menu-item"><!--begin:Menu link-->
+                        <a class="menu-link" href="/resolutionhub">
+                            <span class="menu-icon"><i class="bi bi-gear-wide-connected fs-2"></i></span>
+                            <span class="menu-title">Resolution Hub</span>
+                        </a><!--end:Menu link-->
+                    </div>
 
+                    <div class="menu-item"><!--begin:Menu link-->
+                        <a class="menu-link" href="/payments">
+                            <span class="menu-icon"><i class="bi bi-wallet2 fs-2"></i></span>
+                            <span class="menu-title">Payments</span>
+                        </a><!--end:Menu link-->
+                    </div>
+
+                    <div class="menu-item"><!--begin:Menu link-->
+                        <a class="menu-link" href="/funerals">
+                            <span class="menu-icon"><i class="fa-solid fa-cross fs-2"></i></span>
+                            <span class="menu-title">Deaths/Funerals</span>
+                        </a><!--end:Menu link-->
+                    </div>
                 </div>
                 <!--end::Menu-->
             </div>
             <!--end::Aside Menu-->
         </div>
         <!--end::Aside menu-->
+
+
+
 
         <!--begin::Footer-->
         {{-- <div class="aside-footer flex-column-auto px-6 px-lg-9 pb-16" id="kt_aside_footer"> --}}
@@ -612,38 +646,6 @@
         {{-- </div> --}}
         <!--end::Footer-->
     </div>
-    
-    {{-- <div id="google_translate_element"></div> --}}
-
-      {{-- <div>
-                    <select id="themeSelect" onchange="changeTheme()">
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css">Cerulean</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cosmo/bootstrap.min.css">Cosmo</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cyborg/bootstrap.min.css">Cyborg</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/darkly/bootstrap.min.css">Darkly</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/flatly/bootstrap.min.css">Flatly</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css">Journal</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/litera/bootstrap.min.css">Litera</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css">Lumen</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">Lux</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/materia/bootstrap.min.css">Materia</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/minty/bootstrap.min.css">Minty</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/morph/bootstrap.min.css">Morph</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/pulse/bootstrap.min.css">Pulse</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/quartz/bootstrap.min.css">Quartz</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sandstone/bootstrap.min.css">Sandstone</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/simplex/bootstrap.min.css">Simplex</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css">Sketchy</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/slate/bootstrap.min.css">Slate</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/solar/bootstrap.min.css">Solar</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/spacelab/bootstrap.min.css">Spacelab</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/superhero/bootstrap.min.css">Superhero</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/united/bootstrap.min.css">United</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/vapor/bootstrap.min.css">Vapor</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/yeti/bootstrap.min.css">Yeti</option>
-                        <option value="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">Zephyr</option>
-                    </select>
-                </div> --}}
 
 @endsection
 
@@ -652,31 +654,9 @@
         <!--begin::Container-->
         <div class="container-fluid d-flex flex-row flex-wrap justify-content-between text-wrap"
              id="kt_header_container">
-        
-        {{-- 
-        <ul class="breadcrumb fs-3">
-            <li>
-                <a href="/home">Home</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Library</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Shelf</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Books</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Chapters</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Verses</a> <span class="divider">/</span>
-            </li>
-            <li class="active">Data</li>
-        </ul> 
-        --}}
 
+            
+            
             <!--begin::Page title-->
             <x-header.page-title title="Current Dashboard" subtitle="current page" class="additional-classes"/>
             <!--end::Page title=-->
@@ -708,7 +688,6 @@
                 </div> --}}
                 <!--end::Solid input group style-->
 
-                {{-- <div id="google_translate_element"></div> --}}
 
                 {{-- <div class="search-container bg-secondary ps-4">
                     <form action="/action_page.php">
@@ -767,7 +746,7 @@
                         </i>                      
                     </div> --}}
 
-                    <div class="btn btn-icon btn-active-color-success btn-outline w-40px h-40px bg-body border border-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Notifications"
+                    <div class="btn btn-icon btn-active-color-success btn-outline w-40px h-40px bg-body border border-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Notifications"
                         id="kt_activities_toggle">
                         <!-- Notification Icon -->
                             <i class="bi bi-bell-fill fs-1"></i>
@@ -779,6 +758,7 @@
                         @endif --}}
                     </div>
 
+                    
                      
                     <!--end::Drawer toggle-->
                     </div>
@@ -1061,12 +1041,12 @@
                 <!--end::Theme mode-->
                 <!--begin::Sidebar Toggler-->
                 <!--begin::Activities-->
-                <div class="d-flex align-items-center ms-3 ms-lg-4">
+                <div class="d-flex align-items-center ms-3 ms-lg-4 border border-secondary rounded">
                     <!--begin::Logout Form-->
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-                    <div class="btn btn-icon btn-active-color-danger btn-outline w-40px h-40px bg-body border border-secondary" onclick="document.getElementById('logout-form').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="Log out" data-bs-custom-class="custom-tooltip">
+                    <div class="btn btn-icon btn-active-color-danger btn-outline w-40px h-40px bg-body border border-body" onclick="document.getElementById('logout-form').submit();" data-bs-toggle="tooltip" data-bs-placement="top" title="Log out" data-bs-custom-class="custom-tooltip">
                         <i class="bi bi-power" style="font-size: 28px;"></i>
                     </div>
                     <!--end::Logout Form-->
@@ -1180,31 +1160,10 @@
 @endsection
 
 
-    <!--SIYA:: Block UI if user is not an employee -->
-    @if (Auth::check() && (!Auth::user()->person || !Auth::user()->person->employee))
-        <div class="modal fade show" id="accessDeniedModal" tabindex="-1" role="dialog" style="display: block;">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Access Denied</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>You do not have access to this system as you are not registered as an employee.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{{ route('logout') }}" class="btn btn-primary"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-backdrop fade show"></div>
-    @endif
+
+
+
+
 
 @section('footer')
 
@@ -1224,155 +1183,180 @@
         </div>
         <!--end::Container-->
 
-        <!--begin::Activities drawer-->
-        <div id="kt_activities" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="activities"
-            data-kt-drawer-activate="true" data-kt-drawer-overlay="true"
-            data-kt-drawer-width="{default:'170px', 'lg': '700px'}" data-kt-drawer-direction="end"
-            data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close">
-            <div class="card shadow-none border-0 rounded-0">
-                <!--begin::Header-->
-                <div class="card-header" id="kt_activities_header">
-                    {{-- <h3 class="card-title fw-bold text-dark">Activity Logs : <span class="badge badge-danger fs-3"><span id="unreadCountLogs">{{ auth()->user()->unreadNotifications->count() }}</span> :  Unread Notifications.</span></h3> --}}
-                    <div class="card-toolbar">
-                        <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
-                                id="kt_activities_close">
-                            <i class="ki-duotone ki-cross fs-1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </button>
-                    </div>
-                </div>
-                <!--end::Header-->
-                <!--begin::Body-->
-                <div class="card-body position-relative mt-4" id="kt_activities_body">
-                    <!--begin::Content-->
-                    <div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5" data-kt-scroll="true"
-                        data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_activities_body"
-                        data-kt-scroll-dependencies="#kt_activities_header, #kt_activities_footer"
-                        data-kt-scroll-offset="5px">
-                        <!--begin::Timeline items-->
-                        <div class="timeline">
-                            <!--begin::Timeline item-->
-                            <div class="timeline">
-                                <div id="unreadNotificationsBadge" class="mb-3">
-                                
-                            </div>
-                        
-                        {{-- @dump(auth()->user()->unreadNotifications) --}}
-                        {{-- @foreach(auth()->user()->notifications as $notification) --}}
-                            <!-- Notification Badge for Unread Notifications -->
-
-                        <div class="timeline-item">
-                            <!--begin::Timeline line-->
-                            <div class="timeline-line w-40px"></div>
-                            <!--end::Timeline line-->
-                            <!--begin::Timeline icon-->
-                            <div class="timeline-icon symbol symbol-circle symbol-40px">
-                                <div class="symbol-label bg-dark">
-                                    <i class="ki-duotone ki-flag fs-2 text-gray-500">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </div>
-                            </div>
-                            <!--end::Timeline icon-->
-                            <!--begin::Timeline content-->
-                            <div class="timeline-content mb-10 mt-n2">
-                                <!--begin::Timeline heading-->
-                                <div class="overflow-auto pe-3">
-                                    <!--begin::Title-->
-                                    {{-- <div class="fs-5 fw-semibold mb-2">{{ $notification->data['message'] }} <button onclick="deleteNotification('{{ $notification->id }}', this)" class="badge badge-sm bg-danger" style="cursor: pointer;">clear</button></div> --}}
-                                    {{-- <div class="fs-5 fw-semibold mb-2">{{ $notification->data['message'] }}<button onclick="deleteNotification('{{ $notification->id }}', this)" class="badge badge-sm bg-danger" style="cursor: pointer;">clear</button></div> --}}
-                                    {{-- <div class="fs-5 fw-semibold mb-2"></div> --}}
-                                    <!--end::Title-->
-                                    <!--begin::Description-->
-                                    <div class="d-flex align-items-center mt-1 fs-6">
-                                        <!--begin::Info-->
-                                        {{-- <div class="me-2 fs-7 text-gray-700">{{ $notification->created_at }}</div> --}}
-                                        <!--end::Info-->
-                                        <!--begin::User-->
-                                        {{-- <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
-                                            data-bs-boundary="window" data-bs-placement="top" title="{{Auth::user()->email}} "> --}}
-                                            <!--begin::User-->
-                                            {{-- <span>{{ $notification->data['action'] }}  <span class="me-2 fs-7 text-gray-700">{{ $notification->created_at->diffForHumans() }} </span> by </span><a href="#" class="text-primary fw-bold me-1">{{Auth::user()->name}}</a> --}}
-                                            {{-- <span> by </span><a href="#" class="text-primary fw-bold me-1"></a> --}}
-                                            {{-- <!--end::User--> --}}                                          
-                                        </div>
-                                        <!--end::User-->
-                                    </div>
-                                    <!--end::Description-->
-                                </div>
-                                <!--end::Timeline heading-->
-                            </div>
-                            <!--end::Timeline content-->
-                        </div>
-                        {{-- @endforeach --}}
-                    </div>
-                            <!--end::Timeline item-->
-                            <!--begin::Timeline item-->
-                            <div class="timeline-item">
-                                <!--begin::Timeline line-->
-                                <div class="timeline-line w-40px"></div>
-                                <!--end::Timeline line-->
-                                <!--begin::Timeline icon-->
-                                <div class="timeline-icon symbol symbol-circle symbol-40px">
-                                    <div class="symbol-label bg-dark">
-                                        <i class="ki-duotone ki-sms fs-2 text-gray-500">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                    </div>
-                                </div>
-                                <!--end::Timeline icon-->
-                                <!--begin::Timeline content-->
-                                <div class="timeline-content mb-10 mt-n1">
-                                    <!--begin::Timeline heading-->
-                                    <div class="pe-3 mb-5">
-                                        <!--begin::Title-->
-                                        <div class="fs-5 fw-semibold mb-2">Memorial Service Planning
-                                            <a href="#" class="text-primary fw-bold me-1">#12345</a>has been allocated to you
-                                            for the Eternal Rest Funeral Services
-                                        </div>
-                                        <!--end::Title-->
-                                        <!--begin::Description-->
-                                        <div class="overflow-auto pb-5">
-                                            <!--begin::Wrapper-->
-                                            <div class="d-flex align-items-center mt-1 fs-6">
-                                                <!--begin::Info-->
-                                                <div class="me-2 fs-7">Assigned at 10:00 AM by</div>
-                                                <!--end::Info-->
-                                                <!--begin::User-->
-                                                <a href="#" class="text-primary fw-bold me-1">John Doe</a>
-                                                <!--end::User-->
-                                            </div>
-                                            <!--end::Wrapper-->
-                                        </div>
-                                        <!--end::Description-->
-                                    </div>
-
-                                    <!--end::Timeline heading-->
-                                </div>
-                                <!--end::Timeline content-->
-                            </div>
-                            <!--end::Timeline item-->
-                            <!--end::Timeline item-->
-                        </div>
-                        <!--end::Timeline items-->
-                    </div>
-                    <!--end::Content-->
-                </div>
-                <!--end::Body-->
-
-                <!--begin::Footer-->
-                <div class="card-footer py-5 text-center" id="kt_activities_footer">
-                    <a href="#" class="btn btn-bg-body text-primary">End Of Activities.
-                    </a>
-                </div>
-                <!--end::Footer-->
+<!--begin::Activities drawer-->
+<div id="kt_activities" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="activities"
+    data-kt-drawer-activate="true" data-kt-drawer-overlay="true"
+    data-kt-drawer-width="{default:'170px', 'lg': '700px'}" data-kt-drawer-direction="end"
+    data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close">
+    <div class="card shadow-none border-0 rounded-0">
+        <!--begin::Header-->
+        <div class="card-header" id="kt_activities_header">
+            <h3 class="card-title fw-bold text-dark">Activity Logs</h3>
+            <div class="card-toolbar">
+                <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
+                        id="kt_activities_close">
+                    <i class="ki-duotone ki-cross fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </button>
             </div>
         </div>
-        <!--end::Activities drawer-->
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body position-relative mt-4" id="kt_activities_body">
+            <!--begin::Content-->
+            <div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5" data-kt-scroll="true"
+                data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_activities_body"
+                data-kt-scroll-dependencies="#kt_activities_header, #kt_activities_footer"
+                data-kt-scroll-offset="5px">
+                <!--begin::Timeline items-->
+                <div class="timeline">
+                    <!--begin::Timeline item-->
+                    <div class="timeline-item">
+                        <!--begin::Timeline line-->
+                        <div class="timeline-line w-40px"></div>
+                        <!--end::Timeline line-->
+                        <!--begin::Timeline icon-->
+                        <div class="timeline-icon symbol symbol-circle symbol-40px">
+                            <div class="symbol-label bg-dark">
+                                <i class="ki-duotone ki-flag fs-2 text-gray-500">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                        </div>
+                        <!--end::Timeline icon-->
+                        <!--begin::Timeline content-->
+                        <div class="timeline-content mb-10 mt-10">
+                            <!--begin::Timeline heading-->
+                            <div class="overflow-auto pe-3">
+                                <!--begin::Title-->
+                                <div class="fs-5 fw-semibold mb-2">You have a new message
+                                    <button class="badge badge-sm bg-danger" style="cursor: pointer;">clear</button>
+                                </div>
+                                <!--end::Title-->
+                                <!--begin::Description-->
+                                <div class="d-flex align-items-center mt-1 fs-6">
+                                    <!--begin::Info-->
+                                    <div class="me-2 fs-7 text-gray-700">10 minutes ago</div>
+                                    <!--end::Info-->
+                                    <!--begin::User-->
+                                    <span> by </span><a href="#" class="text-primary fw-bold me-1">Jane Doe</a>
+                                    <!--end::User-->
+                                </div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Timeline heading-->
+                        </div>
+                        <!--end::Timeline content-->
+                    </div>
+                    <!--end::Timeline item-->
+                    <!--begin::Timeline item-->
+                    <div class="timeline-item">
+                        <!--begin::Timeline line-->
+                        <div class="timeline-line w-40px"></div>
+                        <!--end::Timeline line-->
+                        <!--begin::Timeline icon-->
+                        <div class="timeline-icon symbol symbol-circle symbol-40px">
+                            <div class="symbol-label bg-dark">
+                                <i class="ki-duotone ki-sms fs-2 text-gray-500">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                        </div>
+                        <!--end::Timeline icon-->
+                        <!--begin::Timeline content-->
+                        <div class="timeline-content mb-10 mt-n1">
+                            <!--begin::Timeline heading-->
+                            <div class="pe-3 mb-5">
+                                <!--begin::Title-->
+                                <div class="fs-5 fw-semibold mb-2">Memorial Service Planning
+                                    <a href="#" class="text-primary fw-bold me-1">#12345</a> has been allocated to you
+                                    for the Eternal Rest Funeral Services
+                                </div>
+                                <!--end::Title-->
+                                <!--begin::Description-->
+                                <div class="overflow-auto pb-5">
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <!--begin::Info-->
+                                        <div class="me-2 fs-7">Assigned at 10:00 AM by</div>
+                                        <!--end::Info-->
+                                        <!--begin::User-->
+                                        <a href="#" class="text-primary fw-bold me-1">John Doe</a>
+                                        <!--end::User-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Timeline heading-->
+                        </div>
+                        <!--end::Timeline content-->
+                    </div>
+                    <!--end::Timeline item-->
+                    <!--begin::Timeline item-->
+                    <div class="timeline-item">
+                        <!--begin::Timeline line-->
+                        <div class="timeline-line w-40px"></div>
+                        <!--end::Timeline line-->
+                        <!--begin::Timeline icon-->
+                        <div class="timeline-icon symbol symbol-circle symbol-40px">
+                            <div class="symbol-label bg-dark">
+                                <i class="ki-duotone ki-sms fs-2 text-gray-500">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                        </div>
+                        <!--end::Timeline icon-->
+                        <!--begin::Timeline content-->
+                        <div class="timeline-content mb-10 mt-n1">
+                            <!--begin::Timeline heading-->
+                            <div class="pe-3 mb-5">
+                                <!--begin::Title-->
+                                <div class="fs-5 fw-semibold mb-2">New User Registration
+                                    <a href="#" class="text-primary fw-bold me-1">#67890</a> has been successfully completed.
+                                </div>
+                                <!--end::Title-->
+                                <!--begin::Description-->
+                                <div class="overflow-auto pb-5">
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <!--begin::Info-->
+                                        <div class="me-2 fs-7">Completed at 2:30 PM by</div>
+                                        <!--end::Info-->
+                                        <!--begin::User-->
+                                        <a href="#" class="text-primary fw-bold me-1">Alice Smith</a>
+                                        <!--end::User-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Timeline heading-->
+                        </div>
+                        <!--end::Timeline content-->
+                    </div>
+                    <!--end::Timeline item-->
+                </div>
+                <!--end::Timeline items-->
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::Body-->
+
+        <!--begin::Footer-->
+        <div class="card-footer py-5 text-center" id="kt_activities_footer">
+            <a href="#" class="btn btn-bg-body text-primary">End Of Activities.</a>
+        </div>
+        <!--end::Footer-->
+    </div>
+</div>
+<!--end::Activities drawer-->
+
 
         <!-- Delete Confirmation Modal -->
 {{-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -1732,7 +1716,7 @@
 
 
     {{-- //This is for the member form - original --}}
-    <script>
+    {{-- <script>
         function getDOB(IDNumber) {
             var Year = IDNumber.substring(0, 2);
             var Month = IDNumber.substring(2, 4);
@@ -1748,112 +1732,66 @@
             document.getElementById("inputDay").value += Day;
             
         }
-    </script>
+    </script> --}}
 
-    {{-- This is for the member form - Test --}}
+
     <script>
         function getDOB(IDNumber) {
-
-            // first clear any left over error messages
+            // Clear existing error messages
             $('#error span').remove();
 
-            //This clears the red x mark
-            document.getElementById("IDNumber").classList.remove('is-invalid');
-            document.getElementById("inputYearDiv").classList.remove('is-invalid');
-            document.getElementById("inputMonthDiv").classList.remove('is-invalid');
-            document.getElementById("inputDayDiv").classList.remove('is-invalid');
-
-            //This clears the green checkmark
-            document.getElementById("IDNumber").classList.remove('is-valid');
-            document.getElementById("inputYearDiv").classList.remove('is-valid');
-            document.getElementById("inputMonthDiv").classList.remove('is-valid');
-            document.getElementById("inputDayDiv").classList.remove('is-valid');
-
-
-            // store the error div, to save typing
             var error = $('#error');
-
-            // assume everything is correct and if it later turns out not to be, just set this to false
             var correct = true;
 
-            // SA ID Number have to be 13 digits, so check the length
-            if (IDNumber.length != 13 || !isNumber(IDNumber)) {
-                error.append('<p>SA ID number not a valid number</p>');
-                correct = false;
-            }
-            // get first 6 digits as a valid date
-            var tempDate = new Date(IDNumber.substring(0, 2), IDNumber.substring(2, 4) - 1, IDNumber.substring(4, 6));
-
-           var id_date = tempDate.getDate();
-            var id_month = tempDate.getMonth();
-            var id_year = tempDate.getFullYear();
-            
-
-            var currentYear = new Date().getFullYear();
-            let age = currentYear - id_year;
-            console.log('last two of current yrea: ', (currentYear.toString()).substring(2, 4));
-            if ((IDNumber.substring(0, 2)) >= 00 && (IDNumber.substring(0, 2)) <= (currentYear.toString()).substring(2, 4)) {
-                age = age - 100;
-                console.log(':::::::::::-100:', age);
-            }
-            console.log('Update Age >= 2000: ', age);
-
-            var Year = IDNumber.substring(0, 2);
-
-            var cutoff = (new Date()).getFullYear() - 2000;
-
-            var Y = (Year > cutoff ? '19' : '20') + Year;
-
-
-            var fullDate = id_date + "-" + (id_month + 1) + "-" + id_year;
-
-            if (!((tempDate.getYear() == IDNumber.substring(0, 2)) && (id_month == IDNumber.substring(2, 4) - 1) && (
-                id_date == IDNumber.substring(4, 6)))) {
+            // Validate ID number length and numeric value
+            if (IDNumber.length != 13 || isNaN(IDNumber)) {
                 error.append('<p>SA ID number not valid</p>');
                 correct = false;
+            } else {
+                var yearPrefix = (parseInt(IDNumber.substring(0, 2)) > new Date().getFullYear() % 100) ? '19' : '20';
+                var birthYear = yearPrefix + IDNumber.substring(0, 2);
+                var birthMonth = IDNumber.substring(2, 4);
+                var birthDay = IDNumber.substring(4, 6);
+                var tempDate = new Date(birthYear, birthMonth - 1, birthDay);
+                var currentYear = new Date().getFullYear();
+                var age = currentYear - birthYear;
+
+                // Validate the extracted date
+                if (tempDate.getFullYear() != birthYear || tempDate.getMonth() + 1 != birthMonth || tempDate.getDate() != birthDay) {
+                    error.append('<p>SA ID number not valid</p>');
+                    correct = false;
+                }
             }
 
-
-            // if no error found, hide the error message
             if (correct) {
-                error.css('display', 'none');
+                error.hide();
+                $('#IDNumber, #inputYearDiv, #inputMonthDiv, #inputDayDiv').addClass('is-valid').removeClass('is-invalid');
+                $('#inputYear').val(birthYear);
+                $('#inputMonth').val(birthMonth);
+                $('#inputDay').val(birthDay);
+                $('#age').val(age);
 
-                //This adds the green checkmark
-                document.getElementById("IDNumber").classList.add('is-valid');
-                document.getElementById("inputYearDiv").classList.add('is-valid');
-                document.getElementById("inputMonthDiv").classList.add('is-valid');
-                document.getElementById("inputDayDiv").classList.add('is-valid');
-
-                // Clear the input fields
-                document.getElementById("inputYear").value = '';
-                document.getElementById("inputMonth").value = '';
-                document.getElementById("inputDay").value = '';
-                document.getElementById("age").value = '';
-
-                // and put together a result message
-                document.getElementById("inputYear").value += Y;
-                document.getElementById("inputMonth").value += (id_month + 1);
-                document.getElementById("inputDay").value += id_date;
-                document.getElementById("age").value = age;
-            }
-            // otherwise, show the error
-            else {
-                error.css('display', 'block');
-
-                //This adds the green checkmark
-                document.getElementById("IDNumber").classList.add('is-invalid');
-                document.getElementById("inputYearDiv").classList.add('is-invalid');
-                document.getElementById("inputMonthDiv").classList.add('is-invalid');
-                document.getElementById("inputDayDiv").classList.add('is-invalid');
+                // Call the function to select the membership based on age
+                if (typeof selectMembershipBasedOnAge === 'function') {
+                    selectMembershipBasedOnAge(age);
+                }
+            } else {
+                // Clear the fields if the ID is invalid
+                error.show();
+                $('#IDNumber, #inputYearDiv, #inputMonthDiv, #inputDayDiv').addClass('is-invalid').removeClass('is-valid');
+                $('#inputYear').val(''); // Clear the year input
+                $('#inputMonth').val(''); // Clear the month input
+                $('#inputDay').val(''); // Clear the day input
+                $('#age').val(''); // Clear the age input
+                $('#memtype').val('0').trigger('change'); // Clear the membership selection
             }
 
             return false;
         }
 
-        function isNumber(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-        }
     </script>
+    
+    
 
     {{-- This is for the dependent form --}}
     <script>
@@ -2178,5 +2116,86 @@ $(document).ready(function() {
 
         });
     </script> --}}
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the current URL path
+    var currentPath = window.location.pathname;
+
+    // Get all menu links (both top-level and sub-menu)
+    var menuLinks = document.querySelectorAll('.menu-link');
+
+    // Loop through menu links
+    menuLinks.forEach(function(link) {
+        // Check if the href of the link matches the current path
+        if (link.getAttribute('href') === currentPath) {
+            // Add active class to the parent menu item
+            var parentMenuItem = link.closest('.menu-item');
+            parentMenuItem.classList.add('menu-item-active');
+
+            // If the parent menu item has sub-menu items
+            var subMenu = parentMenuItem.querySelector('.menu-sub');
+            if (subMenu) {
+                // Expand the sub-menu
+                subMenu.style.display = 'block';
+                // Add active class to the sub-menu item
+                var subMenuItems = subMenu.querySelectorAll('.menu-link');
+                subMenuItems.forEach(function(subLink) {
+                    if (subLink.getAttribute('href') === currentPath) {
+                        subLink.closest('.menu-item').classList.add('menu-item-active');
+                    }
+                });
+            }
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var currentPath = window.location.pathname;
+    
+    // Function to open the menu and submenu items
+    function openMenu(menuId, subMenuId) {
+        var menu = document.getElementById(menuId);
+        var subMenu = document.getElementById(subMenuId);
+        if (menu && subMenu) {
+            // Open the parent menu item
+            menu.classList.add('menu-active');
+            // Open the submenu item
+            subMenu.style.display = 'block';
+            subMenu.classList.add('menu-active');
+        }
+    }
+    
+    // Map current path to menu items
+    if (currentPath.startsWith('/admin/user')) {
+        openMenu('menu-admin-space', 'sub-menu-admin-space');
+        document.getElementById('menu-users').classList.add('menu-active');
+    } else if (currentPath.startsWith('/admin/role')) {
+        openMenu('menu-admin-space', 'sub-menu-admin-space');
+        document.getElementById('menu-roles').classList.add('menu-active');
+    } else if (currentPath.startsWith('/admin/permission')) {
+        openMenu('menu-admin-space', 'sub-menu-admin-space');
+        document.getElementById('menu-permissions').classList.add('menu-active');
+    } else if (currentPath.startsWith('/admin/employee') ||
+               currentPath.startsWith('/admin/employeerole') ||
+               currentPath.startsWith('/admin/jobdescriptions')) {
+        openMenu('menu-admin-space', 'sub-menu-admin-space');
+        openMenu('menu-employee-management', 'sub-menu-employee-management');
+        
+        if (currentPath.startsWith('/admin/employee')) {
+            document.getElementById('menu-employees').classList.add('menu-active');
+        } else if (currentPath.startsWith('/admin/employeerole')) {
+            document.getElementById('menu-employeeroles').classList.add('menu-active');
+        } else if (currentPath.startsWith('/admin/jobdescriptions')) {
+            document.getElementById('menu-jobdescriptions').classList.add('menu-active');
+        }
+    }
+});
+</script>
+
 
 @endpush

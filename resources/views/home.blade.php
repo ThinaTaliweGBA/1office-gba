@@ -155,146 +155,22 @@
     <!--begin::Col-->
     <div class="col-xxl-4 col-md-4 mb-4">
         <!--begin::List Widget 5-->
-        <div class="card h-md-100   shadow-lg" data-intro="The Services Schedule." data-step="4">
+        <div class="card h-md-100 shadow-lg" data-intro="The Services Schedule." data-step="4">
             <!--begin::Header-->
             <div class="card-header align-items-center border-0 mt-4">
                 <h3 class="card-title align-items-start flex-column">
-                    <span class="fw-bold mb-2 text-gray-900">Association Activities</span>
-                    <span class="text-primary fw-semibold fs-7">120 Memorial Services</span>
-                    {{-- <span class="badge badge-danger fs-3"><span id="unreadCountLogs">{{ auth()->user()->unreadNotifications->count() }}</span> :  Unread Notifications.</span> --}}
+                    <span class="fw-bold mb-2 text-gray-900">Association Log Activities</span>
+                    <span class="text-primary fw-semibold fs-7">User Activities</span>
                 </h3>
-                <div class="card-toolbar">
-                    <!-- Button and menu structure can remain as is for functionality purposes -->
-                </div>
             </div>
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body pt-5">
-
                 <!--begin::Timeline-->
-                <div class="timeline-label">
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">09:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-warning fs-1"></i>
-                        </div>
-                        <div class="fw-mormal timeline-content ps-3">Planning meeting for annual memorial service</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">08:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-info fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Monthly meeting with the board of directors</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">10:30</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-success fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Workshop on grief counseling for members</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">13:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-warning fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Outreach program planning for the local community</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">16:30</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-danger fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Volunteer training session for upcoming charity event
-                        </div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">19:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-primary fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Evening vigil to honor members who have passed away
-                        </div>
-                    </div>
-                    <!--end::Item-->
-
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">12:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-success fs-1"></i>
-                        </div>
-                        <div class="timeline-content d-flex">
-                            <span class="fw-bold text-gray-800 ps-3">Burial service for member John Doe</span>
-                        </div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">15:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-danger fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-bold text-gray-800 ps-3">Financial assistance disbursed to the Doe
-                            family</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">18:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-primary fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Review meeting for upcoming association events</div>
-                    </div>
-                    <!--end::Item-->
-                    <!-- More items can be added as needed -->
-                                        <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">13:00</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-warning fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Outreach program planning for the local community</div>
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="timeline-item">
-                        <div class="timeline-label fw-bold text-gray-800 fs-6">16:30</div>
-                        <div class="timeline-badge">
-                            <i class="fa fa-genderless text-danger fs-1"></i>
-                        </div>
-                        <div class="timeline-content fw-mormal ps-3">Volunteer training session for upcoming charity event
-                        </div>
-                    </div>
-                    <!--end::Item-->
-                </div>
-                <!--begin::Footer-->
-                {{-- <div class="card-footer d-flex justify-content-around">
-        <span class="badge bg-success m-1">Create <i class="fa fa-genderless text-success"></i></span>
-            <span class="badge bg-success m-1">Create <i class="fa fa-genderless text-success"></i></span>
-            <span class="badge bg-danger m-1">Delete <i class="fa fa-genderless text-danger"></i></span>
-            <span class="badge bg-info m-1">Meeting <i class="fa fa-genderless text-info"></i></span>
-            <span class="badge bg-warning m-1">Update <i class="fa fa-genderless text-warning"></i></span>
-            <span class="badge bg-primary m-1">Event <i class="fa fa-genderless text-primary"></i></span>
-        </div> --}}
-                <!--end::Footer-->
+                <div class="timeline-label"></div>
                 <!--end::Timeline-->
             </div>
             <!--end: Card Body-->
-
         </div>
         <!--end: List Widget 5-->
     </div>
@@ -562,6 +438,8 @@
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+            root._logo.dispose();
     });
 </script>
 
@@ -932,4 +810,55 @@
   duration: 1200,
 })
 </script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/activity-logs')
+            .then(response => response.json())
+            .then(data => {
+                const timelineContainer = document.querySelector('.timeline-label');
+                timelineContainer.innerHTML = ''; // Clear existing content
+                
+                data.forEach(activity => {
+                    const timelineItem = document.createElement('div');
+                    timelineItem.classList.add('timeline-item');
+
+                    const timeLabel = document.createElement('div');
+                    timeLabel.classList.add('timeline-label', 'fw-bold', 'text-gray-800', 'fs-6');
+                    timeLabel.textContent = new Date(activity.created_at).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+
+                    const timelineBadge = document.createElement('div');
+                    timelineBadge.classList.add('timeline-badge');
+                    timelineBadge.innerHTML = `<i class="fa fa-genderless ${getTimelineBadgeClass(activity.methodType)} fs-1"></i>`;
+
+                    const timelineContent = document.createElement('div');
+                    timelineContent.classList.add('timeline-content', 'fw-mormal', 'ps-3');
+                    timelineContent.innerHTML = `${activity.description}<br><small>IP Address: ${activity.ipAddress}</small>`;
+
+                    timelineItem.appendChild(timeLabel);
+                    timelineItem.appendChild(timelineBadge);
+                    timelineItem.appendChild(timelineContent);
+
+                    timelineContainer.appendChild(timelineItem);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+
+    function getTimelineBadgeClass(methodType) {
+        switch(methodType) {
+            case 'GET':
+                return 'text-info';
+            case 'POST':
+                return 'text-success';
+            case 'PUT':
+                return 'text-warning';
+            case 'DELETE':
+                return 'text-danger';
+            default:
+                return 'text-primary';
+        }
+    }
+</script>
+
 @endpush

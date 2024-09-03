@@ -8,6 +8,7 @@
 
 /* Add more class or ID selectors as per your design requirements */
 [data-bs-theme=light] {
+  --bs-piechart-color: #000000;
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -34,7 +35,7 @@
   --bs-light: #F9F9F9;
   --bs-primary: #00923f;
   --bs-secondary: #E1E3EA;
-  --bs-success: #00923f;
+  --bs-success: #50cd89;
   --bs-info: #7239ea;
   --bs-warning: #ffc700;
   --bs-danger: #f1416c;
@@ -78,7 +79,7 @@
   --bs-font-sans-serif: Inter, Helvetica, "sans-serif";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-monospace);
+  --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -131,6 +132,7 @@
 }
 
 [data-bs-theme=dark] {
+  --bs-piechart-color: #ffffff;
   --bs-body-color: #FFFFFF;
   --bs-body-color-rgb: 255, 255, 255;
   --bs-body-bg: #1e1e2d;
@@ -669,7 +671,7 @@ address {
 
 ol,
 ul {
-  padding-left: 1rem;
+  padding-left: 2rem;
 }
 
 ol,
@@ -1057,7 +1059,7 @@ progress {
   display: inline-block;
 }
 .list-inline-item:not(:last-child) {
-  margin-right: 0.4rem;
+  margin-right: 0.5rem;
 }
 
 .initialism {
@@ -1119,7 +1121,7 @@ progress {
 .container-lg,
 .container-md,
 .container-sm {
-  --bs-gutter-x: 1rem;
+  --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
@@ -5966,7 +5968,7 @@ textarea.form-control-lg {
   --bs-toast-spacing: 1.5rem;
   --bs-toast-max-width: 350px;
   --bs-toast-font-size: 0.875rem;
-  --bs-toast-color: var(--bs-gray-700);
+  --bs-toast-color: var(--bs-text-dark);
   --bs-toast-bg: var(--bs-body-bg);
   --bs-toast-border-width: var(--bs-border-width);
   --bs-toast-border-color: transparent;
@@ -33978,7 +33980,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   flex-wrap: wrap;
 }
 .card .card-body {
-  padding: 1.75rem 2rem;
+  padding: 2rem 2.25rem;
   color: var(--bs-card-color);
 }
 .card .card-footer {

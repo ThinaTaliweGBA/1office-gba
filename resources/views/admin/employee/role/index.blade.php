@@ -5,10 +5,11 @@
 
     {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css" rel="stylesheet">
- --}}
+    --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.bootstrap5.css">
+    
     <style>
         .inner-card {
             margin-bottom: 15px;
@@ -80,8 +81,6 @@
         }
     </style>
 
-
-
     <style>
         input:required,
         select:required {
@@ -118,11 +117,6 @@
             /* This is for my Google Maps in modal Bootstrap modals usually have a z-index of 1050 */
         }
     </style>
-
-
-
-
-
 
     <style>
         .menu-sub-dropdown {
@@ -199,9 +193,9 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Filter-->
-                    <button type="button" class="btn btn-secondary me-3" data-kt-menu-trigger="click"
+                    <button type="button" class="btn btn-dark text-light me-3" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
                         Filter
                     </button>
                     <!--begin::Menu 1-->
@@ -209,7 +203,7 @@
                         id="kt-toolbar-filter">
                         <!--begin::Header-->
                         <div class="px-7 py-5">
-                            <div class="fs-4 text-gray-900 fw-bold">Filter Options</div>
+                            <div class="fs-4 text-black fw-bold">Filter Options</div>
                         </div>
                         <!--end::Header-->
 
@@ -265,10 +259,10 @@
 
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-dark me-2"
+                                <button type="reset" class="btn btn-danger me-2"
                                     data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
 
-                                <button type="submit" class="btn btn-dark" data-kt-menu-dismiss="true"
+                                <button type="submit" class="btn btn-success" data-kt-menu-dismiss="true"
                                     data-kt-docs-table-filter="filter">Apply</button>
                             </div>
                             <!--end::Actions-->
@@ -277,13 +271,10 @@
                     </div>
                     <!--end::Menu 1--> <!--end::Filter-->
 
-
-
-
                     <!--begin::Add customer-->
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                         data-bs-target="#record_role_modal">
-                        <i class="ki-duotone ki-plus fs-2"></i> Add Role
+                        <i class="ki-duotone ki-plus fs-2 text-light"></i> Add Role
                     </button>
                     <!--end::Add customer-->
                 </div>
@@ -293,7 +284,7 @@
             <!--end::Wrapper-->
             <table id="roles" class="table table-rounded fs-6 g-2 gs-2">
                 <thead>
-                    <tr class="text-start text-dark fw-bold fs-7 text-uppercase bg-secondary">
+                    <tr class="text-start text-dark fw-bold fs-7 text-uppercase bg-transparent">
                         <th>Actions</th>
                         <th>Name</th>
                         <th>Description</th>
@@ -346,7 +337,7 @@
                     @endforeach
                 </tbody>
                 <tfoot>
-                    <tr class="text-start text-dark fw-bold fs-7 text-uppercase bg-secondary">
+                    <tr class="text-start text-dark fw-bold fs-7 text-uppercase bg-transparent">
                         <th>Actions</th>
                         <th>Name</th>
                         <th>Description</th>

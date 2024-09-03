@@ -33,7 +33,10 @@ use App\Models\MarriageStatus;
 use App\Models\Language;
 use App\Models\Comment;
 use App\Models\PersonHasAddress;
+use App\Models\BuGender;
 use Illuminate\Support\Facades\Auth;
+
+use App\Services\GBA\PersonService;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MembershipsExport;
@@ -43,7 +46,13 @@ use App\Notifications\PersonStatusNotification;
 
 class MembershipsController extends Controller
 {
-   
+    protected $personService;
+
+    public function __construct(PersonService $personService)
+    {
+        $this->personService = $personService;
+    }
+
 
     public $statuses = [
         1 => 'Active',
@@ -73,13 +82,22 @@ class MembershipsController extends Controller
         //$numberOfMemberships = $query->count();
 
         //$memberships = $query->orderBy('name')->paginate();
-        $memberships = Membership::all();
+        // $memberships = Membership::all();
+        $memberships = Membership::whereHas('person', function ($query) {
+            $query->whereNull('deceased_date');
+        })->get();
+        
+        
+        //dd($memberships);
 
-
+        // Fetch all membership types
         $memtypes = BuMembershipType::all();
+
         $countries = Country::all();
 
-        $genders = Gender::all();
+        $genders = Gender::whereHas('buGenders', function ($query) {
+            $query->where('bu_id', Auth::user()->currentBu()->id ?? 7);
+        })->get();
         $maritalStatuses = MarriageStatus::all();
         $languages = Language::all();
 
@@ -87,11 +105,15 @@ class MembershipsController extends Controller
 
         //ActivityLogger::activity("User just requested Memberships page");
 
+
+
+
         //dd($memberships);
         return view('memberships', [
             'memberships' => $memberships,
             'statuses' => $statuses,
-            'memtypes' => $memtypes, 'countries' => $countries, 'genders' => $genders, 'maritalStatuses' => $maritalStatuses, 'languages' => $languages
+            'memtypes' => $memtypes, 
+            'countries' => $countries, 'genders' => $genders, 'maritalStatuses' => $maritalStatuses, 'languages' => $languages
         ]);
     }
 
@@ -105,7 +127,11 @@ class MembershipsController extends Controller
         $memtypes = BuMembershipType::all();
         $countries = Country::all();
 
-        $genders = Gender::all();
+        // $genders = Gender::all();
+        $genders = Gender::whereHas('buGenders', function ($query) {
+            $query->where('bu_id', Auth::user()->currentBu()->id ?? 7);
+        })->get();
+
         $maritalStatuses = MarriageStatus::all();
         $languages = Language::all();
 
@@ -114,20 +140,57 @@ class MembershipsController extends Controller
         return view('add-member', ['memtypes' => $memtypes, 'countries' => $countries, 'genders' => $genders, 'maritalStatuses' => $maritalStatuses, 'languages' => $languages]);
     }
 
-    public function store(StoreMembershipRequest $request, StorePerson $storePerson, StoreAddress $storeAddress)
+    public function store(Request $request, StoreAddress $storeAddress)
     {
+       
         DB::beginTransaction(); // Start the transaction
 
+      
         try {
             // Convert request data to object if necessary or directly pass $request
-            $requestData = (object) $request->all();
+            // $requestData = (object) $request->all();
 
-            // Person Action Method injection
-            $person = $storePerson->handle($requestData);
+            // Use the personService to create or retrieve the person
+            $prefix = ''; // Define your prefix if needed
+
+            // Combine the day, month, and year to create a birth_date
+            $birthDate = null;
+            if ($request->inputDay && $request->inputMonth && $request->inputYear) {
+                $birthDate = Carbon::createFromDate($request->inputYear, $request->inputMonth, $request->inputDay);
+            } elseif ($request->IDNumber) {
+                // If no specific day, month, and year are provided, you can also extract it from the IDNumber
+                $birthDate = Carbon::createFromFormat('ymd', substr($request->IDNumber, 0, 6));
+            }
+
+            // Manually map request data to variables expected by the service
+            $personRequestData = new \Illuminate\Http\Request();
+
+            $personRequestData->merge([
+                'id_number' => $request->IDNumber,
+                'first_name' => $request->Name,
+                'initials' => ucfirst(substr($request->Name, 0, 1)) . '.' . ucfirst(substr($request->Surname, 0, 1)),
+                'last_name' => $request->Surname,
+                'birth_date' => $birthDate, // Use the combined birth_date
+                'married_status' => $request->married_status,
+                'gender_id' => $request->radioGender,
+                'residence_country_id' => $request->residence_country_id,
+            ]);
+
+            // Call the service with the mapped data
+            $person = $this->personService->createPerson($personRequestData, $prefix);
+
+            if ($person === null) {
+                throw new \Exception('Failed to create or retrieve the person.');
+            }
+            
 
             // Address Action Method injection
-            $address = $storeAddress->handle($requestData);
+            $address = $storeAddress->handle($request);
 
+            if ($address === null) {
+                throw new \Exception('Failed to create or retrieve the address.');
+            }
+            
             // Assuming you have language logic handled appropriately
             $language = $request->language != null ? 2 : 1;
 
@@ -274,6 +337,10 @@ class MembershipsController extends Controller
         // Assuming you have a relationship set up for the person details
         $membership->person->birth_date = $request->inputYear . '-' . $request->inputMonth . '-' . $request->inputDay;
         $membership->person->married_status = $request->marital_status;
+        $membership->person->gender_id = $request->radioGender;
+        $bugender = BuGender::where('id', $request->radioGender)->first();
+        $membership->person->bu_gender_id = $bugender ? $bugender->id : null;           
+
 
         // Check if any of the membership or related person model's fields are dirty
         if ($membership->isDirty() || $membership->person->isDirty()) {
@@ -338,15 +405,30 @@ class MembershipsController extends Controller
          $genders = Gender::all();
          $marriageStatuses = MarriageStatus::all();
 
+        // Start Comments functionality [Thina]
+        // Fetch comments related to the membership
+        $comments = Comment::where('model_name', 'Membership')->where('model_record', $id)->orderBy('created_at', 'desc')->get();
+
+        // Decode the JSON data in the 'text' column
+        $comments = $comments->map(function ($comment) {
+            $comment->text = json_decode($comment->text);
+            return $comment;
+        });
+        // End Comments functionality [Thina]
+        //dd($membership);
         // dd($billings);
         // return view('view-member', ['membership' => $membership, 'dis' => $disabled, 'dependants' => $dependants, 'memtypes' => $memtypes, 'countries' => $countries, 'addresses' => $addresses, 'payments' => $payments, 'billings' => $billings, 'statuses' => $statuses]);
-        return view('view-member', ['membership' => $membership, 'dis' => $disabled, 'dependants' => $dependants, 'memtypes' => $memtypes, 'countries' => $countries, 'addresses' => $addresses, 'payments' => $payments, 'billings' => $billings, 'statuses' => $statuses, 'genders' => $genders, 'marriageStatuses' => $marriageStatuses]);   
+        return view('view-member', ['membership' => $membership, 'dis' => $disabled, 'dependants' => $dependants, 'memtypes' => $memtypes, 'countries' => $countries, 'addresses' => $addresses, 'payments' => $payments, 'billings' => $billings, 'statuses' => $statuses, 'genders' => $genders, 'marriageStatuses' => $marriageStatuses, 'comments' => $comments]);   
     }
 
 
     public function edit($id)
     {
-        $membership = Membership::where('id', $id)->first();
+        $membership = Membership::with('person')->where('id', $id)->first();
+
+        if (!$membership) {
+            return redirect()->back()->with('error', 'Membership not found');
+        }
 
         $dependants = Dependant::where('primary_person_id', $membership->person_id)->get();
 
@@ -363,7 +445,7 @@ class MembershipsController extends Controller
 
         // Start Comments functionality [Thina]
         // Fetch comments related to the membership
-        $comments = Comment::where('model_name', 'Membership')->where('model_record', $id)->get();
+        $comments = Comment::where('model_name', 'Membership')->where('model_record', $id)->orderBy('created_at', 'desc')->get();
 
         // Decode the JSON data in the 'text' column
         $comments = $comments->map(function ($comment) {
@@ -371,29 +453,17 @@ class MembershipsController extends Controller
             return $comment;
         });
         // End Comments functionality [Thina]
-
-       try {
-    $response = Http::get(env('MEMBER_ADDRESS_URL'));
-    if ($response->successful()) {
-        $memAdd = $response->json();
-    } else {
-        // Handle error response
-        Log::error('Failed to retrieve member address data', ['response' => $response->body()]);
-        // Optionally, you can set a default value or handle the failure accordingly
-        $memAdd = [];
-    }
-} catch (Exception $e) {
-    // Handle exceptions
-    Log::error('Error occurred while retrieving member address data', ['exception' => $e->getMessage()]);
-    // Optionally, you can set a default value or handle the exception accordingly
-    $memAdd = [];
-}
+        //dd($comments);
+ 
 
         //Siya to Thina - Bro why are you using this? Its not good practice
 
         $disabled = '';
 
-        $genders = DB::select('select * from gender');
+        // $genders = DB::select('select * from gender');
+        $genders = Gender::whereHas('buGenders', function ($query) {
+            $query->where('bu_id', Auth::user()->currentBu()->id ?? 7);
+        })->get();
         $genderMap = [];
             foreach ($genders as $gender) {
                 $genderMap[$gender->id] = $gender->name;
@@ -414,7 +484,7 @@ class MembershipsController extends Controller
 
         //$genders = Gender::all(); // Fetch all genders
 
-        return view('edit-member', ['membership' => $membership, 'dis' => $disabled, 'dependants' => $dependants, 'memtypes' => $memtypes, 'countries' => $countries, 'addresses' => $addresses, 'memAdd' => $memAdd, 'genders' => $genders, 'marriages' => $marriages, 'billings' => $billings, 'relationships' => $relationships, 'genders' => $genders, 'comments' => $comments, 'genderMap' => $genderMap, 'relationshipMap' => $relationshipMap])->with('success', 'Updated Successfully!');
+        return view('edit-member', ['membership' => $membership, 'dis' => $disabled, 'dependants' => $dependants, 'memtypes' => $memtypes, 'countries' => $countries, 'addresses' => $addresses, 'genders' => $genders, 'marriages' => $marriages, 'billings' => $billings, 'relationships' => $relationships, 'genders' => $genders, 'comments' => $comments, 'genderMap' => $genderMap, 'relationshipMap' => $relationshipMap])->with('success', 'Updated Successfully!');
     }
 
     /**

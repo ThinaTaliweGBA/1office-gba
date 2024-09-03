@@ -41,17 +41,18 @@
                         <span class="path2"></span>
                     </div>
                     <input type="text" data-kt-docs-table-filter="search"
-                        class="form-control form-control-solid w-250px ps-15 bg-secondary" placeholder="Search for Membership" />
+                        class="form-control form-control-solid w-250px ps-15 bg-secondary" placeholder="Search for a User" />
                 </div>
             </div>
             <!--end::Search-->
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                 <!--begin::Filter-->
-                <button type="button" class="btn btn-light me-3 bg-secondary" data-kt-menu-trigger="click"
-                    data-kt-menu-placement="bottom-end">
-                    <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i> Filter
-                </button>
+                <button type="button" class="btn text-light me-3 bg-dark" data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end">
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
+                        Filter
+                    </button>
                 <!--begin::Menu 1-->
                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" id="kt-toolbar-filter">
                     <!--begin::Header-->
@@ -125,12 +126,11 @@
 
                 @can('user create')
                     <!--begin::Add customer-->
-                    <a type="button" class="btn btn-light bg-secondary" data-bs-toggle="tooltip" title="Add User"
+                    <a type="button" class="btn btn-dark" data-bs-toggle="tooltip" title="Add User"
                         href="{{ route('user.create') }}">
-                        <i class="ki-duotone ki-plus fs-2"></i> Add New User
+                        <i class="ki-duotone ki-plus fs-2 text-light"></i> Add New User
                     </a>
                 @endcan
-
                 <!--end::Add customer-->
             </div>
             <!--end::Toolbar-->
@@ -152,7 +152,7 @@
 
                 </tr>
             </thead>
-            <tbody class="bg-light">
+            <tbody>
                 @foreach ($users as $user)
                     <tr>
                                                 @canany(['user edit', 'user delete'])

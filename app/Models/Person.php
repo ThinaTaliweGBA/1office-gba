@@ -192,4 +192,38 @@ class Person extends Model
     }
 
 
+    /**
+     * Define a one-to-one relationship with BuGender.
+     * Assuming 'bu_gender_id' exists in the 'person' table to link to BuGender.
+     */
+    public function buGender()
+    {
+        return $this->belongsTo(BuGender::class, 'bu_gender_id');
+    }
+
+    /**
+     * Define a one-to-one relationship with Gender through BuGender.
+     */
+    public function gender()
+    {
+        return $this->hasOneThrough(
+            Gender::class,
+            BuGender::class,
+            'id',           // Foreign key on BuGender table (primary key of BuGender)
+            'id',           // Foreign key on Gender table (primary key of Gender)
+            'bu_gender_id', // Local key on Person table
+            'gender_id'     // Local key on BuGender table that references Gender
+        );
+    }
+
+       /**
+     * Define a one-to-one relationship with MarriageStatus.
+     * This uses the 'married_status' column in the 'person' table to link to the MarriageStatus model.
+     */
+    public function marriageStatus()
+    {
+        return $this->belongsTo(MarriageStatus::class, 'married_status');
+    }
+    
+
 }

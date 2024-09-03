@@ -3,15 +3,15 @@
 @push('styles')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font-awesome.min.css" rel="stylesheet">
 @endpush
-
+    <!--SIYA:: Block UI if user is not an employee -->
+    <x-access-denied-modal />
 @section('content')
-    <div class="row rounded m-12 shadow-lg">
+    <div class="row rounded m-12">
 
         {{-- Start Search Results --}}
         <div class="card mt-4 p-4">
             {{-- Start Membership Search --}}
-            <div class="card mb-4 p-4 bg-secondary">
-                <h1 class="text-center mb-2 p-2">Membership Search</h1>
+                <h1 class="text-center mb-2 p-2 text-dark">Membership Search</h1>
                 <form action="{{ route('payments') }}" method="GET">
                     <div class="input-group mb-3">
                         <div class="d-flex flex-row" style="width: 100%;">
@@ -27,11 +27,11 @@
                     </div>
 
                 </form>
-            </div>
+            
             {{-- End Membership Search --}}
 
             @if (request()->has('search') && !empty($memberships))
-                <h1 class="text-center mb-2 p-2">Membership And Billing History</h1>
+                <h1 class="text-center mb-2 p-2 text-warning">Results</h1>
                 <div class="p-2">
                     @forelse ($memberships as $membership)
                         {{-- Your membership details and billing history layout here --}}
@@ -41,11 +41,11 @@
                                 <div class="row mt-1">
                                     <!-- Membership Details (3 columns) -->
                                     <div class="col-3">
-                                        <div class="card bg-secondary">
+                                        <div class="card bg-light">
                                             <div class="card-body">
 
                                                 <!-- Membership Name and Surname -->
-                                                <h5 class="card-title text-center">Membership Code
+                                                <h5 class="card-title text-dark text-center">Membership Code
                                                     : {{ $membership->membership_code }}</h5>
 
 
@@ -153,9 +153,9 @@
                                     </div>
                                     <!-- Billing History (6 columns) -->
                                     <div class="col-9">
-                                        <div class="card mb-4 bg-secondary">
+                                        <div class="card mb-4 bg-light">
                                             <div class="card-title rounded p-2 m-4">
-                                                <h3 class="card-title m-0 text-center">Billing History</h3>
+                                                <h3 class="card-title m-0 text-center text-dark">Billing History</h3>
                                             </div>
 
                                             <div class="card-body p-0 m-4">
@@ -214,14 +214,14 @@
         {{-- Start Payment Method --}}
         <div class="card mt-4">
             <div class="accordion my-4" id="paymentMethodsAccordion">
-                <h1 class="text-center my-4" style="color: green;">Payments Methods</h1>
+                <h1 class="text-center my-4">Payments Methods</h1>
 
                 <!-- Cash Payment Method -->
                 <div class="accordion-item m-1">
                     <h2 class="accordion-header mx-auto" id="headingCash">
-                        <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCash" aria-expanded="false" aria-controls="collapseCash">
-                            Cash
+                            Cash Payment
                         </button>
                     </h2>
                     <div id="collapseCash" class="accordion-collapse collapse" aria-labelledby="headingCash"
@@ -230,9 +230,8 @@
                             <form id="cashPaymentForm" action="{{ route('saveCashPaymentDetails') }}" method="POST"
                                 class="payment-section card p-0 m-0">
 
-                                <h2 class="m-4 text-center">Cash Payment</h2>
                                 @csrf <!-- CSRF token for Laravel -->
-                                <div class="container-fluid">
+                                <div class="container-fluid mt-6">
                                     <div class="row">
                                         <!-- Membership ID -->
                                         <div class="col-2 mb-7 fv-row">
@@ -304,8 +303,7 @@
                                         <!-- Submission Button -->
                                         <div class="col-3 mb-7 fv-row my-auto">
                                             <button type="submit" class="btn bg-success text-center my-auto mx-auto border border-secondary">Submit
-                                                Payment
-                                                Details</button>
+                                                Payment</button>
                                         </div>
                                     </div>
                                 </div>
@@ -318,10 +316,10 @@
                 <!-- Debit Order Payment Method -->
                 <div class="accordion-item m-1">
                     <h2 class="accordion-header" id="headingDebitOrder">
-                        <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseDebitOrder" aria-expanded="false"
                             aria-controls="collapseDebitOrder">
-                            Debit Order
+                            Debit Order Payment
                         </button>
                     </h2>
                     <div id="collapseDebitOrder" class="accordion-collapse collapse" aria-labelledby="headingDebitOrder"
@@ -333,9 +331,8 @@
                                 <form id="membershipRegistrationForm" action="{{ route('saveBankDetails') }}"
                                     method="POST" class="payment-section card p-0 m-0">
 
-                                    <h2 class="m-4 text-center">Debit Order Payment</h2>
                                     @csrf <!-- CSRF token for Laravel -->
-                                    <div class="container-fluid">
+                                    <div class="container-fluid mt-6">
                                         <!-- Simplified to focus on required fields for membership_bank_details -->
 
                                         <!-- Fields for membership_bank_details -->
@@ -484,16 +481,9 @@
                                             <!-- Submission Button -->
                                             <div class="col-md-2 mb-7 fv-row my-auto">
                                                 <button type="submit"
-                                                    class="btn bg-success text-center my-auto mx-auto">Submit Debit
-                                                    Order Details</button>
+                                                    class="btn bg-success text-center my-auto mx-auto">Submit Details</button>
                                             </div>
                                         </div>
-
-                                        <div class="row">
-
-
-                                        </div>
-
                                     </div>
                                 </form>
                             </div>
@@ -505,22 +495,21 @@
                 <!-- EFT Payment Method -->
                 <div class="accordion-item m-1">
                     <h2 class="accordion-header" id="headingEft">
-                        <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseEft" aria-expanded="false" aria-controls="collapseEft">
-                            EFT
+                            EFT Payment
                         </button>
                     </h2>
                     <div id="collapseEft" class="accordion-collapse collapse" aria-labelledby="headingEft"
                         data-bs-parent="#paymentMethodsAccordion">
                         <div class="accordion-body bg-light">
                             <!-- Content for EFT Payment Method -->
-                            <div id="eftSection" class="payment-section card m-0 p-0">
-                                <h2 class="m-4 text-center">EFT Payment Details</h2>
+                            <div id="eftSection" class="payment-section card p-0 m-0">
                                 <!-- Begin Form -->
                                 <form id="eftForm" method="POST" action="{{ route('saveEFTDetails') }}">
                                     <!-- Specify the backend route -->
                                     @csrf <!-- CSRF token for Laravel or similar frameworks -->
-                                    <div class="container-fluid">
+                                    <div class="container-fluid mt-6">
                                         <!-- Row 1 for Account Holder, Amount, Bank Name, and Branch Code -->
                                         <div class="row">
                                             <!-- Membership ID -->
@@ -627,7 +616,7 @@
 
                                             <!-- Submit Button -->
                                             <div class="col-md-2">
-                                                <button type="submit" class="btn bg-success mt-8">Submit EFT Details</button>
+                                                <button type="submit" class="btn bg-success mt-8">Submit Payment</button>
                                             </div>
                                         </div>
                                     </div>
@@ -640,9 +629,9 @@
                 <!-- Data Via Payment Method -->
                 <div class="accordion-item m-1">
                     <h2 class="accordion-header" id="headingDataVia">
-                        <button class="accordion-button collapsed bg-secondary" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseDataVia" aria-expanded="false" aria-controls="collapseDataVia">
-                            Data Via
+                            Data Via Payment
                         </button>
                     </h2>
                     <div id="collapseDataVia" class="accordion-collapse collapse" aria-labelledby="headingDataVia"
@@ -650,11 +639,10 @@
                         <div class="accordion-body bg-light">
                             <!-- Data Via Section -->
                             <div id="dataViaSection" class="payment-section card m-0 p-0">
-                                <h2 class="m-4 text-center">Data Via Payment Details</h2>
                                 <!-- Assuming 'saveDataViaDetails' is a method in your controller for handling Data Via payments -->
                                 <form id="dataViaForm" action="{{ route('saveDataViaDetails') }}" method="POST">
                                     @csrf <!-- CSRF token for Laravel -->
-                                    <div class="container-fluid">
+                                    <div class="container-fluid mt-6">
                                         <!-- Similar to the EFT section, fields must correspond to 'membership_payment_receipts' table columns -->
 
                                         <div class="row">
@@ -719,8 +707,7 @@
 
                                             <!-- Submission Button -->
                                             <div class="col-3 mx-auto my-auto">
-                                                <button type="submit" class="btn bg-success mt-3">Submit Data Via
-                                                    Details</button>
+                                                <button type="submit" class="btn bg-success mt-3">Submit Payment</button>
                                             </div>
                                         </div>
 

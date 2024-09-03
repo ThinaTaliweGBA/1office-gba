@@ -53,13 +53,13 @@
                         <div class="col-5 rounded-end bg-secondary p-4">
                             <div class="mb-1">
                                 <label for="password" class="required fw-semibold fs-6 mb-2">{{ __('Password') }}</label>
-                                <input id="password" type="password" name="password"
+                                <input id="password" type="password" name="password" placeholder="(Leave Blank, Unless Updating Password)"
                                     class="form-control form-control-solid mb-3 mb-lg-0" />
                             </div>
                             <div class="mb-1">
                                 <label for="password_confirmation"
                                     class="required fw-semibold fs-6 mb-2">{{ __('Password Confirmation') }}</label>
-                                <input id="password_confirmation" type="password" name="password_confirmation"
+                                <input id="password_confirmation" type="password" name="password_confirmation" placeholder="(Leave Blank, Unless Updating Password)"
                                     class="form-control form-control-solid mb-3 mb-lg-0" />
                             </div>
                         </div>

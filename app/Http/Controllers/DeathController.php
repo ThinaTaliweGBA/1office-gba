@@ -50,13 +50,26 @@ class DeathController extends Controller
     {
         $search = $request->get('search');
         
+        // $persons = Person::where('deceased', 0)
+        //     ->where(function ($query) use ($search) {
+        //         $query->where('first_name', 'LIKE', "%{$search}%")
+        //               ->orWhere('last_name', 'LIKE', "%{$search}%")
+        //               ->orWhere('id_number', 'LIKE', "%{$search}%");
+        //     })
+        //     ->get();
+
+        //Only fetch people that have a membership or belong to one
         $persons = Person::where('deceased', 0)
-            ->where(function ($query) use ($search) {
-                $query->where('first_name', 'LIKE', "%{$search}%")
-                      ->orWhere('last_name', 'LIKE', "%{$search}%")
-                      ->orWhere('id_number', 'LIKE', "%{$search}%");
-            })
-            ->get();
+        ->where(function ($query) use ($search) {
+            $query->where('first_name', 'LIKE', "%{$search}%")
+                  ->orWhere('last_name', 'LIKE', "%{$search}%")
+                  ->orWhere('id_number', 'LIKE', "%{$search}%");
+        })
+        ->where(function ($query) {
+            $query->whereHas('membership')  // Persons with their own memberships
+                  ->orWhereHas('membershipsAsDependent');  // Persons who are dependents
+        })
+        ->get();
     
         $results = $persons->map(function ($person) {
             return [

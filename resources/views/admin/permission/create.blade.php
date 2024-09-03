@@ -31,7 +31,7 @@
 				<div class="text-center pt-15">
 				  <button type='submit' class='btn bg-gba'>{{ __('Create') }}</button>
 				  <button class="btn-secondary border border-white">Clear</button>
-				  <a href="{{route('permission.index')}}" class="btn btn-sm btn-active-icon-primary bg-gba-light border rounded border-white p-2">{{ __('<< Back') }}</a>
+				  <a href="{{route('permission.index')}}" class="btn btn-sm bg-warning border rounded border-white p-2">{{ __('<< Back') }}</a>
 				</div>
 			  </form>
 			</div>

@@ -50,8 +50,10 @@ use App\Http\Controllers\DeathController;
 use App\Http\Controllers\FuneralController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\UserBuController;
+use App\Http\Controllers\FuneralChecklistController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\LaravelLoggerController;
+use jeremykenedy\LaravelLogger\App\Models\Activity;
 
 // to be deleted
 use App\Http\Controllers\GbaFormsController;
@@ -383,6 +385,9 @@ Route::controller(MembershipsController::class)->group(function () {
     Route::get('/members/{id}', 'show')->name('members.show');
 });
 
+
+Route::post('/bypass-access', [UserController::class, 'bypassAccess'])->name('bypass.access');
+
 //**----------------------------- Logs Routes ----------------------------*\
 
 Route::get('/logs', [LogController::class, 'show'])->name('logs.show');
@@ -494,6 +499,13 @@ Route::post('/update-funeral-required', [FuneralController::class, 'updateFunera
 
 Route::post('/funeral/checklist/{id}', [FuneralController::class, 'updateChecklistItem']);
 
+// Route to handle AJAX form submission to store a new checklist item
+Route::post('/checklist/store', [FuneralChecklistController::class, 'store'])->name('checklist.store');
+
+// Route to fetch the updated checklist items
+Route::get('/funerals/{id}/checklist-items', [FuneralController::class, 'fetchChecklistItems'])->name('funerals.fetchChecklistItems');
+
+
 // These are for testing the gba forms if they can be displayed - to be deleted
 Route::get('/gba-forms', [GbaFormsController::class, 'index'])->name('gba-forms.index');
 Route::get('/gba-forms/{id}', [GbaFormsController::class, 'show'])->name('gba-forms.show');
@@ -533,21 +545,14 @@ Route::get('/chart-data2', [HomeController::class, 'getChartData2']);
 
 Route::get('/dependant/{id}/main-member', [DependantsController::class, 'mainMember'])->name('dependant.main-member');
 
-///Route::group(['prefix' => 'activity', 'namespace' => 'jeremykenedy\LaravelLogger\App\Http\Controllers', 'middleware' => ['web', 'auth', 'activity']], function () {
 
 
-   /// Route::get('/activity', [LaravelLoggerController::class, 'howAccessLog'])->name('activity');
-   /// Route::get('/cleared', ['uses' => 'LaravelLoggerController@showClearedActivityLog'])->name('cleared');
+Route::get('/activity-logs', function () {
+    //$activities = Activity::orderBy('created_at', 'desc')->get();
+        $activities = Activity::orderBy('created_at', 'desc')->take(8)->get();
 
-
-  ///  Route::get('/log/{id}', [LaravelLoggerController::class, 'showAccessLogEntry']);
-   /// Route::get('/cleared/log/{id}', [LaravelLoggerController::class, 'showClearedAccessLogEntry']);
-
- 
-  ///  Route::delete('/clear-activity', ['uses' => 'LaravelLoggerController@clearActivityLog'])->name('clear-activity');
-  ///  Route::delete('/destroy-activity', ['uses' => 'LaravelLoggerController@destroyActivityLog'])->name('destroy-activity');
-  ///  Route::post('/restore-log', ['uses' => 'LaravelLoggerController@restoreClearedActivityLog'])->name('restore-activity');
-///});
+    return response()->json($activities);
+});
 
 
 require __DIR__ . '/auth.php';

@@ -38,6 +38,13 @@
             color: white;
             text-decoration: none;
         }
+
+        .custom-modal-size {
+            max-width: 2000px !important;
+            /* Adjust width as needed */
+            height: auto !important;
+            /* Adjust height as needed */
+        }
     </style>
 
     <style>
@@ -46,6 +53,10 @@
             color: #fefefe;
             /* Change the color as needed */
         }
+
+        .dataTables_empty {
+    text-align: center; /* Centers the text */
+}
     </style>
 
     <style>
@@ -271,40 +282,12 @@
             display: none !important;
         }
     </style> --}}
-
- <script>
-        function getDOB(idNumber) {
-            if (idNumber.length === 13) {
-                let year = idNumber.substring(0, 2);
-                let month = idNumber.substring(2, 4);
-                let day = idNumber.substring(4, 6);
-
-                // If the year is greater than the current year, then it must be from the 1900s
-                year = (year < new Date().getFullYear() % 100) ? `20${year}` : `19${year}`;
-
-                const dob = new Date(`${year}-${month}-${day}`);
-                const age = calculateAge(dob);
-
-                document.getElementById('age').value = age; // Set the age in the age input field
-            } else {
-                document.getElementById('age').value = ''; // Clear the age input if the ID number is invalid
-            }
-        }
-
-        function calculateAge(dob) {
-            const diffMs = Date.now() - dob.getTime();
-            const ageDt = new Date(diffMs);
-
-            return Math.abs(ageDt.getUTCFullYear() - 1970);
-        }
-
-        function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            return !(charCode > 31 && (charCode < 48 || charCode > 57));
-        }
-    </script>
+    
 @endpush
 
+    <!--SIYA:: Block UI if user is not an employee -->
+    {{-- <x-access-denied-modal /> --}}
+    
 @section('row_content')
 
     {{-- @if ($errors->any())
@@ -368,9 +351,9 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Filter-->
-                    <button type="button" class="btn btn-light me-3 bg-secondary" data-kt-menu-trigger="click"
+                    <button type="button" class="btn text-light me-3 bg-dark" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
                         Filter
                     </button>
                     <!--begin::Menu 1-->
@@ -378,7 +361,7 @@
                         id="kt-toolbar-filter">
                         <!--begin::Header-->
                         <div class="px-7 py-5">
-                            <div class="fs-4 text-gray-900 fw-bold">Filter Options</div>
+                            <div class="fs-4 text-black fw-bold">Filter Options</div>
                         </div>
                         <!--end::Header-->
 
@@ -395,35 +378,61 @@
                                 <!--end::Label-->
 
                                 <!--begin::Options-->
-                                <div class="d-flex flex-column flex-wrap fw-semibold"
-                                    data-kt-docs-table-filter="funeral_status">
+                                <div class="d-flex flex-column flex-wrap fw-semibold" data-kt-docs-table-filter="funeral_status">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
                                         <input class="form-check-input" type="radio" name="funeral_status" value="all"
                                             checked="checked" />
-                                        <span class="form-check-label text-gray-600">
-                                            All
-                                        </span>
+                                        <span class="form-check-label text-gray-600">All</span>
                                     </label>
                                     <!--end::Option-->
 
                                     <!--begin::Option-->
                                     <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                        <input class="form-check-input" type="radio" name="funeral_status"
-                                            value="Pending" />
-                                        <span class="form-check-label text-gray-600">
-                                            Pending
-                                        </span>
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="Active" />
+                                        <span class="form-check-label text-gray-600">Active</span>
                                     </label>
                                     <!--end::Option-->
 
                                     <!--begin::Option-->
-                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                        <input class="form-check-input" type="radio" name="funeral_status"
-                                            value="Completed" />
-                                        <span class="form-check-label text-gray-600">
-                                            Completed
-                                        </span>
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="In-Active" />
+                                        <span class="form-check-label text-gray-600">In-Active</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="Arrears" />
+                                        <span class="form-check-label text-gray-600">Arrears</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="Fully-Paid" />
+                                        <span class="form-check-label text-gray-600">Fully-Paid</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="Main-Deceased-Fully-Paid" />
+                                        <span class="form-check-label text-gray-600">Main-Deceased-Fully-Paid</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="In-Active-Spouse" />
+                                        <span class="form-check-label text-gray-600">In-Active-Spouse</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="funeral_status" value="Cancelled" />
+                                        <span class="form-check-label text-gray-600">Cancelled</span>
                                     </label>
                                     <!--end::Option-->
 
@@ -434,16 +443,14 @@
 
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-dark me-2"
-                                    data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
-
-                                <button type="submit" class="btn btn-dark " data-kt-menu-dismiss="true"
-                                    data-kt-docs-table-filter="filter">Apply</button>
+                                <button type="reset" class="btn btn-danger me-2" data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
+                                <button type="submit" class="btn btn-success" data-kt-menu-dismiss="true" data-kt-docs-table-filter="filter">Apply</button>
                             </div>
                             <!--end::Actions-->
                         </div>
                         <!--end::Content-->
                     </div>
+
                     <!--end::Menu 1--> <!--end::Filter-->
 
                     <!--begin::Add customer-->
@@ -453,8 +460,8 @@
                     </a> --}}
                     <!--end::Add customer-->
                     <!-- Modal Trigger Button -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMemberModal">
-                        Add New Membership
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                    <i class="ki-duotone ki-plus fs-3 text-light"></i> Add New Membership
                     </button>
                 </div>
                 <!--end::Toolbar-->
@@ -473,11 +480,12 @@
                         <th class="text-center">Telephone</th>
                         <th class="text-center">Join Date</th>
                         <th class="text-center">Status</th>
+                        <th class="text-center">Membership No.</th>
                         <th class="text-center">End Date</th>
 
                     </tr>
                 </thead>
-                <tbody class="bg-light">
+                <tbody>
                     @foreach ($memberships as $membership)
                         <tr>
                             <td class="text-m font-weight-normal pt-3 text-center">
@@ -550,6 +558,9 @@
                                 {{-- <span class="badge badge-light-primary fs-7 fw-bold">{{ $membership->status }}</span> --}}
                             </td>
                             <td class="text-m font-weight-normal pt-3 text-center">
+                                {{ $mem_code = $membership->membership_code ?? 'N/A' }}
+                            </td>
+                            <td class="text-m font-weight-normal pt-3 text-center">
                                 {{ $endDateFormatted = $membership->end_date ? Carbon\Carbon::parse($membership->end_date)->format('d/m/Y') : 'N/A' }}
                             </td>
 
@@ -566,6 +577,7 @@
                         <th class="text-center">Telephone</th>
                         <th class="text-center">Join Date</th>
                         <th class="text-center">Status</th>
+                        <th class="text-center">Membership No.</th>
                         <th class="text-center">End Date</th>
                     </tr>
                 </tfoot>
@@ -602,7 +614,7 @@
     </div>
 
     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog custom-modal-size fixed">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Membership Details</h1>
@@ -721,6 +733,13 @@
                                             @endforeach
                                         </ul>
                                     </div>
+
+                                    <script type="text/javascript">
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            var addMemberModal = new bootstrap.Modal(document.getElementById('addMemberModal'));
+                                            addMemberModal.show();
+                                        });
+                                    </script>
                                 @endif
                             </div>
 
@@ -770,9 +789,9 @@
                                                     <div
                                                         class="form-floating @error('Name') is-invalid focused is-focused  @enderror mt-3 mb-0 bold-placeholder">
 
-                                                        <input type="text" class="form-control text-black"
+                                                        <input type="text" class="form-control text-dark bg-light"
                                                             name="Name" id="Name" value="{{ old('Name') }}"
-                                                            placeholder="" required>
+                                                            placeholder="" autocomplete="nope" required>
                                                         <label for="Name" class="fs-4 text-gray-600">Name<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -787,9 +806,9 @@
                                                     <div
                                                         class="form-floating  @error('Surname') is-invalid focused is-focused  @enderror mt-3 mb-0">
 
-                                                        <input type="text" class="form-control text-black"
+                                                        <input type="text" class="form-control text-dark bg-light"
                                                             name="Surname" id="Surname" value="{{ old('Surname') }}"
-                                                            placeholder="" required>
+                                                            placeholder="" autocomplete="nope" required>
                                                         <label for="Surname" class="fs-4 text-gray-600">Surname<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -806,7 +825,7 @@
                                                     <div id="IDNumber"
                                                         class="form-floating  @error('IDNumber') is-invalid focused is-focused  @enderror mt-3 mb-0">
 
-                                                        <input type="text" class="form-control" name="IDNumber"
+                                                        <input type="text" class="form-control text-dark bg-light" name="IDNumber"
                                                             id="IDNumber" value="{{ old('IDNumber') }}" placeholder=""
                                                             maxlength="13" size="13" onchange="getDOB(this.value)" required>
                                                         <label for="IDNumber" class="fs-4 text-gray-600">ID
@@ -834,10 +853,10 @@
                                                             class="form-floating @error('inputDay') is-invalid @enderror">
 
                                                             <input type="text" onkeypress="return isNumberKey(event)"
-                                                                class="form-control" name="inputDay" id="inputDay"
+                                                                class="form-control text-dark bg-light" name="inputDay" id="inputDay"
                                                                 value="{{ old('inputDay') }}" placeholder=""
                                                                 maxlength="2" size="2" required>
-                                                            <label for="inputDay" class="fs-4 text-gray-600">Day<span
+                                                            <label for="inputDay" class="fs-4 text-gray-600">DD<span
                                                                     class="text-danger">*</span></label>
                                                             @error('inputDay')
                                                                 <span class="invalid-feedback" role="alert">
@@ -850,7 +869,7 @@
                                                             class="form-floating">
 
                                                             <input type="text" onkeypress="return isNumberKey(event)"
-                                                                class="form-control" name="inputMonth" id="inputMonth"
+                                                                class="form-control text-dark bg-light" name="inputMonth" id="inputMonth"
                                                                 
                                                                 value="{{ old('inputMonth') }}" placeholder=""
                                                                 maxlength="2" size="2" required>
@@ -868,10 +887,10 @@
                                                             class="form-floating @error('inputYear') is-invalid @enderror">
 
                                                             <input type="text" onkeypress="return isNumberKey(event)"
-                                                                class="form-control" name="inputYear" id="inputYear"
+                                                                class="form-control text-dark bg-light" name="inputYear" id="inputYear"
                                                                 value="{{ old('inputYear') }}" placeholder=""
                                                                 maxlength="4" size="4" required>
-                                                            <label for="inputYear" class="fs-4 text-gray-600">Year<span
+                                                            <label for="inputYear" class="fs-4 text-gray-600">YYYY<span
                                                                     class="text-danger">*</span></label>
                                                             @error('inputYear')
                                                                 <span class="invalid-feedback" role="alert">
@@ -884,7 +903,7 @@
                                                         <div id="ageDiv" class="form-floating" >
 
                                                             <input type="text" onkeypress="return isNumberKey(event)"
-                                                                class="form-control" name="age" id="age"
+                                                                class="form-control text-dark bg-light" name="age" id="age"
                                                                 value="{{  old('age') }}" placeholder=""
                                                                 maxlength="4" size="3" readonly>
                                                             <label for="age" class="fs-4 text-gray-600">Age</label>
@@ -979,8 +998,7 @@
                                                         </div> --}}
                                                         <div class="btn-group col d-flex justify-content-center align-items-center mx-auto"
                                                             style="padding-top: 0.75rem;">
-                                                            <select
-                                                                class="form-select form-select-solid text-dark bg-light"
+                                                            <select class="form-select form-select-solid text-dark bg-light"
                                                                 id="marital_status" name="marital_status" required>
                                                                 <option value="">Select Marital Status*</option>
                                                                 @foreach ($maritalStatuses as $status)
@@ -991,7 +1009,6 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -1003,7 +1020,7 @@
                                             <!--begin::Title-->
                                             <h1 class="fw-bold d-flex align-items-center text-gba">Location
                                                 <span class="ms-1" data-bs-toggle="tooltip"
-                                                    title="Were is your physical address?">
+                                                    title="Where is your physical address?">
                                                     <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
@@ -1021,8 +1038,8 @@
                                                 <div class="col-6">
                                                     <div
                                                         class="form-floating @error('Line1') is-invalid focused is-focused  @enderror  mb-0">
-                                                        <input type="text" class="form-control" name="Line1"
-                                                            id="Line1" value="{{ old('Line1') }}" placeholder="" required>
+                                                        <input type="text" class="form-control text-dark bg-light" name="Line1"
+                                                            id="Line1" value="{{ old('Line1') }}" placeholder="" autocomplete="nope"  required>
                                                         <label for="Line1" class="fs-4 text-gray-600">Address Line
                                                             1<span class="text-danger">*</span></label>
                                                     </div>
@@ -1036,8 +1053,8 @@
                                                     <div
                                                         class="form-floating  @error('Line2') is-invalid focused is-focused  @enderror  mb-0">
 
-                                                        <input type="text" class="form-control" name="Line2"
-                                                            id="Line2" value="{{ old('Line2') }}" placeholder="">
+                                                        <input type="text" class="form-control text-dark bg-light" name="Line2"
+                                                            id="Line2" value="{{ old('Line2') }}" placeholder="" autocomplete="nope" >
                                                         <label for="Line2" class="fs-4 text-gray-600">Address Line
                                                             2<span class="text-danger">*</span></label>
                                                     </div>
@@ -1053,8 +1070,8 @@
                                                     <div
                                                         class="form-floating  @error('Province') is-invalid focused is-focused  @enderror ">
 
-                                                        <input type="text" class="form-control" name="Province"
-                                                            id="Province" value="{{ old('Province') }}" placeholder="">
+                                                        <input type="text" class="form-control text-dark bg-light" name="Province"
+                                                            id="Province" value="{{ old('Province') }}" placeholder="" autocomplete="nope">
                                                         <label for="Province" class="fs-4 text-gray-600">Province<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -1068,9 +1085,9 @@
                                                     <div
                                                         class="form-floating  @error('TownSuburb') is-invalid focused is-focused  @enderror ">
 
-                                                        <input type="text" autocomplete="off" class="form-control"
+                                                        <input type="text" autocomplete="off" class="form-control text-dark bg-light"
                                                             name="TownSuburb" id="TownSuburb"
-                                                            value="{{ old('TownSuburb') }}" placeholder="">
+                                                            value="{{ old('TownSuburb') }}" placeholder="" autocomplete="nope">
                                                         <label for="TownSuburb"
                                                             class="fs-4 text-gray-600">Town/Suburb<span
                                                                 class="text-danger">*</span></label>
@@ -1085,8 +1102,8 @@
                                                     <div
                                                         class="form-floating  @error('City') is-invalid focused is-focused  @enderror ">
 
-                                                        <input type="text" class="form-control" name="City"
-                                                            id="City" value="{{ old('City') }}" placeholder="">
+                                                        <input type="text" class="form-control text-dark bg-light" name="City"
+                                                            id="City" value="{{ old('City') }}" placeholder="" autocomplete="nope">
                                                         <label for="City" class="fs-4 text-gray-600">City<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -1102,8 +1119,8 @@
                                                     <div
                                                         class="form-floating  @error('Country') is-invalid focused is-focused  @enderror ">
 
-                                                        <input type="text" class="form-control" name="Country"
-                                                            id="Country" value="{{ old('Province') }}" placeholder="">
+                                                        <input type="text" class="form-control text-dark bg-light" name="Country"
+                                                            id="Country" value="{{ old('Province') }}" placeholder="" autocomplete="nope">
                                                         <label for="Country" class="fs-4 text-gray-600">Country<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -1118,9 +1135,9 @@
                                                     <div
                                                         class="form-floating  @error('PostalCode') is-invalid focused is-focused  @enderror ">
 
-                                                        <input type="text" class="form-control" name="PostalCode"
+                                                        <input type="text" class="form-control text-dark bg-light" name="PostalCode"
                                                             id="PostalCode" value="{{ old('PostalCode') }}"
-                                                            placeholder="">
+                                                            placeholder="" autocomplete="nope">
                                                         <label for="PostalCode" class="fs-4 text-gray-600">Zip<span
                                                                 class="text-danger">*</span></label>
                                                     </div>
@@ -1158,9 +1175,9 @@
                                                 <div class="col-3">
                                                     <div
                                                         class="form-floating @error('Telephone') is-invalid focused is-focused @enderror mt-3 mb-0">
-                                                        <input type="tel" class="form-control" name="Telephone"
+                                                        <input type="tel" class="form-control text-dark bg-light" name="Telephone"
                                                             id="Telephone" value="{{ old('Telephone') }}"
-                                                            placeholder="">
+                                                            placeholder="" autocomplete="nope">
                                                         <label for="Telephone" class="fs-4 text-gray-600">Add
                                                             Telephone (Cell)</label>
                                                     </div>
@@ -1174,9 +1191,9 @@
                                                 <div class="col-3">
                                                     <div
                                                         class="form-floating @error('WorkTelephone') is-invalid focused is-focused @enderror mt-3 mb-0">
-                                                        <input type="tel" class="form-control" name="WorkTelephone"
+                                                        <input type="tel" class="form-control text-dark bg-light" name="WorkTelephone"
                                                             id="WorkTelephone" value="{{ old('WorkTelephone') }}"
-                                                            placeholder="">
+                                                            placeholder="" autocomplete="nope">
                                                         <label for="WorkTelephone" class="fs-4 text-gray-600">Add
                                                             Telephone (Work)</label>
                                                     </div>
@@ -1192,10 +1209,10 @@
                                                     <div
                                                         class="form-floating  @error('Email') is-invalid focused is-focused  @enderror mt-3 mb-0">
 
-                                                        <input type="email" class="form-control" name="Email"
-                                                            id="Email" value="{{ old('Email') }}" placeholder="" required>
+                                                        <input type="email" class="form-control text-dark bg-light" name="Email"
+                                                            id="Email" value="{{ old('Email') }}" placeholder="" autocomplete="nope">
                                                         <label for="Email" class="fs-4 text-gray-600">Enter Email
-                                                            Address<span class="text-danger">*</span></label>
+                                                            Address</label>
                                                     </div>
                                                     @error('Email')
                                                         <span class="invalid-feedback" role="alert">
@@ -1240,28 +1257,20 @@
                                                         <div class="dropdown">
                                                             <select id="memtype" name="memtype"
                                                                 class="btn bg-light shadow-dark dropdown-toggle w-100 my-4 @error('memtype') is-invalid @enderror text-dark border border-secondary"
-                                                                style="height: 38px;" aria-label="Select Membership Type">
-                                                                <option selected value="0" disabled> Select
-                                                                    Membership Type
-                                                                </option>
-                                                                @foreach ($memtypes as $memtype)
-                                                                    @if (old('memtype') == $memtype->id)
-                                                                        <option value="{{ $memtype->id }}" selected>
-                                                                            {{ $memtype->id }}.
-                                                                            {{ $memtype->name }} -
-                                                                            {{ $memtype->description }} -
-                                                                            R{{ round($memtype->membership_fee, 2) }}
-                                                                        </option>
-                                                                    @else
-                                                                        <option value="{{ $memtype->id }}">
-                                                                            {{ $memtype->id }}.
-                                                                            {{ $memtype->name }} -
-                                                                            {{ $memtype->description }} -
-                                                                            R{{ round($memtype->membership_fee, 2) }}
-                                                                        </option>
-                                                                    @endif
+                                                                style="height: 38px;" aria-label="Select Membership Type" required>
+                                                                <option selected value="0" disabled>Select Membership Type</option>
+                                                                
+                                                                @foreach ($memtypes->sortBy(function($memtype) {
+                                                                    // Sort by whether the name starts with a letter, then by alphanumeric order
+                                                                    return !ctype_alpha($memtype->name[0]) ? '1' . $memtype->name : '0' . $memtype->name;
+                                                                }) as $memtype)
+                                                                    <option value="{{ $memtype->id }}" {{ old('memtype') == $memtype->id ? 'selected' : '' }}>
+                                                                        {{ $memtype->name }} - {{ $memtype->description }} - R{{ round($memtype->membership_fee, 2) }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
+
+                                                        
                                                             @error('memtype')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong style="color: red;">{{ $message }}</strong>
@@ -1296,13 +1305,13 @@
                                             {{-- <textarea class="form-control bg-light text-dark" placeholder="" id="floatingTextarea2"
                                             name="text"   style="height:690px"></textarea> --}}
                                             <div class="containerC px-0" id="commentContainer">
-                                                <div class="form">
+                                                <div class="form  bg-light">
                                                     <input type="text" name="text"
-                                                        class="input form-control text-black bg-white"
+                                                        class="input form-control text-dark bg-light"
                                                         {{ old('text') }} />
                                                     <input type="button" class="add bg-success" value="Add" />
                                                 </div>
-                                                <div class="tasks"></div>
+                                                <div class="tasks bg-light"></div>
                                                 {{-- <div class="delete-all wrap">Delete all</div> --}}
                                             </div>
                                             {{-- <label for="floatingTextarea2">Insert your comment here.</label> --}}
@@ -1589,7 +1598,7 @@
                         // Debug log to check what is being set as filter value
                         console.log("Filtering by:", filterValue);
 
-                        dt.columns(3).search(filterValue).draw(); // Assumes 'Status' is in the 4th column
+                        dt.columns(7).search(filterValue).draw(); // Assumes 'Status' is in the 4th column
                     });
 
                     resetButton.addEventListener('click', function() {
@@ -1614,6 +1623,42 @@
                 KTFuneralsDatatables.init();
             });
         </script>
+
+
+
+
+
+<script>
+function selectMembershipBasedOnAge(age) {
+    console.log('Selecting membership for age:', age);
+
+    const memtypes = {!! json_encode($memtypes) !!};
+
+    let selectedMemtypeId = null;
+
+    for (let i = 0; i < memtypes.length; i++) {
+        console.log(`Checking Membership Type ID: ${memtypes[i].id} - ${memtypes[i].name} with start_age: ${memtypes[i].start_age} and end_age: ${memtypes[i].end_age}`);
+        if (age >= memtypes[i].start_age && age <= memtypes[i].end_age) {
+            selectedMemtypeId = memtypes[i].id;
+            $('#memtype').val(selectedMemtypeId).trigger('change'); // Set the value and update Select2
+            console.log(`Selected Membership Type: ${memtypes[i].name} (ID: ${selectedMemtypeId})`);
+            break;
+        }
+    }
+
+    if (selectedMemtypeId === null) {
+        console.log('No membership type found for the calculated age.');
+        $('#memtype').val('0').trigger('change'); // Clear the selection if no match is found
+    }
+}
+
+
+</script>
+
+
+
+
+
 
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
         <script>
@@ -1969,13 +2014,17 @@
         {{-- End Appending/Removing Comments --}}
 
         <script>
-            $(document).ready(function() {
-                $('#memtype').select2({
-                    width: '100%', // Ensures the width of the select matches container
-                    placeholder: 'Select Membership Type', // Placeholder if needed
-                    allowClear: true // Allows clearing the selection
-                });
-            });
+$(document).ready(function() {
+    $('#memtype').select2({
+        width: '100%',
+        placeholder: 'Select Membership Type',
+        allowClear: true,
+
+    });
+
+  
+});
+
         </script>
 
         <script>
@@ -2244,7 +2293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     {{-- This is for the member form - Test --}}
-    <script>
+    {{-- <script>
         function getDOB(IDNumber) {
             // first clear any left over error messages
             $('#error span').remove();
@@ -2323,6 +2372,6 @@ document.addEventListener('DOMContentLoaded', function() {
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
-    </script>
+    </script> --}}
 
     @endpush

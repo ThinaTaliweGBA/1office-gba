@@ -3,7 +3,17 @@
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.bootstrap5.css">
+
+    <style>
+ /* Targeting the .dataTables_empty class to center the text */
+.dataTables_empty {
+    text-align: center; /* Centers the text */
+}
+    </style>
 @endpush
+    
+    <!--SIYA:: Block UI if user is not an employee -->
+    <x-access-denied-modal />
 
 @section('row_content')
 
@@ -72,9 +82,14 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                     <!--begin::Filter-->
-                    <button type="button" class="btn me-3 bg-secondary" data-kt-menu-trigger="click"
+                    <!-- <button type="button" class="btn me-3 bg-primary text-white" data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end">
-                        <i class="ki-duotone ki-filter fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="ki-duotone ki-filter fs-2 text-white"><span class="path1"></span><span class="path2"></span></i>
+                        Filter
+                    </button> -->
+                    <button type="button" class="btn text-light me-3 bg-dark" data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end">
+                        <i class="ki-duotone ki-filter fs-2 text-light"><span class="path1"></span><span class="path2"></span></i>
                         Filter
                     </button>
                     <!--begin::Menu 1-->
@@ -99,38 +114,34 @@
                                 <!--end::Label-->
 
                                 <!--begin::Options-->
-                                <div class="d-flex flex-column flex-wrap fw-semibold"
-                                    data-kt-docs-table-filter="funeral_status">
+                                <div class="d-flex flex-column flex-wrap fw-semibold" data-kt-docs-table-filter="age_status">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                        <input class="form-check-input" type="radio" name="funeral_status" value="all"
-                                            checked="checked" />
-                                        <span class="form-check-label text-gray-600">
-                                            All
-                                        </span>
+                                        <input class="form-check-input" type="radio" name="age_status" value="all" checked="checked" />
+                                        <span class="form-check-label text-gray-600">All</span>
                                     </label>
                                     <!--end::Option-->
 
                                     <!--begin::Option-->
                                     <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                        <input class="form-check-input" type="radio" name="funeral_status"
-                                            value="Pending" />
-                                        <span class="form-check-label text-gray-600">
-                                            Pending
-                                        </span>
+                                        <input class="form-check-input" type="radio" name="age_status" value="btn-success" />
+                                        <span class="form-check-label text-gray-600">Minor</span>
+                                    </label>
+                                    <!--end::Option-->
+
+                                    <!--begin::Option-->
+                                    <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                        <input class="form-check-input" type="radio" name="age_status" value="btn-warning" />
+                                        <span class="form-check-label text-gray-600">Adult</span>
                                     </label>
                                     <!--end::Option-->
 
                                     <!--begin::Option-->
                                     <label class="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                        <input class="form-check-input" type="radio" name="funeral_status"
-                                            value="Completed" />
-                                        <span class="form-check-label text-gray-600">
-                                            Completed
-                                        </span>
+                                        <input class="form-check-input" type="radio" name="age_status" value="btn-danger" />
+                                        <span class="form-check-label text-gray-600">Senior</span>
                                     </label>
                                     <!--end::Option-->
-
                                 </div>
                                 <!--end::Options-->
                             </div>
@@ -138,11 +149,10 @@
 
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-dark me-2"
-                                    data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
-
-                                <button type="submit" class="btn btn-dark " data-kt-menu-dismiss="true"
-                                    data-kt-docs-table-filter="filter">Apply</button>
+                                <button type="reset" class="btn btn-danger me-2"
+                                        data-kt-menu-dismiss="true" data-kt-docs-table-filter="reset">Reset</button>
+                                <button type="submit" class="btn btn-success" data-kt-menu-dismiss="true"
+                                        data-kt-docs-table-filter="filter">Apply</button>
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -151,11 +161,11 @@
                     <!--end::Menu 1--> <!--end::Filter-->
 
                     <!--begin::Add customer-->
-                    <a type="button" class="btn bg-secondary" data-bs-toggle="tooltip" title="PDF,EXCEL,CSV"
+                    <!-- <a type="button" class="btn bg-success text-white" data-bs-toggle="tooltip" title="PDF,EXCEL,CSV"
                         href="#">
-                        <i class="ki-duotone ki-exit-down fs-2"><span class="path1"></span><span
+                        <i class="ki-duotone ki-exit-down fs-2 text-white"><span class="path1"></span><span
                                 class="path2"></span></i>Export
-                    </a>
+                    </a> -->
                     <!--end::Add customer-->
                 </div>
                 <!--end::Toolbar-->
@@ -176,7 +186,7 @@
                         <!-- <th class="text-center">Manage</th> -->
                     </tr>
                 </thead>
-                <tbody class="bg-light">
+                <tbody>
                     @foreach ($dependants as $dependant)
                         <tr>
                             <td class="text-m font-weight-normal pt-3 text-center">
@@ -215,9 +225,11 @@
                                     {{ $dependant->personMain->screen_name ?? 'N/A' }}</a> --}}
                                     <a href="{{ route('dependant.main-member', ['id' => $dependant->id]) }}">
     @if($dependant->personMain && $dependant->personMain->screen_name)
-         {{ $dependant->personMain->screen_name }} <i class="bi bi-check-circle text-success fs-4"></i>
+         {{ $dependant->personMain->screen_name }} 
+         {{-- <i class="bi bi-check-circle text-success fs-4"></i> --}}
     @else
-       N/A <i class="bi bi-x-circle text-danger fs-4"></i> 
+     N/A 
+     {{-- <i class="bi bi-x-circle text-danger fs-4"></i>  --}}
     @endif
 </a>
 
@@ -252,6 +264,7 @@
         </div>
     </div>
 
+
 @endsection
 
 @push('scripts')
@@ -268,80 +281,98 @@
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.bootstrap5.js"></script>
 
     <script>
-        "use strict";
+    "use strict";
 
-        var KTDependantsDatatables = function() {
-            var dt;
+    var KTDependantsDatatables = function() {
+    var dt;
 
-            var initDatatable = function() {
-                dt = $("#dependants-table").DataTable({
-                    searchDelay: 500,
-                    order: [],
-                    dom: "<'row'<'col-sm-12'tr>>" +
-                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                    columnDefs: [{
-                        targets: 6,
-                        orderable: false
-                    }]
-                });
-            };
-
-            var handleSearch = function() {
-                var searchInput = document.querySelector('[data-kt-docs-table-filter="search"]');
-                searchInput.addEventListener('keyup', function(e) {
-                    dt.search(e.target.value).draw();
-                });
-            };
-
-            var handleLengthChange = function() {
-                var lengthSelect = document.getElementById('customLength');
-                lengthSelect.addEventListener('change', function(e) {
-                    dt.page.len(e.target.value).draw();
-                });
-            };
-
-            var handleFilter = function() {
-                var filterButton = document.querySelector('[data-kt-docs-table-filter="filter"]');
-                var resetButton = document.querySelector('[data-kt-docs-table-filter="reset"]');
-                var statusRadios = document.querySelectorAll('[name="funeral_status"]');
-
-                filterButton.addEventListener('click', function() {
-                    var filterValue = "";
-                    statusRadios.forEach(function(radio) {
-                        if (radio.checked) {
-                            filterValue = radio.value;
-                        }
-                    });
-                    if (filterValue === "all") {
-                        filterValue = ""; // Reset the filter if 'All' is selected
-                    }
-                    // Debug log to check what is being set as filter value
-                    console.log("Filtering by:", filterValue);
-
-                    dt.columns(3).search(filterValue).draw(); // Assumes 'Status' is in the 4th column
-                });
-
-                resetButton.addEventListener('click', function() {
-                    statusRadios.forEach(function(radio) {
-                        radio.checked = radio.value === "all";
-                    });
-                    dt.search('').columns().search('').draw();
-                });
-            };
-
-            return {
-                init: function() {
-                    initDatatable();
-                    handleSearch();
-                    handleLengthChange();
-                    handleFilter();
-                }
-            };
-        }();
-
-        $(document).ready(function() {
-            KTDependantsDatatables.init();
+    var initDatatable = function() {
+        dt = $("#dependants-table").DataTable({
+            searchDelay: 500,
+            order: [],
+            dom: "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            columnDefs: [{
+                targets: 6,
+                orderable: false
+            }]
         });
+    };
+
+    var handleSearch = function() {
+        var searchInput = document.querySelector('[data-kt-docs-table-filter="search"]');
+        searchInput.addEventListener('keyup', function(e) {
+            dt.search(e.target.value).draw();
+        });
+    };
+
+    var handleLengthChange = function() {
+        var lengthSelect = document.getElementById('customLength');
+        lengthSelect.addEventListener('change', function(e) {
+            dt.page.len(e.target.value).draw();
+        });
+    };
+
+    var handleFilter = function() {
+        var filterButton = document.querySelector('[data-kt-docs-table-filter="filter"]');
+        var resetButton = document.querySelector('[data-kt-docs-table-filter="reset"]');
+        var statusRadios = document.querySelectorAll('[name="age_status"]');
+
+        filterButton.addEventListener('click', function() {
+            var filterValue = "";
+            statusRadios.forEach(function(radio) {
+                if (radio.checked) {
+                    filterValue = radio.value;
+                }
+            });
+            if (filterValue === "all") {
+                filterValue = ""; // Reset the filter if 'All' is selected
+            }
+            console.log("Filtering by badge color:", filterValue);
+
+            // Apply filtering logic based on the badge color
+            dt.rows().every(function() {
+                var badgeClass = $(this.node()).find('td:eq(4) .btn').attr('class'); // Get the class of the badge in the age column
+                var showRow = false;
+
+                if (filterValue === "") { // For 'All' selection
+                    showRow = true;
+                } else if (badgeClass.includes(filterValue)) {
+                    showRow = true;
+                }
+
+                if (!showRow) {
+                    $(this.node()).hide(); // Hide rows that don't match the filter
+                } else {
+                    $(this.node()).show(); // Show rows that match the filter
+                }
+            });
+
+            dt.draw(); // Redraw the table to apply the filter
+        });
+
+        resetButton.addEventListener('click', function() {
+            statusRadios.forEach(function(radio) {
+                radio.checked = radio.value === "all";
+            });
+            dt.search('').columns().search('').draw();
+        });
+    };
+
+    return {
+        init: function() {
+            initDatatable();
+            handleSearch();
+            handleLengthChange();
+            handleFilter();
+        }
+    };
+}();
+
+$(document).ready(function() {
+    KTDependantsDatatables.init();
+});
+
     </script>
     
 @endpush

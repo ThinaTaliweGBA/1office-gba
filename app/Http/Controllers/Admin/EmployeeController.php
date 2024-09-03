@@ -59,6 +59,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        
         $employee = new Employee();
         $employee->person_id = $request->person_id;
         $employee->first_name = $request->first_name ?? null;
@@ -71,8 +72,8 @@ class EmployeeController extends Controller
         $employee->end_date = $request->end_date ? \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date)->format('Y-m-d H:i:s') : null;
         $employee->job_description_id = $request->job_description_id;
         $employee->employee_role_id = $request->role_id;
-        $employee->company_id = $request->company_id;
-        $employee->shiftwork = $request->shiftwork ? 1 : 0;
+        $employee->company_id = 7; //GBA ID Hardcoded
+        $employee->shiftwork = $request->shiftwork;
         $employee->standard_starttime = $request->standard_starttime ?? null;
         $employee->standard_endtime = $request->standard_endtime ?? null;
     
@@ -111,7 +112,7 @@ class EmployeeController extends Controller
             'end_date' => $employee->end_date,
             'job_description_id' => $employee->job_description_id,
             'role_id' => $employee->employee_role_id,
-            'company_id' => $employee->company_id,
+            // 'company_id' => $employee->company_id,
             'shiftwork' => $employee->shiftwork,
             'standard_starttime' => $employee->standard_starttime,
             'standard_endtime' => $employee->standard_endtime,
@@ -134,7 +135,7 @@ class EmployeeController extends Controller
         $employee->end_date = $request->end_date;
         $employee->job_description_id = $request->job_description_id;
         $employee->employee_role_id = $request->role_id;
-        $employee->company_id = $request->company_id;
+        // $employee->company_id = $request->company_id;
         $employee->shiftwork = $request->shiftwork ? 1 : 0;
         $employee->standard_starttime = $request->standard_starttime;
         $employee->standard_endtime = $request->standard_endtime;

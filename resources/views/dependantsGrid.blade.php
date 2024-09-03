@@ -44,14 +44,15 @@
                 currency: 'ZAR'
             }).format(value);
         }
-         var dependantsDataUrl = "<?php echo env('DEPENDANTS_DATA_URL'); ?>";
+         //var dependantsDataUrl = "<?php echo env('DEPENDANTS_DATA_URL'); ?>";
         $.ajax({
-            url: dependantsDataUrl,
+            url: '/dependantsData',
             method: 'GET',
             success: function(data) {
                 initializeComponents(data);
             }
         });
+        
 
         function initializeComponents(data) {
             const pivotGrid = $('#pivotgrid').dxPivotGrid({

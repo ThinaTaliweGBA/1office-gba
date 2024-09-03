@@ -8,6 +8,7 @@ use App\Actions\StoreAddress;
 use App\Actions\StorePerson;
 use App\Http\Requests\StorePersonRequest;
 use App\Models\User;
+use App\Models\UserHasBu;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Models\MarriageStatus;
@@ -37,57 +38,48 @@ class MyWelcomeController extends BaseWelcomeController
         ];
     }
 
-    public function showAddUserInfoForm()
+    public function showAddUserInfoForm(User $user)
     {
-
         $marriedStatuses = MarriageStatus::all();
-        $buGenders = BuGender::all();
-        $genders = Gender::all();
-        $countries = Country::all();
         
-         return view('auth.onboarding', compact('marriedStatuses', 'buGenders', 'genders', 'countries')); 
+        $buGenders = BuGender::all();
+        $genders = Gender::whereHas('buGenders', function ($query) {
+            $query->where('bu_id', 7);
+        })->get();
+        $countries = Country::all();
+    
+        return view('auth.onboarding', compact('marriedStatuses',  'genders', 'countries', 'user'));
     }
+    
 
 
     public function saveUserInfo(Request $request, User $user, StoreAddress $storeAddress)
     {
-        $rules = [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'initials' => 'required|string|max:10',
-            'screen_name' => 'required|string|max:255',
-            'id_number' => 'required|string|max:45',
-            'birth_date' => 'required|date',
-            'married_status' => 'required|string',
-            'gender_id' => 'required',
-            'residence_country_id' => 'required|integer',
-            'Line1' => 'nullable|string|max:255',
-            'Line2' => 'nullable|string|max:255',
-            'TownSuburb' => 'nullable|string|max:255',
-            'City' => 'nullable|string|max:255',
-            'Province' => 'nullable|string|max:255',
-            'PostalCode' => 'nullable|string|max:10',
-            'Country' => 'nullable|string|max:255',
-        ];
-
         try {
-            $validatedData = $request->validate($rules);
-
-            // Use the PersonService to handle the person creation
+            // Use the PersonService to handle the person creation or retrieval
             $person = $this->personService->createPerson($request, '');
 
             // Address
             $address = $storeAddress->handle((object) $request->all());
 
+            // Associate the user with the person, allowing multiple users per person
             $user->person_id = $person->id;
             $user->save();
 
-            // Redirect user based on role
-            if ($request->user()->hasAnyRole(['super-admin', 'admin'])) {
-                return redirect(route('admin.home'));
+            // Check if the user already has a UserHasBu record with bu_id = 7
+            $userBuExists = UserHasBu::where('users_id', $user->id)
+                                    ->where('bu_id', 7) // GBA hardcoded
+                                    ->exists();
+
+            if (!$userBuExists) {
+                $userbu = new UserHasBu();
+                $userbu->users_id = $user->id;
+                $userbu->bu_id = 7; // GBA hardcoded
+                $userbu->save();
             }
 
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect('/home')->with('success', 'User onboarded successfully.');
+
         } catch (ValidationException $e) {
             // Log validation errors
             Log::error('Validation failed:', $e->errors());
@@ -102,5 +94,7 @@ class MyWelcomeController extends BaseWelcomeController
             return redirect()->back()->with('error', 'An error occurred while saving your information. Please try again.');
         }
     }
+
+    
 
 }

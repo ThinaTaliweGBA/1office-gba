@@ -166,17 +166,17 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/js/material-dashboard.min.js?v=3.0.4"></script>
 
-    <script>
-function myFunction() {
-    var x = document.getElementById("password");
-    var icon = document.getElementById("toggleIcon");
-    if (x.type === "password") {
-        x.type = "text";
-        icon.innerHTML = "&#xe8f5;"; // Icon for showing the password
-    } else {
-        x.type = "password";
-        icon.innerHTML = "&#xe8f4;"; // Icon for hiding the password
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        var icon = document.getElementById("toggleIcon");
+        if (x.type === "password") {
+            x.type = "text";
+            icon.innerHTML = "&#xe8f5;"; // Icon for showing the password
+        } else {
+            x.type = "password";
+            icon.innerHTML = "&#xe8f4;"; // Icon for hiding the password
+        }
     }
-}
 </script>
 </x-guest-layout>

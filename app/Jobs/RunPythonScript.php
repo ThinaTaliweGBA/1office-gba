@@ -51,7 +51,7 @@ class RunPythonScript implements ShouldQueue
         // Run the Python script asynchronously and write output to file
         $process = new Process([
             '/bin/python3',
-            '/home/siya/projects/mysql-scripts/Data Transfer/transferdata-v8.10.py',
+            '/home/siya/projects/mysql-scripts/Data-Transfer/transferdata-v8.10.py',
             $this->source_database,
             $this->source_table,
             $this->target_table,
